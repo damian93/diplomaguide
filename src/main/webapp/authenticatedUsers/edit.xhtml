@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/templates/template.xhtml" 
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:define name="title">#{msg.showUserData}</ui:define>
+    <ui:define name="path"><a href="/index.xhtml?faces-redirect=true">#{msg.mainPage}</a> >> <a href="/authenticatedUsers/showUserData.xhtml?faces-redirect=true">#{msg.showOurProfile}</a></ui:define>
+    <ui:define name="content">
+        <h:form id="showUserForm">
+            <p:growl id="msgs"  showDetail="true" />
+            <p:panelGrid columns="2">
+
+                <p:outputLabel value="#{msg.loginForm}" />
+                <p:outputLabel value="#{editBackingBean.authorizedUser.login}" />
+                <p:outputLabel value="#{msg.showUserDataName}" />
+                <p:row>
+                    <p:inputText id="name" value="#{editBackingBean.authorizedUser.name}" />
+                    <p:message for="name"/>
+                </p:row>
+                <p:outputLabel value="#{msg.showUserDataSurname}" />
+                <p:row>
+                    <p:inputText id="surname" value="#{editBackingBean.authorizedUser.surname}" />
+                    <p:message for="surname"/>
+                </p:row>
+                <p:outputLabel value="#{msg.oldPass}"  />
+                <p:row>
+                    <p:password  value="#{editBackingBean.userOldPassword}" id="registerPassword"  feedback="true" promptLabel="#{msg['promptPasswortReg']}" weakLabel="#{msg['weakPasswordReg']}" goodLabel="#{msg['goodPasswordReg']}" strongLabel="#{msg['strongPasswordReg']}"/>
+                    <p:message for="registerPassword"/>
+                </p:row>
+                <p:outputLabel value="#{msg.promptPasswortEdit}"/>
+                <p:row>
+                    <p:password id="registerPassword2" match="registerPassword3" value="#{editBackingBean.userNewPassword}" />
+                    <p:message for="registerPassword2"/>
+                </p:row>
+                <p:outputLabel value="#{msg.enterPassAgain}"/>
+                <p:row>
+                    <p:password id="registerPassword3" value="#{editBackingBean.userNewConfirmedPassword}" />
+                    <p:message for="registerPassword3"/>
+                </p:row>
+
+                <p:outputLabel value="#{msg.showUserDataEmail}" />
+                <p:row>
+                    <p:inputText id="email" value="#{editBackingBean.authorizedUser.email}" />
+                    <p:message for="email"/>
+                </p:row>
+                <p:outputLabel value="#{msg.showUserDataDateOfBirth}" />
+                <p:outputLabel value="#{editBackingBean.authorizedUser.dateoOfBirth}" >
+                    <f:convertDateTime pattern="dd.MM.yyyy " />
+                </p:outputLabel>
+
+
+
+
+
+            </p:panelGrid>
+
+            <p:commandButton value="#{msg.edit}" ajax="false"  action="#{editBackingBean.editByUser()}"/>
+
+        </h:form>
+    </ui:define>
+</ui:composition>

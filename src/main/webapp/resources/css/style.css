@@ -1,0 +1,64 @@
+#center {
+    padding: 10px;
+}
+
+#top{
+    text-align: center;
+    color: black;
+    font-weight: bold;
+    font-size: 30px;
+}
+
+.footerContainer {
+    text-align: center;
+}
+
+.footerRolesContainer {
+    display: inline-block !important; position: absolute; left: 0;
+}
+
+.footerRightsContainer {
+    display: inline-block !important;
+}
+
+.footerRolefalse, .headerRolesLabel{
+    font-size: 0.8em !important;
+}
+
+.footerRoletrue {
+    font-size: 0.8em !important;
+    font-weight: bolder !important;
+}
+
+.footerRights{
+    text-align: center;
+}
+
+#confirmEditButton{
+    margin: -37px 0px 0px 0px;
+    text-align: right;
+}
+
+#userEditForm{
+    margin-right: 2px;
+}
+
+#sciezka{
+    color: grey;
+    display: block;
+    font-size: 12px;
+    padding-bottom: 5px;
+    border-bottom: 2px solid grey;
+}
+
+html {
+    overflow: hidden;
+    height: 100%;
+}
+body {
+    bottom: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+}

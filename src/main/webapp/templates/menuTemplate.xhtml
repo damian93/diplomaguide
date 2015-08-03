@@ -1,0 +1,51 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <h:form>
+        <p:menu toggleable="true">
+            <c:choose>
+                <c:when test="#{not empty request.remoteUser}">
+                    <p:submenu label="#{request.remoteUser}">
+                        <p:menuitem value="#{msg.mainPage}" icon="ui-icon-home" url="/index.xhtml?faces-redirect=true"/>
+                        <p:menuitem value="#{msg.profile}" icon="ui-icon-person" url="/authenticatedUsers/showUserData.xhtml?faces-redirect=true"/>
+                        <p:menuitem value="#{msg.logout}" ajax="false" icon="ui-icon-locked" action="#{userSession.logout()}"  />
+                    </p:submenu>
+
+                    <c:if test="#{userSession.isAdministrator()}">
+                        <p:submenu label="#{msg.administrator}">
+                            <p:menuitem value="#{msg.usersListDescription}" url="/admin/list.xhtml?faces-redirect=true"/>
+                            <p:menuitem value="#{msg.adminReport}" url="/admin/report.xhtml?faces-redirect=true"/>
+                            <p:menuitem value="#{msg.searchUsers}" url="/admin/search.xhtml?faces-redirect=true"/>
+                            <p:menuitem value="#{msg.statisticsMenuItem}" url="/admin/statistics.xhtml?faces-redirect=true"/>
+                        </p:submenu>
+                    </c:if>
+                    <c:if test="#{userSession.isTeacher()}">
+                        <p:submenu label="#{msg.teacher}">
+                            <p:menuitem value="#{msg.createForm}" url="/worker/createQuestionnaire.xhtml"/>
+                            <p:menuitem value="#{msg.createdQuestionnaires}" url="/worker/createdQuestionnaires.xhtml"/>
+                        </p:submenu>
+                    </c:if>
+                    <c:if test="#{userSession.isStudent()}">
+                        <p:submenu label="#{msg.student}">
+                            <p:menuitem value="#{msg.showRespondentQuestionnairesQuestionnairesList}" url="/resp/showRespondentQuestionnaires.xhtml?faces-redirect=true"/>
+                        </p:submenu>
+                    </c:if>
+
+                </c:when>
+                <c:otherwise>
+                    <p:submenu label="#{msg.unlogged}">
+                        <p:menuitem value="#{msg.mainPage}" icon="ui-icon-home" url="/index.xhtml?faces-redirect=true"/>
+                        <p:menuitem value="#{msg.register}" icon="ui-icon-plusthick" url="/register.xhtml?faces-redirect=true" />
+                        <p:menuitem value="#{msg.login}" icon="ui-icon-key" url="/login.xhtml?faces-redirect=true"/>
+                    </p:submenu>
+                </c:otherwise>  
+            </c:choose>
+            <ui:insert name="menu">
+
+            </ui:insert>
+        </p:menu>
+    </h:form>
+</ui:composition>
+

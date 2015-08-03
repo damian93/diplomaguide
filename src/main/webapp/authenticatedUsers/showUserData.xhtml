@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/templates/template.xhtml" >
+    <ui:define name="title">#{msg.showUserData}</ui:define>
+    <ui:define name="path"><a href="/index.xhtml?faces-redirect=true">#{msg.mainPage}</a> >> <a href="/authenticatedUsers/showUserData.xhtml?faces-redirect=true">#{msg.showOurProfile}</a></ui:define>
+    <ui:define name="content">
+        <h:form id="showUserForm">
+            <p:growl id="msgs"  showDetail="true" />
+            <p:panelGrid columns="2">
+                
+                <h:outputText value="#{msg.loginForm}" />
+                <h:outputText value="#{showUserDataBackingBean.loggedUser.login}" />
+
+                <h:outputText value="#{msg.showUserDataName}" />
+                <h:outputText value="#{showUserDataBackingBean.loggedUser.name}" />
+
+                <h:outputText value="#{msg.showUserDataSurname}" />
+                <h:outputText value="#{showUserDataBackingBean.loggedUser.surname}" />
+
+                <h:outputText value="#{msg.showUserDataEmail}" />
+                <h:outputText value="#{showUserDataBackingBean.loggedUser.email}" />
+
+                <h:outputText value="#{msg.showUserDataDateOfBirth}" />
+                <h:outputText value="#{showUserDataBackingBean.loggedUser.dateoOfBirth}" />
+
+
+            </p:panelGrid>
+            <p:commandButton value="#{msg.edit}" ajax="false" action="edit.xhtml?faces-redirect=true" actionListener="#{showUserDataBackingBean.beforeEdit}"/>
+        </h:form>
+    </ui:define>
+</ui:composition>
