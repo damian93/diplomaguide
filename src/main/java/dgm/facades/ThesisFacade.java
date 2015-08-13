@@ -6,9 +6,11 @@
 package dgm.facades;
 
 import entities.Thesis;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -16,6 +18,7 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 public class ThesisFacade extends AbstractFacade<Thesis> implements ThesisFacadeLocal {
+
     @PersistenceContext(unitName = "dgPU")
     private EntityManager em;
 
@@ -27,5 +30,13 @@ public class ThesisFacade extends AbstractFacade<Thesis> implements ThesisFacade
     public ThesisFacade() {
         super(Thesis.class);
     }
-    
+
+    @Override
+    public List<Thesis> findWithPhrase(String phrase) {
+        Query q = em.createNamedQuery("Thesis.findThesisByPhrase");
+        q.setParameter("par", '%' + phrase + '%');
+        List<Thesis> resultList = q.getResultList();
+        return resultList;
+    }
+
 }

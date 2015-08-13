@@ -11,6 +11,12 @@
     <ui:define name="content">
         <h:form id="thesisListForm">
             <p:growl id="msgs" showDetail="true" />
+            <p:panel header="#{msg.search}">
+                <p:inputText value="#{thesisListBackingBean.phrase}" >
+                    <p:ajax event="keyup"  listener="#{thesisListBackingBean.filter()}" update=":thesisListForm"
+                            delay="900"/>
+                </p:inputText>
+            </p:panel>
             <p:dataTable value="#{thesisListBackingBean.allThesisList}" var="item">
                 <f:facet name="header">
                     <p:outputLabel value="#{msg.thesisList}"/> 

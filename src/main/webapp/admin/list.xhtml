@@ -13,7 +13,7 @@
             <p:growl id="msgs" showDetail="true" />
             <p:panel>
                 <p:inputText value="#{listBackingBean.matchLogin}" >
-                    <p:ajax event="keyup"  listener="#{listBackingBean.filter()}" update=":userListForm"/>
+                    <p:ajax event="keyup"  listener="#{listBackingBean.filter()}" update=":userListForm" delay="900"/>
                 </p:inputText>
             </p:panel>
             <p:dataTable id="accountTable" value="#{listBackingBean.accountDataModel}" var="item" rowKey="#{item.login}"

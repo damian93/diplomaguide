@@ -62,8 +62,12 @@ public class DiplomaGuideSession implements Serializable {
     List<Thesistype> getThesisTypeList() {
         return diplomaGuideEndpointLocal.getThesisTypeList();
     }
-    List<Thesis> getAllThesisList(){
+
+    List<Thesis> getAllThesisList() {
         return diplomaGuideEndpointLocal.getAllThesisList();
     }
-}
 
+    List<Thesis> getThesisWithPhrase(String phrase) {
+        return diplomaGuideEndpointLocal.getThesisWithPhrase(phrase);
+    }
+}

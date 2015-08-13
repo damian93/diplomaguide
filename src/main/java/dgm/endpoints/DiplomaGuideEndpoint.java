@@ -42,9 +42,9 @@ public class DiplomaGuideEndpoint implements DiplomaGuideEndpointLocal {
 
     @EJB
     private StudentsFacadeLocal studentsFacadeLocal;
-    
+
     @EJB
-    private ThesistypeFacadeLocal  thesistypeFacadeLocal;
+    private ThesistypeFacadeLocal thesistypeFacadeLocal;
 
     @Override
     public void createThesis(Thesis thesis) throws BusinessException {
@@ -98,5 +98,9 @@ public class DiplomaGuideEndpoint implements DiplomaGuideEndpointLocal {
         return thesisFacadeLocal.findAll();
     }
 
+    @Override
+    public List<Thesis> getThesisWithPhrase(String phrase) {
+        return thesisFacadeLocal.findWithPhrase(phrase);
+    }
 
 }

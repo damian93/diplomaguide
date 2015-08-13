@@ -30,5 +30,6 @@ public interface DiplomaGuideEndpointLocal {
     Students getLoggedStudent(String loggedUserLogin);
     List<Thesistype> getThesisTypeList();
     List<Thesis> getAllThesisList();
+    List<Thesis> getThesisWithPhrase(String phrase);
     
 }
