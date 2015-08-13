@@ -6,12 +6,16 @@
 package entities;
 
 import java.io.Serializable;
+import java.util.Collection;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -23,36 +27,24 @@ import javax.persistence.Table;
 @DiscriminatorValue("T")
 @NamedQueries({
     @NamedQuery(name = "Teachers.findAll", query = "SELECT t FROM Teachers t"),
-    @NamedQuery(name = "Teachers.findByAccessLevelId", query = "SELECT t FROM Teachers t WHERE t.accessLevelId = :accessLevelId")})
+    @NamedQuery(name = "Teachers.findByAccessLevelId", query = "SELECT t FROM Teachers t WHERE t.accessLevelId = :accessLevelId"),
+    @NamedQuery(name = "Teachers.findByLogin", query = "SELECT t FROM Teachers t WHERE t.userId=(SELECT u.id from Users u where u.login=:login)")})
 public class Teachers extends Accesslevel implements Serializable {
-    private static final long serialVersionUID = 1L;
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    @Basic(optional = false)
-//    @Column(name = "AccessLevelId")
-//    private Long accessLevelId;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "teacher")
+    private Collection<Commission> commissionCollection;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "teacher")
+    private List<Thesis> thesisList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "teacher")
+    private Collection<Thesis> thesisCollection;
     @JoinColumn(name = "Degree", referencedColumnName = "Id")
     @ManyToOne(optional = false)
     private Degrees degree;
-//    @JoinColumn(name = "AccessLevelId", referencedColumnName = "AccessLevelId", insertable = false, updatable = false)
-//    @OneToOne(optional = false)
-//    private Accesslevel accesslevel;
 
     public Teachers() {
         super.setName("T");
     }
-
-//    public Teachers(Long accessLevelId) {
-//        this.accessLevelId = accessLevelId;
-//    }
-//
-//    public Long getAccessLevelId() {
-//        return accessLevelId;
-//    }
-//
-//    public void setAccessLevelId(Long accessLevelId) {
-//        this.accessLevelId = accessLevelId;
-//    }
 
     public Degrees getDegree() {
         return degree;
@@ -62,37 +54,33 @@ public class Teachers extends Accesslevel implements Serializable {
         this.degree = degree;
     }
 
-//    public Accesslevel getAccesslevel() {
-//        return accesslevel;
-//    }
-//
-//    public void setAccesslevel(Accesslevel accesslevel) {
-//        this.accesslevel = accesslevel;
-//    }
+    @Override
+    public String toString() {
+            return  super.getUserId().getName() + " " + super.getUserId().getSurname();
+    }
 
-//    @Override
-//    public int hashCode() {
-//        int hash = 0;
-//        hash += (accessLevelId != null ? accessLevelId.hashCode() : 0);
-//        return hash;
-//    }
-//
-//    @Override
-//    public boolean equals(Object object) {
-//        // TODO: Warning - this method won't work in the case the id fields are not set
-//        if (!(object instanceof Teachers)) {
-//            return false;
-//        }
-//        Teachers other = (Teachers) object;
-//        if ((this.accessLevelId == null && other.accessLevelId != null) || (this.accessLevelId != null && !this.accessLevelId.equals(other.accessLevelId))) {
-//            return false;
-//        }
-//        return true;
-//    }
-//
-//    @Override
-//    public String toString() {
-//        return "entities.Teachers[ accessLevelId=" + accessLevelId + " ]";
-//    }
-    
+    public List<Thesis> getThesisList() {
+        return thesisList;
+    }
+
+    public void setThesisList(List<Thesis> thesisList) {
+        this.thesisList = thesisList;
+    }
+
+    public Collection<Thesis> getThesisCollection() {
+        return thesisCollection;
+    }
+
+    public void setThesisCollection(Collection<Thesis> thesisCollection) {
+        this.thesisCollection = thesisCollection;
+    }
+
+    public Collection<Commission> getCommissionCollection() {
+        return commissionCollection;
+    }
+
+    public void setCommissionCollection(Collection<Commission> commissionCollection) {
+        this.commissionCollection = commissionCollection;
+    }
+
 }

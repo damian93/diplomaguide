@@ -7,6 +7,7 @@ package entities;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
@@ -19,6 +20,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
@@ -44,7 +46,7 @@ public class Accesslevel implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "AccessLevelId")
-    private Long accessLevelId;
+    protected Long accessLevelId;
     @Basic(optional = false)
 //    @NotNull
     @Size(min = 1, max = 15)
@@ -59,15 +61,9 @@ public class Accesslevel implements Serializable {
     @Version
     @Column(name = "Version")
     private long version;
-//    @OneToOne(cascade = CascadeType.ALL, mappedBy = "accesslevel")
-//    private Teachers teachers;
     @JoinColumn(name = "UserId", referencedColumnName = "UserId")
     @ManyToOne(optional = false)
-    private Users userId;
-//    @OneToOne(cascade = CascadeType.ALL, mappedBy = "accesslevel")
-//    private Students students;
-//    @OneToOne(cascade = CascadeType.ALL, mappedBy = "accesslevel")
-//    private Administrators administrators;
+    protected Users userId;
 
     public Accesslevel() {
     }
@@ -169,5 +165,6 @@ public class Accesslevel implements Serializable {
     public String toString() {
         return "entities.Accesslevel[ accessLevelId=" + accessLevelId + " ]";
     }
+
 
 }

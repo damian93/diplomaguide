@@ -6,6 +6,7 @@
 package us.endpoints;
 
 import entities.Accesslevelsdictionary;
+import entities.Degrees;
 import entities.Users;
 import exceptions.BusinessException;
 import java.util.List;
@@ -35,5 +36,7 @@ public interface UserServiceEndpointLocal {
     void editUser(String userOldPassword, String userNewPassword, Users authorizedUser) throws BusinessException;
     
     Users getUserToEdit(String name) throws BusinessException;
+
+    List<Degrees> getDegreeList();
 
 }

@@ -16,7 +16,8 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 public class AdministratorsFacade extends AbstractFacade<Administrators> implements AdministratorsFacadeLocal {
-    @PersistenceContext(unitName = "pl_DiplomaGuide_war_0.1-SNAPSHOTPU")
+
+    @PersistenceContext(unitName = "usPU")
     private EntityManager em;
 
     @Override
@@ -27,5 +28,5 @@ public class AdministratorsFacade extends AbstractFacade<Administrators> impleme
     public AdministratorsFacade() {
         super(Administrators.class);
     }
-    
+
 }

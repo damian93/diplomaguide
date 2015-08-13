@@ -6,8 +6,12 @@
 package web;
 
 import common.CustomUser;
+import entities.Accesslevel;
+import entities.Degrees;
+import entities.Teachers;
 import entities.Users;
 import exceptions.BusinessException;
+import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
@@ -34,6 +38,26 @@ public class EditBackingBean {
     private String userOldPassword = "";
     private String userNewPassword = "";
     private String userNewConfirmedPassword = "";
+    private String degree;
+    private List<Degrees> degreeList;
+
+    public String getDegree() {
+        return degree;
+    }
+
+    public void setDegree(String degree) {
+        this.degree = degree;
+    }
+
+    public List<Degrees> getDegreeList() {
+        return degreeList;
+    }
+
+    public void setDegreeList(List<Degrees> degreeList) {
+        this.degreeList = degreeList;
+    }
+    
+    
 
     private CustomUser authorizedCustomUser;
 
@@ -114,8 +138,17 @@ public class EditBackingBean {
 
         userToEdit = userSession.getSelectedUser();
         authorizedUser = userSession.getAuthorizedUser();
-        //customUser = new CustomUser(userToEdit);
-        //authorizedCustomUser = new CustomUser(authorizedUser);
+//        if (userSession.isTeacher()) {
+//            degreeList=userSession.getDegreeList();
+//            for (Accesslevel a : authorizedUser.getAccesslevelCollection()) {
+//                if (a instanceof Teachers && a.isIsActive()) {
+//                    Teachers t = (Teachers) a;
+//                    if (t.getDegree() != null) {
+//                        degree = t.getDegree().getName();
+//                    }
+//                }
+//            }
+//        }
     }
 
     public String edit() {

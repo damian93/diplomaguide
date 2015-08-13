@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package us.facades;
+package dgm.facades;
 
-import entities.People;
+import entities.Administrators;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -14,9 +14,9 @@ import javax.persistence.PersistenceContext;
  *
  * @author Damian
  */
-@Stateless
-public class PeopleFacade extends AbstractFacade<People> implements PeopleFacadeLocal {
-    @PersistenceContext(unitName = "pl_DiplomaGuide_war_0.1-SNAPSHOTPU")
+@Stateless(name = "dgAdministratorFacade")
+public class AdministratorsFacade extends AbstractFacade<Administrators> implements AdministratorsFacadeLocal {
+    @PersistenceContext(unitName = "dgPU")
     private EntityManager em;
 
     @Override
@@ -24,8 +24,8 @@ public class PeopleFacade extends AbstractFacade<People> implements PeopleFacade
         return em;
     }
 
-    public PeopleFacade() {
-        super(People.class);
+    public AdministratorsFacade() {
+        super(Administrators.class);
     }
     
 }

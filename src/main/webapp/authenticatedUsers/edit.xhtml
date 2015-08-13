@@ -53,7 +53,12 @@
                     <f:convertDateTime pattern="dd.MM.yyyy " />
                 </p:outputLabel>
 
-
+<!--                <c:if test="#{userSession.isTeacher()}">
+                    <p:outputLabel value="#{msg.degree}" />
+                    <p:selectOneMenu value="#{editBackingBean.degree}" >
+                        <f:selectItems itemLabel="#{item.name}" var="item" value="#{editBackingBean.degreeList}"/>
+                    </p:selectOneMenu>
+                </c:if>-->
 
 
 

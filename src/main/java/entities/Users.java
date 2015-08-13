@@ -41,7 +41,8 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Users.findByLogin", query = "SELECT u FROM Users u WHERE u.login = :login"),
     @NamedQuery(name = "Users.findByPassword", query = "SELECT u FROM Users u WHERE u.password = :password"),
     @NamedQuery(name = "Users.findByIsActive", query = "SELECT u FROM Users u WHERE u.isActive = :isActive"),
-    @NamedQuery(name = "Users.findByVersion", query = "SELECT u FROM Users u WHERE u.version = :version"),
+    @NamedQuery(name = "Users.findActiveStudents", query = "SELECT u FROM Users u JOIN u.accesslevelCollection a WHERE a.isActive=true and a.name='S'"),
+    @NamedQuery(name = "Users.findActiveTeachers", query = "SELECT u FROM Users u JOIN u.accesslevelCollection a WHERE a.isActive=true and a.name='T'"),
     @NamedQuery(name = "Users.findByFewLetters", query = "SELECT u FROM Users u WHERE u.login like :par")})
 public class Users implements Serializable {
 

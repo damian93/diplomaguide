@@ -1,8 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
-  <persistence-unit name="pl_DiplomaGuide_war_0.1-SNAPSHOTPU" transaction-type="JTA">
-    <jta-data-source>diplomaguide</jta-data-source>
-    <exclude-unlisted-classes>false</exclude-unlisted-classes>
-    <properties/>
+  <persistence-unit name="usPU" transaction-type="JTA">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <jta-data-source>jdbc/diplomaguideUSDataSource</jta-data-source>
+    <class>entities.Accesslevel</class>
+    <class>entities.Accesslevelsdictionary</class>
+    <class>entities.Administrators</class>
+    <class>entities.Degrees</class>
+    <class>entities.People</class>
+    <class>entities.Students</class>
+    <class>entities.Teachers</class>
+    <class>entities.Users</class>
+    <class>entities.Thesis</class>
+    <class>entities.Commission</class>
+    <class>entities.Exam</class>
+    <class>entities.Thesistype</class>
+    <exclude-unlisted-classes>true</exclude-unlisted-classes>
+    <shared-cache-mode>NONE</shared-cache-mode>
+    <properties>
+      <property name="eclipselink.logging.level" value="FINE"/>
+      <property name="eclipselink.canonicalmodel.subpackage" value="usPU"/>
+    </properties>
+  </persistence-unit>
+  <persistence-unit name="dgPU" transaction-type="JTA">
+    <jta-data-source>jdbc/diplomaguideDataSource</jta-data-source>
+    <class>entities.Accesslevel</class>
+    <class>entities.Accesslevelsdictionary</class>
+    <class>entities.Administrators</class>
+    <class>entities.Degrees</class>
+    <class>entities.People</class>
+    <class>entities.Students</class>
+    <class>entities.Teachers</class>
+    <class>entities.Thesis</class>
+    <class>entities.Users</class>
+    <class>entities.Commission</class>
+    <class>entities.Exam</class>
+    <class>entities.Thesistype</class>
+    <exclude-unlisted-classes>true</exclude-unlisted-classes>
+    <shared-cache-mode>NONE</shared-cache-mode>
+    <properties>
+      <property name="eclipselink.logging.level" value="FINE"/>
+      <property name="eclipselink.canonicalmodel.subpackage" value="dgPU"/>
+    </properties>
   </persistence-unit>
 </persistence>

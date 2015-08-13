@@ -27,7 +27,7 @@ import javax.persistence.Query;
 @Stateless
 public class UsersFacade extends AbstractFacade<Users> implements UsersFacadeLocal {
 
-    @PersistenceContext(unitName = "pl_DiplomaGuide_war_0.1-SNAPSHOTPU")
+    @PersistenceContext(unitName = "usPU")
     private EntityManager em;
 
     @Override

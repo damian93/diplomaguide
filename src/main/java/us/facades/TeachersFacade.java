@@ -16,7 +16,7 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 public class TeachersFacade extends AbstractFacade<Teachers> implements TeachersFacadeLocal {
-    @PersistenceContext(unitName = "pl_DiplomaGuide_war_0.1-SNAPSHOTPU")
+    @PersistenceContext(unitName = "usPU")
     private EntityManager em;
 
     @Override

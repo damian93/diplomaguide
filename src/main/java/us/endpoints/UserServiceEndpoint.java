@@ -9,6 +9,7 @@ import common.AccessLevelsFactory;
 import entities.Accesslevel;
 import entities.Accesslevelsdictionary;
 import entities.Administrators;
+import entities.Degrees;
 import entities.Students;
 import entities.Teachers;
 import entities.Users;
@@ -27,6 +28,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import us.facades.AccesslevelFacadeLocal;
 import us.facades.AccesslevelsdictionaryFacadeLocal;
+import us.facades.DegreesFacadeLocal;
 import us.facades.UsersFacadeLocal;
 import utils.ConvertUtils;
 import utils.ResourceBundleUtils;
@@ -47,6 +49,9 @@ public class UserServiceEndpoint implements UserServiceEndpointLocal {
     @EJB
     AccesslevelsdictionaryFacadeLocal accesslevelsdictionaryFacadeLocal;
 
+    @EJB
+    DegreesFacadeLocal degreesFacadeLocal;
+
     private Users userState;
 
     @Override
@@ -60,23 +65,59 @@ public class UserServiceEndpoint implements UserServiceEndpointLocal {
         Accesslevel accesslevel = AccessLevelsFactory.getProperAccessLevel(type);
 
         if (accesslevel instanceof Students) {
+
             user.setIsActive(true);
+
             Students s = new Students();
+            s.setIsActive(true);
             s.setUserId(user);
             s.setRegisterDate(new Date());
             user.getAccesslevelCollection().add(s);
-        } else if (accesslevel instanceof Administrators) {
-            user.setIsActive(false);
+
             Administrators a = new Administrators();
             a.setUserId(user);
             a.setRegisterDate(new Date());
             user.getAccesslevelCollection().add(a);
 
-        } else if (accesslevel instanceof Teachers) {
-            user.setIsActive(false);
             Teachers t = new Teachers();
             t.setUserId(user);
             user.getAccesslevelCollection().add(t);
+
+        } else if (accesslevel instanceof Administrators) {
+
+            user.setIsActive(false);
+
+            Administrators a = new Administrators();
+            a.setUserId(user);
+            a.setIsActive(true);
+            a.setRegisterDate(new Date());
+            user.getAccesslevelCollection().add(a);
+
+            Students s = new Students();
+            s.setUserId(user);
+            user.getAccesslevelCollection().add(s);
+
+            Teachers t = new Teachers();
+            t.setUserId(user);
+            user.getAccesslevelCollection().add(t);
+
+        } else if (accesslevel instanceof Teachers) {
+            user.setIsActive(false);
+
+            Teachers t = new Teachers();
+            t.setIsActive(true);
+            t.setUserId(user);
+            user.getAccesslevelCollection().add(t);
+
+            Students s = new Students();
+            s.setUserId(user);
+            user.getAccesslevelCollection().add(s);
+
+            Administrators a = new Administrators();
+            a.setUserId(user);
+            a.setRegisterDate(new Date());
+            user.getAccesslevelCollection().add(a);
+
         }
 
         user.setPassword(ConvertUtils.calculateSha512Hash(user.getPassword()));
@@ -222,6 +263,11 @@ public class UserServiceEndpoint implements UserServiceEndpointLocal {
 
         userState = null;
 
+    }
+
+    @Override
+    public List<Degrees> getDegreeList() {
+        return degreesFacadeLocal.findAll();
     }
 
 }

@@ -9,10 +9,8 @@
             <default-locale>pl</default-locale>
             <supported-locale>en</supported-locale>
         </locale-config>
-        
         <resource-bundle>
-            <base-name>languages.locale</base-name>
-            
+            <base-name>languages.locale</base-name>            
             <var>msg</var>
         </resource-bundle>
         <message-bundle>JSFvalidation.Messages</message-bundle>

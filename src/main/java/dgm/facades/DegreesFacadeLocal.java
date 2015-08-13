@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package us.facades;
+package dgm.facades;
 
-import entities.People;
+import entities.Degrees;
 import exceptions.BusinessException;
 import java.util.List;
 import javax.ejb.Local;
@@ -15,19 +15,19 @@ import javax.ejb.Local;
  * @author Damian
  */
 @Local
-public interface PeopleFacadeLocal {
+public interface DegreesFacadeLocal {
 
-    void create(People people) throws BusinessException;
+    void create(Degrees degrees) throws BusinessException;
 
-    void edit(People people) throws BusinessException;
+    void edit(Degrees degrees) throws BusinessException;
 
-    void remove(People people);
+    void remove(Degrees degrees);
 
-    People find(Object id);
+    Degrees find(Object id);
 
-    List<People> findAll();
+    List<Degrees> findAll();
 
-    List<People> findRange(int[] range);
+    List<Degrees> findRange(int[] range);
 
     int count();
     

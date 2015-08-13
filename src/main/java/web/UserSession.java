@@ -6,6 +6,7 @@
 package web;
 
 import entities.Accesslevelsdictionary;
+import entities.Degrees;
 import entities.Users;
 import exceptions.BusinessException;
 import interfaces.IUserInRole;
@@ -120,6 +121,10 @@ public class UserSession implements Serializable, IUserInRole {
 
     void editUser(String userOldPassword, String userNewPassword, Users authorizedUser) throws BusinessException {
         userServiceEndpointLocal.editUser(userOldPassword,userNewPassword,authorizedUser);
+    }
+
+    List<Degrees> getDegreeList() {
+        return userServiceEndpointLocal.getDegreeList();
     }
 
 }
