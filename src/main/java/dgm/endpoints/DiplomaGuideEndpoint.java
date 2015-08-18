@@ -16,6 +16,8 @@ import entities.Thesis;
 import entities.Thesistype;
 import entities.Users;
 import exceptions.BusinessException;
+import exceptions.NullThesisStateException;
+import exceptions.ThesisStateMismatchException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -45,6 +47,9 @@ public class DiplomaGuideEndpoint implements DiplomaGuideEndpointLocal {
 
     @EJB
     private ThesistypeFacadeLocal thesistypeFacadeLocal;
+
+    private Thesis thesisToEditByTeacherState;
+    private Thesis thesisToEditByStudentState;
 
     @Override
     public void createThesis(Thesis thesis) throws BusinessException {
@@ -101,6 +106,56 @@ public class DiplomaGuideEndpoint implements DiplomaGuideEndpointLocal {
     @Override
     public List<Thesis> getThesisWithPhrase(String phrase) {
         return thesisFacadeLocal.findWithPhrase(phrase);
+    }
+
+    @Override
+    public Thesis getThesisToEditByTeacher(Thesis row) {
+        thesisToEditByTeacherState = thesisFacadeLocal.find(row.getThesisId());
+        return thesisToEditByTeacherState;
+    }
+
+    @Override
+    public void acceptation(Thesis thesisToEdit) throws BusinessException {
+
+        if (thesisToEditByTeacherState == null) {
+            throw new NullThesisStateException();
+        }
+
+        if (!thesisToEditByTeacherState.equals(thesisToEdit)) {
+            throw new ThesisStateMismatchException();
+        }
+
+        thesisToEditByTeacherState.setAccepted(thesisToEdit.getAccepted());
+
+        thesisFacadeLocal.edit(thesisToEditByTeacherState);
+    }
+
+    @Override
+    public List<Thesis> getMyThesis(Students loggedStudent) {
+        return thesisFacadeLocal.findMyThesis(loggedStudent.getAccessLevelId());
+    }
+
+    @Override
+    public Thesis getThesisToEditByStudent(Thesis thesis) {
+        thesisToEditByStudentState = thesisFacadeLocal.find(thesis.getThesisId());
+        return thesisToEditByStudentState;
+    }
+
+    @Override
+    public void editThesisByStudent(Thesis thesis) throws BusinessException {
+
+        if (thesisToEditByStudentState == null) {
+            throw new NullThesisStateException();
+        }
+
+        if (!thesisToEditByStudentState.equals(thesis)) {
+            throw new ThesisStateMismatchException();
+        }
+
+        thesisToEditByStudentState.setName(thesis.getName());
+        thesisToEditByStudentState.setTeacher(thesis.getTeacher());
+
+        thesisFacadeLocal.edit(thesisToEditByStudentState);
     }
 
 }

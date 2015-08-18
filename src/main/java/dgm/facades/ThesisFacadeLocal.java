@@ -32,5 +32,7 @@ public interface ThesisFacadeLocal {
     int count();
     
     List<Thesis> findWithPhrase(String phrase);
+
+    List<Thesis> findMyThesis(Long accessLevelId);
     
 }

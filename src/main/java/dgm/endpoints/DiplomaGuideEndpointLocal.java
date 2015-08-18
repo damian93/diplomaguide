@@ -31,5 +31,10 @@ public interface DiplomaGuideEndpointLocal {
     List<Thesistype> getThesisTypeList();
     List<Thesis> getAllThesisList();
     List<Thesis> getThesisWithPhrase(String phrase);
+    Thesis getThesisToEditByTeacher(Thesis row);
+    void acceptation(Thesis thesisToEdit) throws BusinessException;
+    List<Thesis> getMyThesis(Students loggedStudent);
+    Thesis getThesisToEditByStudent(Thesis thesis);
+    void editThesisByStudent(Thesis thesis) throws BusinessException;
     
 }

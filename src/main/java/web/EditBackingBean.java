@@ -6,9 +6,7 @@
 package web;
 
 import common.CustomUser;
-import entities.Accesslevel;
 import entities.Degrees;
-import entities.Teachers;
 import entities.Users;
 import exceptions.BusinessException;
 import java.util.List;

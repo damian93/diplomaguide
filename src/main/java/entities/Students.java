@@ -62,5 +62,12 @@ public class Students extends Accesslevel implements Serializable {
         this.thesisCollection = thesisCollection;
     }
 
+    @Override
+    public String toString() {
+        return super.userId.getName() +" "+ super.userId.getSurname();
+    }
+    
+    
+
 
 }

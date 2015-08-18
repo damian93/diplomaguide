@@ -31,7 +31,57 @@ public class DiplomaGuideSession implements Serializable {
     @EJB
     DiplomaGuideEndpointLocal diplomaGuideEndpointLocal;
 
+    private Teachers loggedTeacher;
+    private Students loggedStudent;
+
+    private Thesis thesisToEditByTeacher;
+
+    private Thesis thesisToEditByStudent;
+
     public DiplomaGuideSession() {
+    }
+
+    public Students getLoggedStudent() {
+        if (loggedStudent != null) {
+            return loggedStudent;
+        } else {
+            loggedStudent = getStudent();
+            return loggedStudent;
+        }
+    }
+
+    public void setThesisToEditByStudent(Thesis thesis) {
+        thesisToEditByStudent = diplomaGuideEndpointLocal.getThesisToEditByStudent(thesis);
+    }
+
+    public Thesis getThesisToEditByStudent() {
+        return thesisToEditByStudent;
+    }
+
+    public void setLoggedStudent(Students loggedStudent) {
+        this.loggedStudent = loggedStudent;
+    }
+
+    public Thesis getThesisToEditByTeacher() {
+        return thesisToEditByTeacher;
+    }
+
+    public void setThesisToEditByTeacher(Thesis thesisToEditByTeacher) {
+        this.thesisToEditByTeacher = diplomaGuideEndpointLocal.getThesisToEditByTeacher(thesisToEditByTeacher);
+
+    }
+
+    public Teachers getLoggedTeacher() {
+        if (loggedTeacher != null) {
+            return loggedTeacher;
+        } else {
+            loggedTeacher = getTeacher();
+            return loggedTeacher;
+        }
+    }
+
+    public void setLoggedTeacher(Teachers loggedTeacher) {
+        this.loggedTeacher = loggedTeacher;
     }
 
     public void createThesis(Thesis t) throws BusinessException {
@@ -70,4 +120,18 @@ public class DiplomaGuideSession implements Serializable {
     List<Thesis> getThesisWithPhrase(String phrase) {
         return diplomaGuideEndpointLocal.getThesisWithPhrase(phrase);
     }
+
+    void acceptation(Thesis thesisToEdit) throws BusinessException {
+        diplomaGuideEndpointLocal.acceptation(thesisToEdit);
+    }
+
+    List<Thesis> getMyThesis() {
+        return diplomaGuideEndpointLocal.getMyThesis(getLoggedStudent());
+    }
+    
+    public void editThesisByStudent(Thesis thesis) throws BusinessException{
+        diplomaGuideEndpointLocal.editThesisByStudent(thesis);
+    }
+
+
 }

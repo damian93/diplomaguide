@@ -7,26 +7,27 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 template="/templates/template.xhtml">
     <ui:define name="title">#{msg.teacherList}</ui:define>
-    <ui:define name="path"> <a href="/index.xhtml?faces-redirect=true">#{msg.mainPage}</a> >> <a href="/student/thesislist.xhtml?faces-redirect=true">#{msg.thesisList}</a></ui:define>
+    <ui:define name="path"> <a href="/index.xhtml?faces-redirect=true">#{msg.mainPage}</a> >> <a href="/teacher/list.xhtml?faces-redirect=true">#{msg.thesisList}</a></ui:define>
     <ui:define name="content">
-        <h:form id="thesisListForm">
+        <h:form id="teacherListForm">
             <p:growl id="msgs" showDetail="true" />
-            <p:panel header="#{msg.search}">
-                <p:inputText value="#{thesisListBackingBean.phrase}" >
-                    <p:ajax event="keyup"  listener="#{thesisListBackingBean.filter()}" update=":thesisListForm"
-                            delay="900"/>
-                </p:inputText>
+            <p:panel>
+                <p:outputLabel value="#{teacherThesisListBackinBean.teacher}"/>
             </p:panel>
-            <p:dataTable value="#{thesisListBackingBean.allThesisList}" var="item">
+            <p:dataTable value="#{teacherThesisListBackinBean.myThesisList}" var="item">
                 <f:facet name="header">
                     <p:outputLabel value="#{msg.thesisList}"/> 
                 </f:facet>
-                <p:column headerText="#{msg.thesisTeacher}">
-                    <p:outputLabel value="#{item.teacher}"/>
+                <p:column headerText="#{msg.thesisStudent}">
+                    <p:outputLabel value="#{item.student}"/>
                 </p:column>
                 <p:column headerText="#{msg.thesisName}">
                     <p:outputLabel value="#{item.name}"/>
                 </p:column>
+                <p:column headerText="#{msg.edit}">
+                    <p:commandButton value="#{msg.edit}" action="#{teacherThesisListBackinBean.beforeEdit()}"/>
+                </p:column>
+
             </p:dataTable>
             <p:commandButton value="#{msg.goBack}" action="/index.xhtml?faces-redirect=true"/>
 

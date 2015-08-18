@@ -37,6 +37,7 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Thesis.findByThesisId", query = "SELECT t FROM Thesis t WHERE t.thesisId = :thesisId"),
     @NamedQuery(name = "Thesis.findByName", query = "SELECT t FROM Thesis t WHERE t.name = :name"),
     @NamedQuery(name = "Thesis.findThesisByPhrase", query = "SELECT t FROM Thesis t WHERE t.name LIKE :par"),
+    @NamedQuery(name = "Thesis.findMyThesis", query = "SELECT t FROM Thesis t WHERE t.student.accessLevelId = :s"),
     @NamedQuery(name = "Thesis.findByDate", query = "SELECT t FROM Thesis t WHERE t.date = :date")
 })
 public class Thesis implements Serializable {

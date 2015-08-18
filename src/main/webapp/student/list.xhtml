@@ -9,7 +9,7 @@
     <ui:define name="title">#{msg.teacherList}</ui:define>
     <ui:define name="path"> <a href="/index.xhtml?faces-redirect=true">#{msg.mainPage}</a> >> <a href="/student/list.xhtml?faces-redirect=true">#{msg.teacherList}</a></ui:define>
     <ui:define name="content">
-        <h:form id="teacherListForm">
+        <h:form id="studentListForm">
             <p:growl id="msgs" showDetail="true" />
             <p:dataTable value="#{listTeachersBackingBean.teachersMap.entrySet()}" var="item">
                 <f:facet name="header">

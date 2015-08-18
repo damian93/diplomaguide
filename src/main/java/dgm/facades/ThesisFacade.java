@@ -6,10 +6,15 @@
 package dgm.facades;
 
 import entities.Thesis;
+import exceptions.BusinessException;
+import exceptions.EditThesisWithOptimistickLockException;
+import exceptions.StudentHasAlreadyThisTypeThesis;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.OptimisticLockException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 
 /**
@@ -39,4 +44,35 @@ public class ThesisFacade extends AbstractFacade<Thesis> implements ThesisFacade
         return resultList;
     }
 
+    @Override
+    public void edit(Thesis entity) throws BusinessException {
+        try {
+            super.edit(entity);
+        } catch (OptimisticLockException e) {
+            throw new EditThesisWithOptimistickLockException();
+        }
+    }
+
+    @Override
+    public List<Thesis> findMyThesis(Long accessLevelId) {
+        Query q = em.createNamedQuery("Thesis.findMyThesis");
+        q.setParameter("s", accessLevelId);
+        List<Thesis> resultList = q.getResultList();
+        return resultList;
+
+    }
+
+    @Override
+    public void create(Thesis entity) throws BusinessException {
+        try{
+        super.create(entity);
+        em.flush();
+        }
+        catch(PersistenceException e){
+            throw new StudentHasAlreadyThisTypeThesis();
+        }
+    }
+
+    
+    
 }
