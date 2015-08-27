@@ -236,13 +236,13 @@ public class UserServiceEndpoint implements UserServiceEndpointLocal {
             throw new UserStateMismatchException();
         }
 
-        String tmpPassHash = ConvertUtils.calculateSha512Hash(userOldPassword);
-
-        if (!tmpPassHash.equals(userState.getPassword())) {
-            throw new OldPasswordMismatchException();
-        }
-
         if (!userNewPassword.isEmpty()) {
+
+            String tmpPassHash = ConvertUtils.calculateSha512Hash(userOldPassword);
+
+            if (!tmpPassHash.equals(userState.getPassword())) {
+                throw new OldPasswordMismatchException();
+            }
 
             if (userNewPassword.length() >= minPassLength) {
                 String calculateSha512Hash = ConvertUtils.calculateSha512Hash(userNewPassword);

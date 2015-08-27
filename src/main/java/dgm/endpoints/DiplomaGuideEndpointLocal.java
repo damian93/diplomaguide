@@ -5,6 +5,7 @@
  */
 package dgm.endpoints;
 
+import entities.Exam;
 import entities.Students;
 import entities.Teachers;
 import entities.Thesis;
@@ -36,5 +37,8 @@ public interface DiplomaGuideEndpointLocal {
     List<Thesis> getMyThesis(Students loggedStudent);
     Thesis getThesisToEditByStudent(Thesis thesis);
     void editThesisByStudent(Thesis thesis) throws BusinessException;
+    void createExam(Exam exam) throws BusinessException;
+    List<Exam> getExamsByTeacher(Teachers loggedTeacher);
+    List<Thesis> getMyThesisByTeacher(Teachers loggedTeacher);
     
 }

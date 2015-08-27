@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/templates/template.xhtml" 
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:define name="title">#{msg.createExam}</ui:define>
+    <ui:define name="path"><a href="/index.xhtml?faces-redirect=true">#{msg.mainPage}</a> >> <a href="/teacher/createexam.xhtml?faces-redirect=true">#{msg.createExam}</a></ui:define>
+    <ui:define name="content">
+        <h:form id="createExamForm">
+            <p:growl id="msgs"  showDetail="true" />
+            <p:panelGrid>
+                <p:row>
+                    <p:column>
+                        <p:outputLabel for="examThesis" value="#{msg.examThesis}"/>
+                    </p:column>
+                    <p:column>
+                        <p:selectOneMenu style="width: 195px;" required="true" id="examThesis" value="#{createExam.exam.thesis}">
+                            <f:converter binding="#{thesisConverter}" />
+                            <f:selectItems itemLabel="#{item.name}" itemValue="#{item}" var="item" value="#{createExam.thesisList}"/>
+                        </p:selectOneMenu>
+                    </p:column>
+                    <p:column>
+                        <p:message for="examThesis"/>
+                    </p:column>
+                </p:row>
+                <p:row>
+                    <p:column>
+                        <p:outputLabel for="examDate" value="#{msg.examDate}"/>
+                    </p:column>
+                    <p:column>
+                        <p:calendar required="true" id="examDate"  pattern="MM/dd/yyyy HH:mm:ss" value="#{createExam.exam.date}" />
+                    </p:column>
+                    <p:column>
+                        <p:message for="examDate"/>
+                    </p:column>
+                </p:row>
+
+            </p:panelGrid>
+            <p:commandButton value="#{msg.createButton}" update=":createExamForm" action="#{createExam.create()}"/>
+        </h:form>
+    </ui:define>
+</ui:composition>
+
+

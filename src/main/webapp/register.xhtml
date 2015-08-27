@@ -117,7 +117,7 @@
                 </p:row>
                 <p:row>
                     <p:column colspan="3">
-                        <p:commandButton value="#{msg['register']}" ajax="false" type="submit" update=":registerForm" action="#{registerBackingBean.registerUser()}" icon="ui-icon-check"/>
+                        <p:commandButton id="registerButton" value="#{msg['register']}" ajax="false" type="submit" update=":registerForm" action="#{registerBackingBean.registerUser()}" icon="ui-icon-check"/>
                     </p:column>
                 </p:row>
             </p:panelGrid>

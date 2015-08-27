@@ -61,18 +61,29 @@ public class ThesisFacade extends AbstractFacade<Thesis> implements ThesisFacade
         return resultList;
 
     }
+    @Override
+    public List<Thesis> findMyThesisByTeacher(Long accessLevelId) {
+        Query q = em.createNamedQuery("Thesis.findMyThesisByTeacher");
+        q.setParameter("s", accessLevelId);
+        List<Thesis> resultList = q.getResultList();
+        return resultList;
+
+    }
+    
+    
 
     @Override
     public void create(Thesis entity) throws BusinessException {
-        try{
-        super.create(entity);
-        em.flush();
-        }
-        catch(PersistenceException e){
-            throw new StudentHasAlreadyThisTypeThesis();
+        try {
+            super.create(entity);
+            em.flush();
+        } catch (PersistenceException e) {
+            if (e.getMessage().contains("unique_thesis")) {
+                throw new StudentHasAlreadyThisTypeThesis();
+            } else {
+                throw e;
+            }
         }
     }
 
-    
-    
 }

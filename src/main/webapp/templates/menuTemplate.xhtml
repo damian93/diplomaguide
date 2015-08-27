@@ -23,7 +23,9 @@
                     </c:if>
                     <c:if test="#{userSession.isTeacher()}">
                         <p:submenu label="#{msg.teacher}">
-                            <p:menuitem value="#{msg.thesisList}" url="/teacher/list.xhtml"/>
+                            <p:menuitem value="#{msg.thesisList}" url="/teacher/list.xhtml?faces-redirect=true"/>
+                            <p:menuitem value="#{msg.createExam}" url="/teacher/createexam.xhtml?faces-redirect=true"/>
+                            <p:menuitem value="#{msg.examList}" url="/teacher/examlist.xhtml?faces-redirect=true"/>
                         </p:submenu>
                     </c:if>
                     <c:if test="#{userSession.isStudent()}">

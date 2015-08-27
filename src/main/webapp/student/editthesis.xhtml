@@ -63,7 +63,7 @@
                     </p:column>
                 </p:row>
             </p:panelGrid>
-            <p:commandButton value="#{msg.edit}" action="#{editThesisByStudentBackingBean.edit()}"/>
+            <p:commandButton ajax="false" value="#{msg.edit}" action="#{editThesisByStudentBackingBean.edit()}"/>
         </h:form>
     </ui:define>
 </ui:composition>

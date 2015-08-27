@@ -20,6 +20,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -37,6 +38,7 @@ import javax.validation.constraints.NotNull;
     @NamedQuery(name = "Exam.findByDate", query = "SELECT e FROM Exam e WHERE e.date = :date"),
     @NamedQuery(name = "Exam.findByGrade", query = "SELECT e FROM Exam e WHERE e.grade = :grade"),
     @NamedQuery(name = "Exam.findByAccepted", query = "SELECT e FROM Exam e WHERE e.accepted = :accepted"),
+    @NamedQuery(name = "Exam.findByTeacher", query = "SELECT e FROM Exam e WHERE e.thesis.teacher.accessLevelId = :s"),
     @NamedQuery(name = "Exam.findByVersion", query = "SELECT e FROM Exam e WHERE e.version = :version")})
 public class Exam implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -61,7 +63,7 @@ public class Exam implements Serializable {
     @Column(name = "Version")
     private long version;
     @JoinColumn(name = "Thesis", referencedColumnName = "ThesisId")
-    @ManyToOne(optional = false)
+    @OneToOne(optional = false)
     private Thesis thesis;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "exam")
     private Collection<Commission> commissionCollection;
@@ -156,6 +158,11 @@ public class Exam implements Serializable {
         return true;
     }
 
+    public boolean isAccepted() {
+        return accepted;
+    }
+
+    
     @Override
     public String toString() {
         return "entities.Exam[ examId=" + examId + " ]";

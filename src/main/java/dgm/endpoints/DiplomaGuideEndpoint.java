@@ -5,18 +5,24 @@
  */
 package dgm.endpoints;
 
+import dgm.facades.ExamFacadeLocal;
 import dgm.facades.StudentsFacadeLocal;
 import dgm.facades.TeachersFacadeLocal;
 import dgm.facades.ThesisFacadeLocal;
 import dgm.facades.ThesistypeFacadeLocal;
 import dgm.facades.UsersFacadeLocal;
+import entities.Exam;
 import entities.Students;
 import entities.Teachers;
 import entities.Thesis;
 import entities.Thesistype;
 import entities.Users;
 import exceptions.BusinessException;
+import exceptions.CanNotEditThesisWhichHasConfirmedExam;
+import exceptions.DateFromPastException;
 import exceptions.NullThesisStateException;
+import exceptions.ThesisAlreadyAcceptedException;
+import exceptions.ThesisIsNotAcceptedException;
 import exceptions.ThesisStateMismatchException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -47,6 +53,9 @@ public class DiplomaGuideEndpoint implements DiplomaGuideEndpointLocal {
 
     @EJB
     private ThesistypeFacadeLocal thesistypeFacadeLocal;
+
+    @EJB
+    private ExamFacadeLocal examFacadeLocal;
 
     private Thesis thesisToEditByTeacherState;
     private Thesis thesisToEditByStudentState;
@@ -124,6 +133,12 @@ public class DiplomaGuideEndpoint implements DiplomaGuideEndpointLocal {
         if (!thesisToEditByTeacherState.equals(thesisToEdit)) {
             throw new ThesisStateMismatchException();
         }
+        if (thesisToEditByTeacherState.getExam() != null) {
+
+            if (thesisToEditByTeacherState.getExam().getAccepted()) {
+                throw new CanNotEditThesisWhichHasConfirmedExam();
+            }
+        }
 
         thesisToEditByTeacherState.setAccepted(thesisToEdit.getAccepted());
 
@@ -152,10 +167,38 @@ public class DiplomaGuideEndpoint implements DiplomaGuideEndpointLocal {
             throw new ThesisStateMismatchException();
         }
 
+        if (thesisToEditByStudentState.getAccepted()) {
+            throw new ThesisAlreadyAcceptedException();
+        }
         thesisToEditByStudentState.setName(thesis.getName());
         thesisToEditByStudentState.setTeacher(thesis.getTeacher());
 
         thesisFacadeLocal.edit(thesisToEditByStudentState);
+    }
+
+    @Override
+    public void createExam(Exam exam) throws BusinessException {
+
+        if (exam.getDate().before(new Date())) {
+            throw new DateFromPastException();
+        }
+
+        if (!exam.getThesis().getAccepted()) {
+            throw new ThesisIsNotAcceptedException();
+        }
+
+        examFacadeLocal.create(exam);
+    }
+
+    @Override
+    public List<Exam> getExamsByTeacher(Teachers loggedTeacher) {
+        return examFacadeLocal.findByTeacher(loggedTeacher.getAccessLevelId());
+    }
+
+    @Override
+    public List<Thesis> getMyThesisByTeacher(Teachers loggedTeacher) {
+        return thesisFacadeLocal.findMyThesisByTeacher(loggedTeacher.getAccessLevelId());
+
     }
 
 }

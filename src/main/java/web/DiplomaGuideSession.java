@@ -14,6 +14,7 @@ import java.io.Serializable;
 import java.util.List;
 import javax.ejb.EJB;
 import dgm.endpoints.DiplomaGuideEndpointLocal;
+import entities.Exam;
 import entities.Students;
 import entities.Teachers;
 import entities.Thesistype;
@@ -128,9 +129,20 @@ public class DiplomaGuideSession implements Serializable {
     List<Thesis> getMyThesis() {
         return diplomaGuideEndpointLocal.getMyThesis(getLoggedStudent());
     }
+    List<Thesis> getMyThesisByTeacher() {
+        return diplomaGuideEndpointLocal.getMyThesisByTeacher(getLoggedTeacher());
+    }
     
     public void editThesisByStudent(Thesis thesis) throws BusinessException{
         diplomaGuideEndpointLocal.editThesisByStudent(thesis);
+    }
+    
+    public void createExam(Exam exam) throws BusinessException{
+        diplomaGuideEndpointLocal.createExam(exam);
+    }
+
+    List<Exam> getMyExamsByTeacher() {
+        return diplomaGuideEndpointLocal.getExamsByTeacher(loggedTeacher);
     }
 
 

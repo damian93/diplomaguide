@@ -6,8 +6,10 @@
 package entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -20,6 +22,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -38,6 +41,7 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Thesis.findByName", query = "SELECT t FROM Thesis t WHERE t.name = :name"),
     @NamedQuery(name = "Thesis.findThesisByPhrase", query = "SELECT t FROM Thesis t WHERE t.name LIKE :par"),
     @NamedQuery(name = "Thesis.findMyThesis", query = "SELECT t FROM Thesis t WHERE t.student.accessLevelId = :s"),
+    @NamedQuery(name = "Thesis.findMyThesisByTeacher", query = "SELECT t FROM Thesis t WHERE t.teacher.accessLevelId = :s"),
     @NamedQuery(name = "Thesis.findByDate", query = "SELECT t FROM Thesis t WHERE t.date = :date")
 })
 public class Thesis implements Serializable {
@@ -46,8 +50,8 @@ public class Thesis implements Serializable {
     //@NotNull
     @Column(name = "Accepted")
     private boolean accepted;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "thesis")
-    private Collection<Exam> examCollection;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "thesis")
+    private Exam exam;
     @JoinColumn(name = "Type", referencedColumnName = "ThesisTypeId")
     @ManyToOne(optional = false)
     private Thesistype type;
@@ -165,13 +169,6 @@ public class Thesis implements Serializable {
         this.accepted = accepted;
     }
 
-    public Collection<Exam> getExamCollection() {
-        return examCollection;
-    }
-
-    public void setExamCollection(Collection<Exam> examCollection) {
-        this.examCollection = examCollection;
-    }
 
     public Thesistype getType() {
         return type;
@@ -180,5 +177,15 @@ public class Thesis implements Serializable {
     public void setType(Thesistype type) {
         this.type = type;
     }
+
+    public Exam getExam() {
+        return exam;
+    }
+
+    public void setExam(Exam exam) {
+        this.exam = exam;
+    }
+    
+    
 
 }
