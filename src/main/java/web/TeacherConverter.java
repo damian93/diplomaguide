@@ -6,11 +6,13 @@
 package web;
 
 import entities.Teachers;
+import java.io.Serializable;
 import java.util.List;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -19,8 +21,8 @@ import javax.inject.Named;
  * @author Damian
  */
 @Named(value = "teacherConverter")
-@RequestScoped
-public class TeacherConverter implements Converter {
+@ViewScoped
+public class TeacherConverter implements Converter, Serializable {
 
     @Inject
     CreateThesisBackingBean createThesisBackingBean;

@@ -10,9 +10,10 @@ import entities.Teachers;
 import entities.Thesis;
 import entities.Thesistype;
 import exceptions.BusinessException;
+import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.RequestScoped;
+import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import javax.inject.Inject;
 import utils.JsfUtils;
@@ -23,8 +24,8 @@ import utils.ResourceBundleUtils;
  * @author Damian
  */
 @Named(value = "createThesisBackingBean")
-@RequestScoped
-public class CreateThesisBackingBean {
+@ViewScoped
+public class CreateThesisBackingBean implements Serializable{
 
     @Inject
     private DiplomaGuideSession diplomaGuideSession;

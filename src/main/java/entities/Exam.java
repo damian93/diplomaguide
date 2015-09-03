@@ -24,6 +24,9 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Version;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -39,6 +42,7 @@ import javax.validation.constraints.NotNull;
     @NamedQuery(name = "Exam.findByGrade", query = "SELECT e FROM Exam e WHERE e.grade = :grade"),
     @NamedQuery(name = "Exam.findByAccepted", query = "SELECT e FROM Exam e WHERE e.accepted = :accepted"),
     @NamedQuery(name = "Exam.findByTeacher", query = "SELECT e FROM Exam e WHERE e.thesis.teacher.accessLevelId = :s"),
+    @NamedQuery(name = "Exam.findByStudent", query = "SELECT e FROM Exam e WHERE e.thesis.student.accessLevelId = :s"),
     @NamedQuery(name = "Exam.findByVersion", query = "SELECT e FROM Exam e WHERE e.version = :version")})
 public class Exam implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -52,6 +56,8 @@ public class Exam implements Serializable {
     @Column(name = "Date")
     @Temporal(TemporalType.DATE)
     private Date date;
+    @Min(value = 2)
+    @Max(value = 5)
     @Column(name = "Grade")
     private Integer grade;
     @Basic(optional = false)
@@ -60,6 +66,7 @@ public class Exam implements Serializable {
     private boolean accepted;
     @Basic(optional = false)
     @NotNull
+    @Version
     @Column(name = "Version")
     private long version;
     @JoinColumn(name = "Thesis", referencedColumnName = "ThesisId")

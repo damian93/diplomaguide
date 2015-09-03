@@ -18,17 +18,18 @@ import javax.inject.Inject;
  *
  * @author Damian
  */
-@Named(value = "examList")
+@Named(value = "myExams")
 @RequestScoped
-public class ExamListBackingBean {
+public class MyExamsBackingBean {
 
     @Inject
-    DiplomaGuideSession diplomaGuideSession;
+    DiplomaGuideSession dgs;
 
     private List<Exam> examList;
+
     private DataModel<Exam> examDataModel;
 
-    public ExamListBackingBean() {
+    public MyExamsBackingBean() {
     }
 
     public DataModel<Exam> getExamDataModel() {
@@ -40,20 +41,19 @@ public class ExamListBackingBean {
     }
 
     @PostConstruct
-    public void init() {
-        examList = diplomaGuideSession.getMyExamsByTeacher();
+    private void init() {
+        examList = dgs.getMyExamsByStudent();
         examDataModel = new ListDataModel<>(examList);
+    }
 
-    }
-    
-    public String beforeEdit(){
+    public String beforeEdit() {
         int rowIndex = examDataModel.getRowIndex();
-        diplomaGuideSession.getExamToEdit(examList.get(rowIndex));
-        return "/teacher/examedit.xhtml?faces-redirect=true";
-        
+        dgs.getExamToEdit(examList.get(rowIndex));
+        return "/student/examedit.xhtml?faces-redirect=true";
     }
-    
-    public String beforeShowCommision(){
+
+    public String beforeShowCommision() {
         return "";
     }
+
 }

@@ -6,12 +6,13 @@
 package web;
 
 import entities.Thesistype;
+import java.io.Serializable;
 import java.util.List;
 import javax.inject.Named;
-import javax.enterprise.context.RequestScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 
 /**
@@ -19,8 +20,8 @@ import javax.inject.Inject;
  * @author Damian
  */
 @Named(value = "thesisTypeConverter")
-@RequestScoped
-public class ThesisTypeConverter implements Converter{
+@ViewScoped
+public class ThesisTypeConverter implements Converter, Serializable{
     
     @Inject
     CreateThesisBackingBean createThesisBackingBean;
@@ -28,7 +29,7 @@ public class ThesisTypeConverter implements Converter{
 
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
-        
+//        System.out.println("Wywołanie konwerteraO");
         Long tId = Long.valueOf(value);
         List<Thesistype> thesisTypeList = createThesisBackingBean.getThesisType();
         for (Thesistype t : thesisTypeList) {
@@ -41,6 +42,7 @@ public class ThesisTypeConverter implements Converter{
 
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {
+ //       System.out.println("Wywołanie konwerteraS");
         Thesistype t = (Thesistype) value;
         return String.valueOf(t.getThesisTypeId());
 

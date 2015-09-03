@@ -36,19 +36,25 @@ public class DiplomaGuideSession implements Serializable {
     private Students loggedStudent;
 
     private Thesis thesisToEditByTeacher;
-
     private Thesis thesisToEditByStudent;
+    private Exam examToEdit;
 
     public DiplomaGuideSession() {
     }
 
+    public Exam getExamToEdit() {
+        return examToEdit;
+    }
+
+    public void setExamToEdit(Exam examToEdit) {
+        this.examToEdit = examToEdit;
+    }
+
+
     public Students getLoggedStudent() {
-        if (loggedStudent != null) {
-            return loggedStudent;
-        } else {
             loggedStudent = getStudent();
             return loggedStudent;
-        }
+        
     }
 
     public void setThesisToEditByStudent(Thesis thesis) {
@@ -73,12 +79,8 @@ public class DiplomaGuideSession implements Serializable {
     }
 
     public Teachers getLoggedTeacher() {
-        if (loggedTeacher != null) {
-            return loggedTeacher;
-        } else {
             loggedTeacher = getTeacher();
             return loggedTeacher;
-        }
     }
 
     public void setLoggedTeacher(Teachers loggedTeacher) {
@@ -142,8 +144,24 @@ public class DiplomaGuideSession implements Serializable {
     }
 
     List<Exam> getMyExamsByTeacher() {
-        return diplomaGuideEndpointLocal.getExamsByTeacher(loggedTeacher);
+        return diplomaGuideEndpointLocal.getExamsByTeacher(getLoggedTeacher());
     }
 
+    List<Exam> getMyExamsByStudent() {
+        return diplomaGuideEndpointLocal.getMyExamsByStudent(getLoggedStudent());
+    }
+
+    void getExamToEdit(Exam e) {
+        this.examToEdit = diplomaGuideEndpointLocal.getExamToEdit(e);
+    }
+
+    void editExamByStudent(Exam examToEdit) throws BusinessException{
+        diplomaGuideEndpointLocal.editExamByStudent(examToEdit);
+        
+    }
+
+    void editExamByTeacher(Exam examToEdit) throws BusinessException {
+        diplomaGuideEndpointLocal.editExamByTeacher(examToEdit);
+    }
 
 }

@@ -40,5 +40,9 @@ public interface DiplomaGuideEndpointLocal {
     void createExam(Exam exam) throws BusinessException;
     List<Exam> getExamsByTeacher(Teachers loggedTeacher);
     List<Thesis> getMyThesisByTeacher(Teachers loggedTeacher);
+    List<Exam> getMyExamsByStudent(Students loggedStudent);
+    Exam getExamToEdit(Exam e);
+    void editExamByStudent(Exam edit) throws BusinessException;
+    void editExamByTeacher(Exam examToEdit) throws BusinessException;
     
 }

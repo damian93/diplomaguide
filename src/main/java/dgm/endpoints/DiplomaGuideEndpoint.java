@@ -19,7 +19,11 @@ import entities.Thesistype;
 import entities.Users;
 import exceptions.BusinessException;
 import exceptions.CanNotEditThesisWhichHasConfirmedExam;
+import exceptions.CantEditAcceptedExamException;
+import exceptions.CantSetGradeBeforeExamException;
 import exceptions.DateFromPastException;
+import exceptions.ExamStateMismatchException;
+import exceptions.NullExamStateException;
 import exceptions.NullThesisStateException;
 import exceptions.ThesisAlreadyAcceptedException;
 import exceptions.ThesisIsNotAcceptedException;
@@ -31,6 +35,7 @@ import java.util.List;
 import java.util.Map;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
+import org.apache.commons.lang3.time.DateUtils;
 
 /**
  *
@@ -59,6 +64,7 @@ public class DiplomaGuideEndpoint implements DiplomaGuideEndpointLocal {
 
     private Thesis thesisToEditByTeacherState;
     private Thesis thesisToEditByStudentState;
+    private Exam examToEditState;
 
     @Override
     public void createThesis(Thesis thesis) throws BusinessException {
@@ -199,6 +205,77 @@ public class DiplomaGuideEndpoint implements DiplomaGuideEndpointLocal {
     public List<Thesis> getMyThesisByTeacher(Teachers loggedTeacher) {
         return thesisFacadeLocal.findMyThesisByTeacher(loggedTeacher.getAccessLevelId());
 
+    }
+
+    @Override
+    public List<Exam> getMyExamsByStudent(Students loggedStudent) {
+        return examFacadeLocal.findByStudent(loggedStudent.getAccessLevelId());
+    }
+
+    @Override
+    public Exam getExamToEdit(Exam e) {
+        examToEditState = examFacadeLocal.find(e.getExamId());
+        return examToEditState;
+    }
+
+    @Override
+    public void editExamByStudent(Exam edit) throws BusinessException {
+
+        if (examToEditState == null) {
+            throw new NullExamStateException();
+        }
+
+        if (!examToEditState.equals(edit)) {
+            throw new ExamStateMismatchException();
+        }
+
+        examToEditState.setAccepted(edit.getAccepted());
+
+        examFacadeLocal.edit(examToEditState);
+    }
+
+    @Override
+    public void editExamByTeacher(Exam examToEdit) throws BusinessException {
+
+        if (examToEditState == null) {
+            throw new NullExamStateException();
+        }
+
+        if (!examToEditState.equals(examToEdit)) {
+            throw new ExamStateMismatchException();
+        }
+
+        if (new Date().after(examToEditState.getDate())) {
+
+            if (examToEditState.getAccepted()) {
+                examToEditState.setGrade(examToEdit.getGrade());
+            } else {
+                throw new CantEditAcceptedExamException();
+            }
+
+        } else {
+            if (examToEditState.getAccepted()) {
+                throw new CantEditAcceptedExamException();
+
+            } else {
+                examToEditState.setDate(examToEdit.getDate());
+            }
+
+        }
+        /*       if (examToEditState.getAccepted()) {
+            
+         if (new Date().after(examToEditState.getDate()) ) {
+         examToEditState.setGrade(examToEdit.getGrade());
+         } else {
+         }
+         }
+
+         if (examToEdit.getDate().before(new Date()) && !examToEditState.getAccepted()) {
+         throw new DateFromPastException();
+         }
+         examToEditState.setDate(examToEdit.getDate());
+         */
+        examFacadeLocal.edit(examToEditState);
     }
 
 }

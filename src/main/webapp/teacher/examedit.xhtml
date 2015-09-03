@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:pe="http://primefaces.org/ui/extensions"
+                xmlns:p="http://primefaces.org/ui"
+                template="/templates/template.xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:define name="title">#{msg.examEdit}</ui:define>
+    <ui:define name="path"><a href="/index.xhtml?faces-redirect=true">#{msg.mainPage}</a> >> <a href="/teacher/examedit.xhtml?faces-redirect=true">#{msg.examEdit}</a></ui:define>
+    <ui:define name="content">
+        <h:form id="editExamByTeacherForm">    
+            <p:growl id="msgs"  showDetail="true" />
+            <p:panelGrid>
+                <p:row>
+                    <p:column>
+                        <p:outputLabel value="#{msg.thesisName}"/>
+                    </p:column>
+                    <p:column>
+                        <p:outputLabel id="thesisName" value="#{examEditByTeacher.examToEdit.thesis.name}" />
+                    </p:column>
+                </p:row>
+                <p:row>
+                    <p:column>
+                        <p:outputLabel value="#{msg.thesisStudent}"/>
+                    </p:column>
+                    <p:column>
+                        <p:outputLabel value="#{examEditByTeacher.examToEdit.thesis.student}" />
+                    </p:column>
+                </p:row>
+                <p:row>
+                    <p:column>
+                        <p:outputLabel value="#{msg.thesisType}"/>
+                    </p:column>
+                    <p:column>
+                        <p:outputLabel value="#{examEditByTeacher.examToEdit.thesis.type.name}"/>
+                    </p:column>
+                </p:row>
+                <p:row>
+                    <p:column>
+                        <p:outputLabel value="#{msg.thesisAccepted}"/>
+                    </p:column>
+                    <p:column>
+                        <p:selectBooleanCheckbox disabled="true" value="#{examEditByTeacher.examToEdit.accepted}"/>
+                    </p:column>      
+                </p:row>
+                <p:row>
+                    <p:column>
+                        <p:outputLabel value="#{msg.examDate}"/>
+                    </p:column>
+                    <p:column>
+                        <p:calendar disabled="#{examEditByTeacher.renderDate()}"  timeZone="Europe/Warsaw" pattern="d-M-yyyy hh:mm"  value="#{examEditByTeacher.examToEdit.date}">
+                        </p:calendar>
+                    </p:column>
+                </p:row>
+                <p:row>
+                    <p:column>
+                        <p:outputLabel value="#{msg.examGrade}"/>
+                    </p:column>
+                    <p:column>
+                        <p:inputText disabled="#{!examEditByTeacher.renderDate()}" value="#{examEditByTeacher.examToEdit.grade}"/>
+                    </p:column>
+                </p:row>
+
+            </p:panelGrid>
+            <p:commandButton ajax="false" value="#{msg.edit}" update=":editExamByStudentForm" action="#{examEditByTeacher.editExam()}"/>
+        </h:form>
+    </ui:define>
+</ui:composition>

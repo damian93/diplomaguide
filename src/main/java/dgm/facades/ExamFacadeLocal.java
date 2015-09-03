@@ -30,7 +30,7 @@ public interface ExamFacadeLocal {
     List<Exam> findRange(int[] range);
 
     int count();
-
     List<Exam> findByTeacher(Long accessLevelId);
+    List<Exam> findByStudent(Long accessLevelId);
     
 }

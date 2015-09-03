@@ -5,7 +5,8 @@
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
-                template="/templates/template.xhtml" >
+                template="/templates/template.xhtml" 
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:define name="title">#{msg.showUserData}</ui:define>
     <ui:define name="path"><a href="/index.xhtml?faces-redirect=true">#{msg.mainPage}</a> >> <a href="/authenticatedUsers/showUserData.xhtml?faces-redirect=true">#{msg.showOurProfile}</a></ui:define>
     <ui:define name="content">
@@ -26,7 +27,9 @@
                 <h:outputText value="#{showUserDataBackingBean.loggedUser.email}" />
 
                 <h:outputText value="#{msg.showUserDataDateOfBirth}" />
-                <h:outputText value="#{showUserDataBackingBean.loggedUser.dateoOfBirth}" />
+                <p:outputLabel value="#{showUserDataBackingBean.loggedUser.dateoOfBirth}" >
+                <f:convertDateTime pattern="d-M-yyyy" timeZone="Europe/Warsaw" />
+                </p:outputLabel>
 
 
             </p:panelGrid>
