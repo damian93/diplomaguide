@@ -14,6 +14,7 @@ import entities.Users;
 import exceptions.BusinessException;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import javax.ejb.Local;
 
 /**
@@ -44,5 +45,7 @@ public interface DiplomaGuideEndpointLocal {
     Exam getExamToEdit(Exam e);
     void editExamByStudent(Exam edit) throws BusinessException;
     void editExamByTeacher(Exam examToEdit) throws BusinessException;
+    Exam getExamToAddCommision(Exam e);
+    void addCommission(Exam exam, Set<Teachers> commisionTeachers) throws BusinessException;
     
 }

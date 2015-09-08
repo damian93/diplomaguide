@@ -28,8 +28,10 @@ import javax.validation.constraints.NotNull;
 @NamedQueries({
     @NamedQuery(name = "Commission.findAll", query = "SELECT c FROM Commission c"),
     @NamedQuery(name = "Commission.findByIdentyfikator", query = "SELECT c FROM Commission c WHERE c.identyfikator = :identyfikator"),
+    @NamedQuery(name = "Commission.findByTeacher", query = "SELECT c FROM Commission c WHERE c.teacher = :t"),
     @NamedQuery(name = "Commission.findByChairman", query = "SELECT c FROM Commission c WHERE c.chairman = :chairman")})
 public class Commission implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -115,5 +117,5 @@ public class Commission implements Serializable {
     public String toString() {
         return "entities.Commission[ identyfikator=" + identyfikator + " ]";
     }
-    
+
 }

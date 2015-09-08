@@ -63,7 +63,7 @@
 
 
             </p:panelGrid>
-
+            <p:commandButton value="#{msg.goBack}" ajax="false"  action="/authenticatedUsers/showUserData.xhtml?faces-redirect=true"/>
             <p:commandButton value="#{msg.edit}" ajax="false"  action="#{editBackingBean.editByUser()}"/>
 
         </h:form>

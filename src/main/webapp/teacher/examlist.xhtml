@@ -26,15 +26,15 @@
                 </p:column>
                 <p:column headerText="#{msg.examDate}">
                     <p:outputLabel value="#{item.date}">
-                        <f:convertDateTime pattern="d-M-yyyy hh:mm" timeZone="Europe/Warsaw" />
+                        <f:convertDateTime pattern="d-M-yyyy HH:mm" timeZone="Europe/Warsaw" />
                     </p:outputLabel>
                 </p:column>
                 <p:column headerText="#{msg.accepted}">
                     <p:selectBooleanCheckbox disabled="true" value="#{item.accepted}"/>
                 </p:column>
                 <p:column headerText="#{msg.edit}">
-                    <p:commandButton value="#{msg.edit}" action="#{examList.beforeEdit()}"/>
-                    <p:commandButton value="#{msg.showCommision}" action="#{examList.beforeShowCommision()}"/>
+                    <p:commandButton value="#{msg.edit}" ajax="false" action="#{examList.beforeEdit()}"/>
+                    <p:commandButton value="#{msg.showCommision}" ajax="false" action="#{examList.beforeShowCommision()}"/>
                 </p:column>
 
             </p:dataTable>

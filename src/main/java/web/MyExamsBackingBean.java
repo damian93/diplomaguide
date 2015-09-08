@@ -53,7 +53,9 @@ public class MyExamsBackingBean {
     }
 
     public String beforeShowCommision() {
-        return "";
+        int rowIndex = examDataModel.getRowIndex();
+        dgs.getExamToAddCommision(examList.get(rowIndex));
+        return "/student/showcommision.xhtml?faces-redirect=true";
     }
 
 }

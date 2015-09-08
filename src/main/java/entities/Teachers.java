@@ -6,7 +6,7 @@
 package entities;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
@@ -32,12 +32,10 @@ import javax.persistence.Table;
 public class Teachers extends Accesslevel implements Serializable {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "teacher")
-    private Collection<Commission> commissionCollection;
+    private List<Commission> commissionCollection = new ArrayList();
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "teacher")
-    private List<Thesis> thesisList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "teacher")
-    private Collection<Thesis> thesisCollection;
+    private List<Thesis> thesisList =  new ArrayList();
     @JoinColumn(name = "Degree", referencedColumnName = "Id")
     @ManyToOne(optional = false)
     private Degrees degree;
@@ -67,19 +65,12 @@ public class Teachers extends Accesslevel implements Serializable {
         this.thesisList = thesisList;
     }
 
-    public Collection<Thesis> getThesisCollection() {
-        return thesisCollection;
-    }
 
-    public void setThesisCollection(Collection<Thesis> thesisCollection) {
-        this.thesisCollection = thesisCollection;
-    }
-
-    public Collection<Commission> getCommissionCollection() {
+    public List<Commission> getCommissionCollection() {
         return commissionCollection;
     }
 
-    public void setCommissionCollection(Collection<Commission> commissionCollection) {
+    public void setCommissionCollection(List<Commission> commissionCollection) {
         this.commissionCollection = commissionCollection;
     }
 

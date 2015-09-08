@@ -51,7 +51,7 @@
                     </p:column>
                     <p:column>
                         <p:outputLabel value="#{examEdit.examToEdit.date}">
-                        <f:convertDateTime pattern="d-M-yyyy hh:mm" timeZone="Europe/Warsaw" />
+                            <f:convertDateTime pattern="d-M-yyyy hh:mm" timeZone="Europe/Warsaw" />
                         </p:outputLabel>
                     </p:column>
                 </p:row>
@@ -65,6 +65,7 @@
                 </p:row>
 
             </p:panelGrid>
+            <p:commandButton value="#{msg.goBack}" ajax="false"  action="/student/myexams.xhtml?faces-redirect=true"/>
             <p:commandButton ajax="false" value="#{msg.edit}" update=":editExamByStudentForm" action="#{examEdit.editExam()}"/>
         </h:form>
     </ui:define>

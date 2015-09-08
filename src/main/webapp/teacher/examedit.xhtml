@@ -50,7 +50,7 @@
                         <p:outputLabel value="#{msg.examDate}"/>
                     </p:column>
                     <p:column>
-                        <p:calendar disabled="#{examEditByTeacher.renderDate()}"  timeZone="Europe/Warsaw" pattern="d-M-yyyy hh:mm"  value="#{examEditByTeacher.examToEdit.date}">
+                        <p:calendar disabled="#{examEditByTeacher.renderDate()}"  timeZone="Europe/Warsaw" pattern="d-M-yyyy HH:mm"  value="#{examEditByTeacher.examToEdit.date}">
                         </p:calendar>
                     </p:column>
                 </p:row>
@@ -64,6 +64,7 @@
                 </p:row>
 
             </p:panelGrid>
+            <p:commandButton value="#{msg.goBack}" ajax="false"  action="/teacher/examlist.xhtml?faces-redirect=true"/>
             <p:commandButton ajax="false" value="#{msg.edit}" update=":editExamByStudentForm" action="#{examEditByTeacher.editExam()}"/>
         </h:form>
     </ui:define>

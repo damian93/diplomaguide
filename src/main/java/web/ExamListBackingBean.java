@@ -54,6 +54,8 @@ public class ExamListBackingBean {
     }
     
     public String beforeShowCommision(){
-        return "";
+        int rowIndex = examDataModel.getRowIndex();
+        diplomaGuideSession.getExamToAddCommision(examList.get(rowIndex));
+        return "/teacher/addCommision.xhtml?faces-redirecr=true";
     }
 }

@@ -19,6 +19,7 @@ import entities.Students;
 import entities.Teachers;
 import entities.Thesistype;
 import java.util.Map;
+import java.util.Set;
 import utils.JsfUtils;
 
 /**
@@ -38,6 +39,7 @@ public class DiplomaGuideSession implements Serializable {
     private Thesis thesisToEditByTeacher;
     private Thesis thesisToEditByStudent;
     private Exam examToEdit;
+    private Exam examToAddCommision;
 
     public DiplomaGuideSession() {
     }
@@ -50,11 +52,19 @@ public class DiplomaGuideSession implements Serializable {
         this.examToEdit = examToEdit;
     }
 
+    public Exam getExamToAddCommision() {
+        return examToAddCommision;
+    }
 
+    public void setExamToAddCommision(Exam examToAddCommision) {
+        this.examToAddCommision = examToAddCommision;
+    }
+
+    
     public Students getLoggedStudent() {
-            loggedStudent = getStudent();
-            return loggedStudent;
-        
+        loggedStudent = getStudent();
+        return loggedStudent;
+
     }
 
     public void setThesisToEditByStudent(Thesis thesis) {
@@ -79,8 +89,8 @@ public class DiplomaGuideSession implements Serializable {
     }
 
     public Teachers getLoggedTeacher() {
-            loggedTeacher = getTeacher();
-            return loggedTeacher;
+        loggedTeacher = getTeacher();
+        return loggedTeacher;
     }
 
     public void setLoggedTeacher(Teachers loggedTeacher) {
@@ -131,15 +141,16 @@ public class DiplomaGuideSession implements Serializable {
     List<Thesis> getMyThesis() {
         return diplomaGuideEndpointLocal.getMyThesis(getLoggedStudent());
     }
+
     List<Thesis> getMyThesisByTeacher() {
         return diplomaGuideEndpointLocal.getMyThesisByTeacher(getLoggedTeacher());
     }
-    
-    public void editThesisByStudent(Thesis thesis) throws BusinessException{
+
+    public void editThesisByStudent(Thesis thesis) throws BusinessException {
         diplomaGuideEndpointLocal.editThesisByStudent(thesis);
     }
-    
-    public void createExam(Exam exam) throws BusinessException{
+
+    public void createExam(Exam exam) throws BusinessException {
         diplomaGuideEndpointLocal.createExam(exam);
     }
 
@@ -155,13 +166,21 @@ public class DiplomaGuideSession implements Serializable {
         this.examToEdit = diplomaGuideEndpointLocal.getExamToEdit(e);
     }
 
-    void editExamByStudent(Exam examToEdit) throws BusinessException{
+    void editExamByStudent(Exam examToEdit) throws BusinessException {
         diplomaGuideEndpointLocal.editExamByStudent(examToEdit);
-        
+
     }
 
     void editExamByTeacher(Exam examToEdit) throws BusinessException {
         diplomaGuideEndpointLocal.editExamByTeacher(examToEdit);
+    }
+
+    void getExamToAddCommision(Exam e) {
+        this.examToAddCommision = diplomaGuideEndpointLocal.getExamToAddCommision(e);
+    }
+
+    void addCommision(Exam exam, Set<Teachers> commisionTeachers) throws BusinessException {
+        diplomaGuideEndpointLocal.addCommission(exam, commisionTeachers);
     }
 
 }

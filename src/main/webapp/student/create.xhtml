@@ -8,8 +8,8 @@
                 template="/templates/template.xhtml" 
                 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
-    <ui:define name="title">#{msg.showUserData}</ui:define>
-    <ui:define name="path"><a href="/index.xhtml?faces-redirect=true">#{msg.mainPage}</a> >> <a href="/authenticatedUsers/showUserData.xhtml?faces-redirect=true">#{msg.showOurProfile}</a></ui:define>
+    <ui:define name="title">#{msg.createExam}</ui:define>
+    <ui:define name="path"><a href="/index.xhtml?faces-redirect=true">#{msg.mainPage}</a> >> <a href="/student/create.xhtml?faces-redirect=true">#{msg.createExam}</a></ui:define>
     <ui:define name="content">
         <h:form id="createThesisForm">
             <p:growl id="msgs"  showDetail="true" />
@@ -51,27 +51,26 @@
 
 
 
-                    <p:row>
-                        <p:column>
-                            <p:outputLabel for="thesisType" value="#{msg.thesisTeacher}"/>
-                        </p:column>
-                        <p:column>
-                            <p:selectOneMenu id="thesisType" value="#{createThesisBackingBean.thesis.type}">
-                                <f:converter binding="#{thesisTypeConverter}" />
-                                <f:selectItems itemLabel="#{item.name}" itemValue="#{item}" var="item" value="#{createThesisBackingBean.thesisType}">
-                                </f:selectItems>
-                            </p:selectOneMenu>
-                        </p:column>
-                        <p:column>
-                            <p:message for="thesisType"/>
-                        </p:column>
-                    </p:row>
-                    <p:row>
-
-                        <p:column colspan="3">
-                            <p:commandButton value="#{msg.createButton}" ajax="false" update=":createThesisForm" action="#{createThesisBackingBean.createThesis()}"/>
-                        </p:column>
-                    </p:row>
+                <p:row>
+                    <p:column>
+                        <p:outputLabel for="thesisType" value="#{msg.thesisType}"/>
+                    </p:column>
+                    <p:column>
+                        <p:selectOneMenu id="thesisType" value="#{createThesisBackingBean.thesis.type}">
+                            <f:converter binding="#{thesisTypeConverter}" />
+                            <f:selectItems itemLabel="#{item.name}" itemValue="#{item}" var="item" value="#{createThesisBackingBean.thesisType}">
+                            </f:selectItems>
+                        </p:selectOneMenu>
+                    </p:column>
+                    <p:column>
+                        <p:message for="thesisType"/>
+                    </p:column>
+                </p:row>
+                <p:row>
+                    <p:column colspan="3">
+                        <p:commandButton value="#{msg.createButton}" ajax="false" update=":createThesisForm" action="#{createThesisBackingBean.createThesis()}"/>
+                    </p:column>
+                </p:row>
             </p:panelGrid>
 
         </h:form>

@@ -59,10 +59,13 @@
                         <p:outputLabel value="#{msg.thesisDate}"/>
                     </p:column>
                     <p:column>
-                        <p:outputLabel value="#{editThesisByStudentBackingBean.thesisToEdit.date}"/>
+                        <p:outputLabel value="#{editThesisByStudentBackingBean.thesisToEdit.date}">
+                            <f:convertDateTime pattern="d-M-yyyy HH:mm" timeZone="Europe/Warsaw" />
+                        </p:outputLabel>
                     </p:column>
                 </p:row>
             </p:panelGrid>
+            <p:commandButton value="#{msg.goBack}" ajax="false"  action="/student/mythesis.xhtml?faces-redirect=true"/>
             <p:commandButton ajax="false" value="#{msg.edit}" action="#{editThesisByStudentBackingBean.edit()}"/>
         </h:form>
     </ui:define>

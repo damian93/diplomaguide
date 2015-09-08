@@ -16,9 +16,6 @@
                     <c:if test="#{userSession.isAdministrator()}">
                         <p:submenu label="#{msg.administrator}">
                             <p:menuitem value="#{msg.usersListDescription}" url="/admin/list.xhtml?faces-redirect=true"/>
-                            <p:menuitem value="#{msg.adminReport}" url="/admin/report.xhtml?faces-redirect=true"/>
-                            <p:menuitem value="#{msg.searchUsers}" url="/admin/search.xhtml?faces-redirect=true"/>
-                            <p:menuitem value="#{msg.statisticsMenuItem}" url="/admin/statistics.xhtml?faces-redirect=true"/>
                         </p:submenu>
                     </c:if>
                     <c:if test="#{userSession.isTeacher()}">
@@ -26,6 +23,8 @@
                             <p:menuitem value="#{msg.thesisList}" url="/teacher/list.xhtml?faces-redirect=true"/>
                             <p:menuitem value="#{msg.createExam}" url="/teacher/createexam.xhtml?faces-redirect=true"/>
                             <p:menuitem value="#{msg.examList}" url="/teacher/examlist.xhtml?faces-redirect=true"/>
+                            <p:menuitem value="#{msg.commisionList}" url="/teacher/mycommisions.xhtml?faces-redirect=true"/>
+
                         </p:submenu>
                     </c:if>
                     <c:if test="#{userSession.isStudent()}">

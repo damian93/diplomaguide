@@ -6,8 +6,10 @@
 package entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -54,7 +56,7 @@ public class Exam implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "Date")
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date date;
     @Min(value = 2)
     @Max(value = 5)
@@ -73,7 +75,7 @@ public class Exam implements Serializable {
     @OneToOne(optional = false)
     private Thesis thesis;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "exam")
-    private Collection<Commission> commissionCollection;
+    private List<Commission> commissionCollection = new ArrayList();
 
     public Exam() {
     }
@@ -137,11 +139,11 @@ public class Exam implements Serializable {
         this.thesis = thesis;
     }
 
-    public Collection<Commission> getCommissionCollection() {
+    public List<Commission> getCommissionCollection() {
         return commissionCollection;
     }
 
-    public void setCommissionCollection(Collection<Commission> commissionCollection) {
+    public void setCommissionCollection(List<Commission> commissionCollection) {
         this.commissionCollection = commissionCollection;
     }
 

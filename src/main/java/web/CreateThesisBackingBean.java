@@ -97,12 +97,14 @@ public class CreateThesisBackingBean implements Serializable{
         thesisType = diplomaGuideSession.getThesisTypeList();
     }
 
-    public void createThesis() {
+    public String createThesis() {
         try {
             diplomaGuideSession.createThesis(thesis);
             JsfUtils.addSuccessMessage(ResourceBundleUtils.getResourceBundleLanguageProperty("Info"), ResourceBundleUtils.getResourceBundleLanguageProperty("successfulEnding"), ":msgs");
+            return "/index.xhtml?faces-redirect=true";
         } catch (BusinessException ex) {
             JsfUtils.addErrorMessage(ex, ex.getMessage(), ":msgs");
+            return "";
         }
     }
 

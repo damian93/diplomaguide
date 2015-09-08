@@ -11,6 +11,7 @@ import dgm.facades.TeachersFacadeLocal;
 import dgm.facades.ThesisFacadeLocal;
 import dgm.facades.ThesistypeFacadeLocal;
 import dgm.facades.UsersFacadeLocal;
+import entities.Commission;
 import entities.Exam;
 import entities.Students;
 import entities.Teachers;
@@ -21,6 +22,7 @@ import exceptions.BusinessException;
 import exceptions.CanNotEditThesisWhichHasConfirmedExam;
 import exceptions.CantEditAcceptedExamException;
 import exceptions.CantSetGradeBeforeExamException;
+import exceptions.CommissionMembersHasToBeUniqueException;
 import exceptions.DateFromPastException;
 import exceptions.ExamStateMismatchException;
 import exceptions.NullExamStateException;
@@ -33,9 +35,9 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
-import org.apache.commons.lang3.time.DateUtils;
 
 /**
  *
@@ -65,6 +67,7 @@ public class DiplomaGuideEndpoint implements DiplomaGuideEndpointLocal {
     private Thesis thesisToEditByTeacherState;
     private Thesis thesisToEditByStudentState;
     private Exam examToEditState;
+    private Exam examToAddCommision;
 
     @Override
     public void createThesis(Thesis thesis) throws BusinessException {
@@ -262,20 +265,51 @@ public class DiplomaGuideEndpoint implements DiplomaGuideEndpointLocal {
             }
 
         }
-        /*       if (examToEditState.getAccepted()) {
-            
-         if (new Date().after(examToEditState.getDate()) ) {
-         examToEditState.setGrade(examToEdit.getGrade());
-         } else {
-         }
-         }
-
-         if (examToEdit.getDate().before(new Date()) && !examToEditState.getAccepted()) {
-         throw new DateFromPastException();
-         }
-         examToEditState.setDate(examToEdit.getDate());
-         */
         examFacadeLocal.edit(examToEditState);
+    }
+
+    @Override
+    public Exam getExamToAddCommision(Exam e) {
+        examToAddCommision = examFacadeLocal.find(e.getExamId());
+        return examToAddCommision;
+
+    }
+
+    @Override
+    public void addCommission(Exam exam, Set<Teachers> commisionTeachers) throws BusinessException {
+
+        if (examToAddCommision == null) {
+            throw new NullExamStateException();
+        }
+
+        if (!examToAddCommision.equals(examToAddCommision)) {
+            throw new ExamStateMismatchException();
+        }
+        
+        if(examToAddCommision.getAccepted()){
+            throw new CantEditAcceptedExamException();
+        }
+        
+
+        if (commisionTeachers.size() < 3) {
+            throw new CommissionMembersHasToBeUniqueException();
+        }
+
+        List<Commission> commissionCollection = this.examToAddCommision.getCommissionCollection();
+
+        commissionCollection = new ArrayList<>();
+
+        for (Teachers t : commisionTeachers) {
+            Commission commission = new Commission();
+            commission.setExam(examToAddCommision);
+            commission.setChairman(false);
+            commission.setTeacher(t);
+            commissionCollection.add(commission);
+        }
+        commissionCollection.get(0).setChairman(true);
+
+        examToAddCommision.setCommissionCollection(commissionCollection);
+        examFacadeLocal.edit(examToAddCommision);
     }
 
 }
