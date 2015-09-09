@@ -5,6 +5,7 @@
  */
 package dgm.endpoints;
 
+import dgm.facades.CommissionFacadeLocal;
 import dgm.facades.ExamFacadeLocal;
 import dgm.facades.StudentsFacadeLocal;
 import dgm.facades.TeachersFacadeLocal;
@@ -21,7 +22,6 @@ import entities.Users;
 import exceptions.BusinessException;
 import exceptions.CanNotEditThesisWhichHasConfirmedExam;
 import exceptions.CantEditAcceptedExamException;
-import exceptions.CantSetGradeBeforeExamException;
 import exceptions.CommissionMembersHasToBeUniqueException;
 import exceptions.DateFromPastException;
 import exceptions.ExamStateMismatchException;
@@ -63,6 +63,9 @@ public class DiplomaGuideEndpoint implements DiplomaGuideEndpointLocal {
 
     @EJB
     private ExamFacadeLocal examFacadeLocal;
+
+    @EJB
+    private CommissionFacadeLocal commissionFacadeLocal;
 
     private Thesis thesisToEditByTeacherState;
     private Thesis thesisToEditByStudentState;
@@ -152,6 +155,8 @@ public class DiplomaGuideEndpoint implements DiplomaGuideEndpointLocal {
         thesisToEditByTeacherState.setAccepted(thesisToEdit.getAccepted());
 
         thesisFacadeLocal.edit(thesisToEditByTeacherState);
+
+        thesisToEditByTeacherState = null;
     }
 
     @Override
@@ -183,6 +188,8 @@ public class DiplomaGuideEndpoint implements DiplomaGuideEndpointLocal {
         thesisToEditByStudentState.setTeacher(thesis.getTeacher());
 
         thesisFacadeLocal.edit(thesisToEditByStudentState);
+
+        thesisToEditByStudentState = null;
     }
 
     @Override
@@ -235,6 +242,8 @@ public class DiplomaGuideEndpoint implements DiplomaGuideEndpointLocal {
         examToEditState.setAccepted(edit.getAccepted());
 
         examFacadeLocal.edit(examToEditState);
+
+        examToEditState = null;
     }
 
     @Override
@@ -266,6 +275,8 @@ public class DiplomaGuideEndpoint implements DiplomaGuideEndpointLocal {
 
         }
         examFacadeLocal.edit(examToEditState);
+
+        examToEditState = null;
     }
 
     @Override
@@ -282,34 +293,70 @@ public class DiplomaGuideEndpoint implements DiplomaGuideEndpointLocal {
             throw new NullExamStateException();
         }
 
-        if (!examToAddCommision.equals(examToAddCommision)) {
+        if (!examToAddCommision.equals(exam)) {
             throw new ExamStateMismatchException();
         }
-        
-        if(examToAddCommision.getAccepted()){
+
+        if (examToAddCommision.getAccepted()) {
             throw new CantEditAcceptedExamException();
         }
-        
 
         if (commisionTeachers.size() < 3) {
             throw new CommissionMembersHasToBeUniqueException();
         }
 
         List<Commission> commissionCollection = this.examToAddCommision.getCommissionCollection();
+        if (commissionCollection.isEmpty()) {
+            commissionCollection = new ArrayList<>();
 
-        commissionCollection = new ArrayList<>();
+            for (Teachers t : commisionTeachers) {
+                Commission commission = new Commission();
+                commission.setExam(examToAddCommision);
+                commission.setAccepted(false);
+                commission.setChairman(false);
+                commission.setTeacher(t);
+                commissionCollection.add(commission);
+            }
+        } else {
 
-        for (Teachers t : commisionTeachers) {
-            Commission commission = new Commission();
-            commission.setExam(examToAddCommision);
-            commission.setChairman(false);
-            commission.setTeacher(t);
-            commissionCollection.add(commission);
+            List<Teachers> comList = new ArrayList<>(commisionTeachers);
+
+            for (int i = 0; i < commissionCollection.size(); i++) {
+                commissionCollection.get(i).setTeacher(comList.get(i));
+                System.out.println(commissionCollection.get(i).getTeacher());
+            }
+
         }
         commissionCollection.get(0).setChairman(true);
-
         examToAddCommision.setCommissionCollection(commissionCollection);
         examFacadeLocal.edit(examToAddCommision);
+
+        examToAddCommision = null;
+    }
+
+    @Override
+    public void acceptCommision(Teachers teacher, int rowIndex) throws BusinessException {
+
+        Commission c = teacher.getCommissionCollection().get(rowIndex);
+
+        if (c.getExam().isAccepted()) {
+            throw new CantEditAcceptedExamException();
+        }
+        c = commissionFacadeLocal.find(c.getIdentyfikator());
+        c.setAccepted(true);
+    }
+
+    @Override
+    public void rejectCommision(Teachers teacher, int rowIndex) throws BusinessException {
+
+        Commission c = teacher.getCommissionCollection().get(rowIndex);
+
+        if (c.getExam().isAccepted()) {
+            throw new CantEditAcceptedExamException();
+        }
+        c = commissionFacadeLocal.find(c.getIdentyfikator());
+        c.setAccepted(false);
+
     }
 
 }

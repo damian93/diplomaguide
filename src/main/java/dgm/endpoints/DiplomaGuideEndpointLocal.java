@@ -47,5 +47,7 @@ public interface DiplomaGuideEndpointLocal {
     void editExamByTeacher(Exam examToEdit) throws BusinessException;
     Exam getExamToAddCommision(Exam e);
     void addCommission(Exam exam, Set<Teachers> commisionTeachers) throws BusinessException;
+    void acceptCommision(Teachers teacher, int rowIndex) throws BusinessException;
+    void rejectCommision(Teachers teacher, int rowIndex) throws BusinessException;
     
 }

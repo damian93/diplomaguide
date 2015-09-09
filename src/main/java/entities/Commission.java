@@ -45,6 +45,10 @@ public class Commission implements Serializable {
     @JoinColumn(name = "exam", referencedColumnName = "ExamId")
     @ManyToOne(optional = false)
     private Exam exam;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "Accepted")
+    private boolean accepted;
     @JoinColumn(name = "Teacher", referencedColumnName = "AccessLevelId")
     @ManyToOne(optional = false)
     private Teachers teacher;
@@ -112,6 +116,15 @@ public class Commission implements Serializable {
         }
         return true;
     }
+
+    public boolean isAccepted() {
+        return accepted;
+    }
+
+    public void setAccepted(boolean accepted) {
+        this.accepted = accepted;
+    }
+    
 
     @Override
     public String toString() {

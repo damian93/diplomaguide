@@ -14,7 +14,7 @@
             <p:panel>
                 <p:outputLabel value="#{myCommision.teacher}"/>
             </p:panel>
-            <p:dataTable value="#{myCommision.teacher.commissionCollection}" var="item">
+            <p:dataTable value="#{myCommision.commisionDataModel}" var="item" >
                 <f:facet name="header">
                     <p:outputLabel value="#{msg.commisionList}"/> 
                 </f:facet>
@@ -26,16 +26,16 @@
                 </p:column>
                 <p:column headerText="#{msg.examDate}">
                     <p:outputLabel value="#{item.exam.date}">
-                    <f:convertDateTime pattern="d-M-yyyy HH:mm" timeZone="Europe/Warsaw" />
+                        <f:convertDateTime pattern="d-M-yyyy HH:mm" timeZone="Europe/Warsaw" />
                     </p:outputLabel>
                 </p:column>
                 <p:column headerText="#{msg.isChairman}">
                     <p:selectBooleanCheckbox disabled="true" value="#{item.chairman}"/>
                 </p:column>
                 <p:column headerText="#{msg.edit}">
-                    <p:commandButton value="#{msg.edit}" action="#{myCommision.beforeEdit()}"/>
+                    <p:commandButton rendered="#{not item.accepted}" ajax="false" value="#{msg.confirm}" action="#{myCommision.accept()}"/>
+                    <p:commandButton rendered="#{item.accepted}" ajax="false" value="#{msg.reject}" action="#{myCommision.reject()}"/>
                 </p:column>
-
             </p:dataTable>
             <p:commandButton value="#{msg.goBack}" action="/index.xhtml?faces-redirect=true"/>
 
@@ -43,4 +43,4 @@
     </ui:define>
 </ui:composition>
 
-    
+

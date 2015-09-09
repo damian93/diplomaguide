@@ -183,4 +183,12 @@ public class DiplomaGuideSession implements Serializable {
         diplomaGuideEndpointLocal.addCommission(exam, commisionTeachers);
     }
 
+    void acceptCommision(Teachers teacher, int rowIndex) throws BusinessException {
+        diplomaGuideEndpointLocal.acceptCommision(teacher, rowIndex);
+    }
+
+    void rejectCommision(Teachers teacher, int rowIndex) throws BusinessException {
+        diplomaGuideEndpointLocal.rejectCommision(teacher, rowIndex);
+    }
+
 }
