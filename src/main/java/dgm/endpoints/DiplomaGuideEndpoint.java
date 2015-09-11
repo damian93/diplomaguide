@@ -24,6 +24,7 @@ import exceptions.CanNotEditThesisWhichHasConfirmedExam;
 import exceptions.CantEditAcceptedExamException;
 import exceptions.CommissionMembersHasToBeUniqueException;
 import exceptions.DateFromPastException;
+import exceptions.ExamHasAlreadyCommisionException;
 import exceptions.ExamStateMismatchException;
 import exceptions.NullExamStateException;
 import exceptions.NullThesisStateException;
@@ -38,6 +39,7 @@ import java.util.Map;
 import java.util.Set;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
+import utils.ResourceBundleUtils;
 
 /**
  *
@@ -301,7 +303,12 @@ public class DiplomaGuideEndpoint implements DiplomaGuideEndpointLocal {
             throw new CantEditAcceptedExamException();
         }
 
-        if (commisionTeachers.size() < 3) {
+        if (!examToAddCommision.getCommissionCollection().isEmpty()) {
+            throw new ExamHasAlreadyCommisionException();
+        }
+
+        if (commisionTeachers.size() < Integer.parseInt(ResourceBundleUtils.
+                getResourceBundleBusinessProperty("CommisionMember"))) {
             throw new CommissionMembersHasToBeUniqueException();
         }
 

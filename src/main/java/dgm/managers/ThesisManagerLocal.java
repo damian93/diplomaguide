@@ -9,7 +9,7 @@ import javax.ejb.Local;
 
 /**
  *
- * @author damian
+ * @author Damian
  */
 @Local
 public interface ThesisManagerLocal {

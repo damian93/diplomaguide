@@ -9,7 +9,7 @@ import javax.ejb.Stateless;
 
 /**
  *
- * @author damian
+ * @author Damian
  */
 @Stateless
 public class ExamManager implements ExamManagerLocal {
