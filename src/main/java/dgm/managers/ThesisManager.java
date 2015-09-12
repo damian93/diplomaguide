@@ -6,12 +6,15 @@
 package dgm.managers;
 
 import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 
 /**
  *
  * @author Damian
  */
 @Stateless
+@TransactionAttribute(TransactionAttributeType.MANDATORY)
 public class ThesisManager implements ThesisManagerLocal {
 
    

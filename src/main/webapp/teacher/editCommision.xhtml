@@ -8,10 +8,10 @@
                 template="/templates/template.xhtml" 
                 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
-    <ui:define name="title">#{msg.createCommision}</ui:define>
-    <ui:define name="path"><a href="/index.xhtml?faces-redirect=true">#{msg.mainPage}</a> >> <a href="/teacher/addCommision.xhtml?faces-redirect=true">#{msg.createCommision}</a></ui:define>
+    <ui:define name="title">#{msg.editCommision}</ui:define>
+    <ui:define name="path"><a href="/index.xhtml?faces-redirect=true">#{msg.mainPage}</a> >> <a href="/teacher/addCommision.xhtml?faces-redirect=true">#{msg.editCommision}</a></ui:define>
     <ui:define name="content">
-        <h:form id="createCommisionForm">
+        <h:form id="editCommisionForm">
             <p:growl id="msgs"  showDetail="true" />
             <p:panelGrid>
                 <p:row>
@@ -19,7 +19,7 @@
                         <p:outputLabel value="#{msg.thesisName}"/>
                     </p:column>
                     <p:column>
-                        <p:outputLabel value="#{createCommision.exam.thesis.name}"/>
+                        <p:outputLabel value="#{editCommision.exam.thesis.name}"/>
                     </p:column>
                 </p:row>
                 <p:row>
@@ -27,9 +27,9 @@
                         <p:outputLabel value="#{msg.isChairman}"/>
                     </p:column>
                     <p:column>
-                        <p:selectOneMenu value="#{createCommision.ctu.chairman}">
+                        <p:selectOneMenu value="#{editCommision.ctu.chairman}">
                             <f:converter binding="#{teacherConverter}" />
-                            <f:selectItems itemLabel="#{item}" itemValue="#{item}" var="item" value="#{createCommision.ctu.teachersSet}" />
+                            <f:selectItems itemLabel="#{item}" itemValue="#{item}" var="item" value="#{editCommision.ctu.teachersSet}" />
                         </p:selectOneMenu>
                     </p:column>
                 </p:row>
@@ -38,9 +38,9 @@
                         <p:outputLabel value="#{msg.commisionTeacher}"/>
                     </p:column>
                     <p:column>
-                        <p:selectOneMenu value="#{createCommision.ctu.teacher1}">
+                        <p:selectOneMenu value="#{editCommision.ctu.teacher1}">
                             <f:converter binding="#{teacherConverter}" />
-                            <f:selectItems itemLabel="#{item}" itemValue="#{item}" var="item" value="#{createCommision.ctu.teachersSet}" />
+                            <f:selectItems itemLabel="#{item}" itemValue="#{item}" var="item" value="#{editCommision.ctu.teachersSet}" />
                         </p:selectOneMenu>
                     </p:column>
                 </p:row>
@@ -49,16 +49,16 @@
                         <p:outputLabel value="#{msg.commisionTeacher}"/>
                     </p:column>
                     <p:column>
-                        <p:selectOneMenu value="#{createCommision.ctu.teacher2}">
+                        <p:selectOneMenu value="#{editCommision.ctu.teacher2}">
                             <f:converter binding="#{teacherConverter}" />
-                            <f:selectItems itemLabel="#{item}" itemValue="#{item}" var="item" value="#{createCommision.ctu.teachersSet}" />
+                            <f:selectItems itemLabel="#{item}" itemValue="#{item}" var="item" value="#{editCommision.ctu.teachersSet}" />
                         </p:selectOneMenu>
                     </p:column>
                 </p:row>
 
             </p:panelGrid>
             <p:commandButton value="#{msg.goBack}" ajax="false"  action="/teacher/examlist.xhtml?faces-redirect=true"/>
-            <p:commandButton value="#{msg.createButton}" ajax="false" update=":createCommisionForm" action="#{createCommision.addCommision()}"/>
+            <p:commandButton value="#{msg.edit}" ajax="false" update=":editCommisionForm" action="#{editCommision.editCommision()}"/>
         </h:form>
     </ui:define>
 </ui:composition>

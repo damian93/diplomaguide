@@ -5,6 +5,10 @@
  */
 package us.managers;
 
+import entities.Degrees;
+import entities.Users;
+import exceptions.BusinessException;
+import java.util.List;
 import javax.ejb.Local;
 
 /**
@@ -13,5 +17,13 @@ import javax.ejb.Local;
  */
 @Local
 public interface AuthenticatedUserManagerLocal {
+
+    Users getUserToEdit(String name) throws BusinessException;
+
+    Users getUser(String name) throws BusinessException;
+
+    void editUser(String userOldPassword, String userNewPassword, Users authorizedUser, Users userState) throws BusinessException;
+
+    List<Degrees> getDegreesList();
     
 }

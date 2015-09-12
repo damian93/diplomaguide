@@ -19,21 +19,22 @@ import utils.ResourceBundleUtils;
  *
  * @author Damian
  */
-@Named(value = "examEditByTeacher")
+@Named(value = "setGradeByTeacher")
 @RequestScoped
-public class ExamEditByTeacherBackingBean {
+public class SetGradeByTeacherBackingBean {
 
     @Inject
     DiplomaGuideSession dgs;
 
     private Exam examToEdit;
 
-    public ExamEditByTeacherBackingBean() {
+    public SetGradeByTeacherBackingBean() {
     }
 
     public Exam getExamToEdit() {
         return examToEdit;
     }
+
 
     public void setExamToEdit(Exam examToEdit) {
         this.examToEdit = examToEdit;
@@ -41,12 +42,12 @@ public class ExamEditByTeacherBackingBean {
 
     @PostConstruct
     public void init() {
-        examToEdit = dgs.getExamToEdit();
+        examToEdit = dgs.getExamToSetGrade();
     }
 
     public String editExam() {
         try {
-            dgs.editExamByTeacher(this.examToEdit);
+            dgs.setGrade(this.examToEdit);
             JsfUtils.addSuccessMessage(ResourceBundleUtils.getResourceBundleLanguageProperty("Info"), ResourceBundleUtils.getResourceBundleLanguageProperty("editSucceed"), ":msgs");
             return "/teacher/examlist.xhtml?faces-redirect=true";
         } catch (BusinessException e) {

@@ -58,4 +58,17 @@ public class ExamListBackingBean {
         diplomaGuideSession.getExamToAddCommision(examList.get(rowIndex));
         return "/teacher/addCommision.xhtml?faces-redirecr=true";
     }
+    public String beforeEditCommision(){
+        int rowIndex = examDataModel.getRowIndex();
+        diplomaGuideSession.getExamToEditCommision(examList.get(rowIndex));
+        return "/teacher/editCommision.xhtml?faces-redirecr=true";
+    }
+    
+    public String beforeSetGrade(){
+        int rowIndex = examDataModel.getRowIndex();
+        diplomaGuideSession.getExamToSetGrade(examList.get(rowIndex));
+        return "/teacher/setGrade.xhtml?faces-redirecr=true";
+    }
+    
+    
 }

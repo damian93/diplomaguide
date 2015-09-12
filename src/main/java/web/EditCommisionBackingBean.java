@@ -26,15 +26,18 @@ import utils.ResourceBundleUtils;
  *
  * @author Damian
  */
-@Named(value = "createCommision")
+@Named(value = "editCommision")
 @ViewScoped
-public class CreateCommisionBackingBean implements Serializable {
+public class EditCommisionBackingBean implements Serializable {
 
     @Inject
     DiplomaGuideSession dgs;
 
     private Exam exam;
     private CommisionTeachersUtils ctu;
+
+    public EditCommisionBackingBean() {
+    }
 
     public Exam getExam() {
         return exam;
@@ -54,20 +57,20 @@ public class CreateCommisionBackingBean implements Serializable {
 
     @PostConstruct
     private void init() {
-        this.exam = dgs.getExamToAddCommision();
+        this.exam = dgs.getExamToEditCommision();
         Teachers loggedTeacher = dgs.getLoggedTeacher();
         ctu = dgs.setMembersInCommision(exam, loggedTeacher);
 
     }
 
-    public String addCommision() {
+    public String editCommision() {
         try {
             Set<Teachers> commisionTeachers = new LinkedHashSet<>();
             commisionTeachers.add(ctu.getChairman());
             commisionTeachers.add(ctu.getTeacher1());
             commisionTeachers.add(ctu.getTeacher2());
-            dgs.addCommision(exam, commisionTeachers);
-            JsfUtils.addSuccessMessage(ResourceBundleUtils.getResourceBundleLanguageProperty("Info"), ResourceBundleUtils.getResourceBundleLanguageProperty("succeededCreation"), ":msgs");
+            dgs.editCommision(exam, commisionTeachers);
+            JsfUtils.addSuccessMessage(ResourceBundleUtils.getResourceBundleLanguageProperty("Info"), ResourceBundleUtils.getResourceBundleLanguageProperty("editSucceed"), ":msgs");
             return "/teacher/examlist.xhtml?faces-redirect=true";
         } catch (BusinessException ex) {
             JsfUtils.addErrorMessage(ex, ex.getMessage(), ":msgs");

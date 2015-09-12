@@ -5,6 +5,7 @@
  */
 package dgm.endpoints;
 
+import common.CommisionTeachersUtils;
 import entities.Exam;
 import entities.Students;
 import entities.Teachers;
@@ -49,5 +50,10 @@ public interface DiplomaGuideEndpointLocal {
     void addCommission(Exam exam, Set<Teachers> commisionTeachers) throws BusinessException;
     void acceptCommision(Teachers teacher, int rowIndex) throws BusinessException;
     void rejectCommision(Teachers teacher, int rowIndex) throws BusinessException;
+    void editCommission(Exam exam, Set<Teachers> commisionTeachers) throws BusinessException;
+    Exam getExamToEditCommision(Exam e);
+    CommisionTeachersUtils setMembersInCommision(Exam exam, Teachers loggedTeacher);
+    void setGrade(Exam examToEdit) throws BusinessException;
+    Exam getExamToSetGrade(Exam e);
     
 }

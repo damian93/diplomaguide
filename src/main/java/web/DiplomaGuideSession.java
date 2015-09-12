@@ -5,6 +5,7 @@
  */
 package web;
 
+import common.CommisionTeachersUtils;
 import entities.Thesis;
 import entities.Users;
 import exceptions.BusinessException;
@@ -40,8 +41,26 @@ public class DiplomaGuideSession implements Serializable {
     private Thesis thesisToEditByStudent;
     private Exam examToEdit;
     private Exam examToAddCommision;
+    private Exam examToEditCommision;
+    private Exam examToSetGrade;
 
     public DiplomaGuideSession() {
+    }
+
+    public Exam getExamToSetGrade() {
+        return examToSetGrade;
+    }
+
+    public void setExamToSetGrade(Exam examToSetGrade) {
+        this.examToSetGrade = examToSetGrade;
+    }
+
+    public Exam getExamToEditCommision() {
+        return examToEditCommision;
+    }
+
+    public void setExamToEditCommision(Exam examToEditCommision) {
+        this.examToEditCommision = examToEditCommision;
     }
 
     public Exam getExamToEdit() {
@@ -60,7 +79,6 @@ public class DiplomaGuideSession implements Serializable {
         this.examToAddCommision = examToAddCommision;
     }
 
-    
     public Students getLoggedStudent() {
         loggedStudent = getStudent();
         return loggedStudent;
@@ -189,6 +207,27 @@ public class DiplomaGuideSession implements Serializable {
 
     void rejectCommision(Teachers teacher, int rowIndex) throws BusinessException {
         diplomaGuideEndpointLocal.rejectCommision(teacher, rowIndex);
+    }
+
+    void editCommision(Exam exam, Set<Teachers> commisionTeachers) throws BusinessException {
+        diplomaGuideEndpointLocal.editCommission(exam, commisionTeachers);
+    }
+
+    void getExamToEditCommision(Exam e) {
+        this.examToEditCommision = diplomaGuideEndpointLocal.getExamToEditCommision(e);
+
+    }
+
+    CommisionTeachersUtils setMembersInCommision(Exam exam, Teachers lt) {
+        return diplomaGuideEndpointLocal.setMembersInCommision(exam, lt);
+    }
+
+    void setGrade(Exam examToEdit) throws BusinessException {
+        diplomaGuideEndpointLocal.setGrade(examToEdit);
+    }
+
+    void getExamToSetGrade(Exam e) {
+        this.examToSetGrade = diplomaGuideEndpointLocal.getExamToSetGrade(e);
     }
 
 }

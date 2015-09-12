@@ -5,6 +5,7 @@
  */
 package us.managers;
 
+import entities.Accesslevelsdictionary;
 import entities.Users;
 import exceptions.BusinessException;
 import java.util.List;
@@ -15,14 +16,16 @@ import javax.ejb.Local;
  * @author Damian
  */
 @Local
-public interface AdminManagerLocal {
+public interface UnauthenticatedUserManagerLocal {
+    
+    /**
+     *
+     * @param user
+     * @param type
+     * @throws exceptions.BusinessException
+     */
+    void createUser(Users user, String type) throws BusinessException;
 
-    List<Users> getUsersList();
-
-    Users getUser(Users rowData);
-
-    void editUserByAdmin(Users userState,Users userToEdit, String oldPassword, String newPassword) throws BusinessException;
-
-    List<Users> filter(String matchLogin);
+    List<Accesslevelsdictionary> getAllAccessLevels();
     
 }

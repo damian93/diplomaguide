@@ -8,9 +8,9 @@
                 template="/templates/template.xhtml"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:define name="title">#{msg.examEdit}</ui:define>
-    <ui:define name="path"><a href="/index.xhtml?faces-redirect=true">#{msg.mainPage}</a> >> <a href="/teacher/examedit.xhtml?faces-redirect=true">#{msg.examEdit}</a></ui:define>
+    <ui:define name="path"><a href="/index.xhtml?faces-redirect=true">#{msg.mainPage}</a> >> <a href="/teacher/setGrade.xhtml?faces-redirect=true">#{msg.examEdit}</a></ui:define>
     <ui:define name="content">
-        <h:form id="editExamByTeacherForm">    
+        <h:form id="setGradeByTeacherForm">    
             <p:growl id="msgs"  showDetail="true" />
             <p:panelGrid>
                 <p:row>
@@ -18,7 +18,7 @@
                         <p:outputLabel value="#{msg.thesisName}"/>
                     </p:column>
                     <p:column>
-                        <p:outputLabel id="thesisName" value="#{examEditByTeacher.examToEdit.thesis.name}" />
+                        <p:outputLabel id="thesisName" value="#{setGradeByTeacher.examToEdit.thesis.name}" />
                     </p:column>
                 </p:row>
                 <p:row>
@@ -26,7 +26,7 @@
                         <p:outputLabel value="#{msg.thesisStudent}"/>
                     </p:column>
                     <p:column>
-                        <p:outputLabel value="#{examEditByTeacher.examToEdit.thesis.student}" />
+                        <p:outputLabel value="#{setGradeByTeacher.examToEdit.thesis.student}" />
                     </p:column>
                 </p:row>
                 <p:row>
@@ -34,7 +34,7 @@
                         <p:outputLabel value="#{msg.thesisType}"/>
                     </p:column>
                     <p:column>
-                        <p:outputLabel value="#{examEditByTeacher.examToEdit.thesis.type.name}"/>
+                        <p:outputLabel value="#{setGradeByTeacher.examToEdit.thesis.type.name}"/>
                     </p:column>
                 </p:row>
                 <p:row>
@@ -42,7 +42,7 @@
                         <p:outputLabel value="#{msg.thesisAccepted}"/>
                     </p:column>
                     <p:column>
-                        <p:selectBooleanCheckbox disabled="true" value="#{examEditByTeacher.examToEdit.accepted}"/>
+                        <p:selectBooleanCheckbox disabled="true" value="#{setGradeByTeacher.examToEdit.accepted}"/>
                     </p:column>      
                 </p:row>
                 <p:row>
@@ -50,7 +50,7 @@
                         <p:outputLabel value="#{msg.examDate}"/>
                     </p:column>
                     <p:column>
-                        <p:calendar   timeZone="Europe/Warsaw" pattern="d-M-yyyy HH:mm"  value="#{examEditByTeacher.examToEdit.date}">
+                        <p:calendar disabled="true"  timeZone="Europe/Warsaw" pattern="d-M-yyyy HH:mm"  value="#{setGradeByTeacher.examToEdit.date}">
                         </p:calendar>
                     </p:column>
                 </p:row>
@@ -59,13 +59,13 @@
                         <p:outputLabel value="#{msg.examGrade}"/>
                     </p:column>
                     <p:column>
-                        <p:outputLabel value="#{examEditByTeacher.examToEdit.grade}"/>
+                        <p:inputText  value="#{setGradeByTeacher.examToEdit.grade}"/>
                     </p:column>
                 </p:row>
 
             </p:panelGrid>
             <p:commandButton value="#{msg.goBack}" ajax="false"  action="/teacher/examlist.xhtml?faces-redirect=true"/>
-            <p:commandButton ajax="false" value="#{msg.edit}" update=":editExamByTeacherForm" action="#{examEditByTeacher.editExam()}"/>
+            <p:commandButton ajax="false" value="#{msg.edit}" update=":setGradeByTeacherForm" action="#{setGradeByTeacher.editExam()}"/>
         </h:form>
     </ui:define>
 </ui:composition>
