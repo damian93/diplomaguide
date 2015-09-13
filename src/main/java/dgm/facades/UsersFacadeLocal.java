@@ -31,7 +31,6 @@ public interface UsersFacadeLocal {
     
     List<Users> filter(String matcher);
 
-    List<Users> findActiveStudents();
     List<Users> findActiveTeachers();
     
 }

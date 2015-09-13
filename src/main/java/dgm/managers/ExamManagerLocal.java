@@ -5,6 +5,13 @@
  */
 package dgm.managers;
 
+import common.CommisionTeachersUtils;
+import entities.Exam;
+import entities.Students;
+import entities.Teachers;
+import exceptions.BusinessException;
+import java.util.List;
+import java.util.Set;
 import javax.ejb.Local;
 
 /**
@@ -13,5 +20,35 @@ import javax.ejb.Local;
  */
 @Local
 public interface ExamManagerLocal {
+
+    void createExam(Exam exam) throws BusinessException;
+
+    List<Exam> getExamsByTeacher(Teachers loggedTeacher);
+
+    List<Exam> getMyExamsByStudent(Students loggedStudent);
+
+    Exam getExamToEdit(Exam e);
+
+    void editExamByStudent(Exam examToEditState,Exam edit) throws BusinessException;
+
+    void ediExamByTeacher(Exam examToEditState, Exam examToEdit) throws BusinessException;
+
+    Exam getExamToAddCommision(Exam e);
+
+    void addCommision(Exam examToAddCommision, Exam exam, Set<Teachers> commisionTeachers) throws BusinessException;
+
+    void acceptCommision(Teachers teacher, int rowIndex) throws BusinessException;
+
+    void rejectCommision(Teachers teacher, int rowIndex) throws BusinessException;
+
+    void editCommision(Exam examToEditCommision, Exam exam, Set<Teachers> commisionTeachers) throws BusinessException;
+
+    Exam getExamToEditCommision(Exam e);
+
+    CommisionTeachersUtils setMembersInCommision(Exam exam, Teachers loggedTeacher);
+
+    void setGrade(Exam examToSetGradeState, Exam examToEdit) throws BusinessException;
+
+    Exam getExamToSetGrade(Exam e);
     
 }

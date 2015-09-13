@@ -119,11 +119,7 @@ public class DiplomaGuideSession implements Serializable {
         diplomaGuideEndpointLocal.createThesis(t);
     }
 
-    public List<Users> getStudentList() {
-        List<Users> studentList = diplomaGuideEndpointLocal.getStudentList();
-        return studentList;
-    }
-
+    
     Teachers getTeacher() {
         return diplomaGuideEndpointLocal.getLoggedTeacher(JsfUtils.getLoggedUserLogin());
     }

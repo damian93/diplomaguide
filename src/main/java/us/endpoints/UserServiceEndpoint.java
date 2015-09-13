@@ -12,6 +12,8 @@ import exceptions.BusinessException;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 import us.managers.AdminManagerLocal;
 import us.managers.AuthenticatedUserManagerLocal;
 import us.managers.UnauthenticatedUserManagerLocal;
@@ -21,6 +23,7 @@ import us.managers.UnauthenticatedUserManagerLocal;
  * @author Damian
  */
 @Stateful
+@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 public class UserServiceEndpoint implements UserServiceEndpointLocal {
 
     private Users userState;

@@ -25,7 +25,6 @@ import javax.ejb.Local;
 @Local
 public interface DiplomaGuideEndpointLocal {
     
-    List<Users> getStudentList();
     void createThesis(Thesis t)  throws BusinessException;
     Teachers getLoggedTeacher(String login);
     Map<Teachers, Integer> getTeachersMap();
