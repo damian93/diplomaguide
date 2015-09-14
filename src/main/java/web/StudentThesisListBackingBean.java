@@ -28,7 +28,7 @@ public class StudentThesisListBackingBean {
     private List<Thesis> items;
     private DataModel<Thesis> thesisDataModel;
 
-    public studentThesisListBackingBean() {
+    public StudentThesisListBackingBean() {
     }
 
     public DataModel<Thesis> getThesisDataModel() {

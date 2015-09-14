@@ -29,7 +29,7 @@ public class EditThesisByTeacherBackingBean {
 
     private Thesis thesisToEdit;
 
-    public editThesisByTeacherBackingBean() {
+    public EditThesisByTeacherBackingBean() {
 
     }
 
