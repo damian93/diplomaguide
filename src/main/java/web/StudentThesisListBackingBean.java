@@ -20,7 +20,7 @@ import javax.inject.Inject;
  */
 @Named(value = "studentThesisListBackingBean")
 @RequestScoped
-public class StudentThesisListBackingBean {
+public class studentThesisListBackingBean {
 
     @Inject
     DiplomaGuideSession diplomaGuideSession;
@@ -28,7 +28,7 @@ public class StudentThesisListBackingBean {
     private List<Thesis> items;
     private DataModel<Thesis> thesisDataModel;
 
-    public StudentThesisListBackingBean() {
+    public studentThesisListBackingBean() {
     }
 
     public DataModel<Thesis> getThesisDataModel() {

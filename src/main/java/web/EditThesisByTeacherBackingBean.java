@@ -22,14 +22,14 @@ import utils.ResourceBundleUtils;
  */
 @Named(value = "editThesisByTeacherBackingBean")
 @RequestScoped
-public class EditThesisByTeacherBackingBean {
+public class editThesisByTeacherBackingBean {
 
     @Inject
     DiplomaGuideSession diplomaGuideSession;
 
     private Thesis thesisToEdit;
 
-    public EditThesisByTeacherBackingBean() {
+    public editThesisByTeacherBackingBean() {
 
     }
 
