@@ -20,7 +20,7 @@ import javax.inject.Inject;
  */
 @Named(value = "studentThesisListBackingBean")
 @RequestScoped
-public class studentThesisListBackingBean {
+public class StudentThesisListBackingBean {
 
     @Inject
     DiplomaGuideSession diplomaGuideSession;
