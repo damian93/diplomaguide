@@ -60,9 +60,9 @@ public class ThesisManager implements ThesisManagerLocal {
     public Map<Teachers, Integer> getTeachersMap() {
         List<Teachers> allTeachers = teachersFacadeLocal.findAll();
         Map<Teachers, Integer> mapToReturn = new HashMap<>();
-        allTeachers.stream().filter((t) -> (t.isIsActive())).forEach((t) -> {
-            mapToReturn.put(t, t.getThesisList().size());
-        });
+     //   allTeachers.stream().filter((t) -> (t.isIsActive())).forEach((t) -> {
+     //       mapToReturn.put(t, t.getThesisList().size());
+     //   });
         return mapToReturn;
 
     }
@@ -71,9 +71,9 @@ public class ThesisManager implements ThesisManagerLocal {
     public List<Teachers> getTeachers() {
         List<Teachers> findAll = teachersFacadeLocal.findAll();
         List<Teachers> listToReturn = new ArrayList();
-        findAll.stream().filter((t) -> (t.isIsActive())).forEach((t) -> {
-            listToReturn.add(t);
-        });
+  //      findAll.stream().filter((t) -> (t.isIsActive())).forEach((t) -> {
+  //          listToReturn.add(t);
+  //      });
         return listToReturn;
     }
 

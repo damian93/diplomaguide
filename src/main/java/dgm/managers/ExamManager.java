@@ -13,6 +13,7 @@ import entities.Exam;
 import entities.Students;
 import entities.Teachers;
 import exceptions.BusinessException;
+import exceptions.CantAcceptExamWithoutCommision;
 import exceptions.CantEditAcceptedExamException;
 import exceptions.CantEditExamAfterExamDate;
 import exceptions.CantRemoveMemberWhoAcceptCommision;
@@ -23,6 +24,7 @@ import exceptions.DateFromPastException;
 import exceptions.ExamHasAlreadyCommisionException;
 import exceptions.ExamStateMismatchException;
 import exceptions.NullExamStateException;
+import exceptions.SomeMemberOfCommissionDidntAcceptMembershipException;
 import exceptions.ThesisIsNotAcceptedException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -90,6 +92,14 @@ public class ExamManager implements ExamManagerLocal {
         if (!examToEditState.equals(edit)) {
             throw new ExamStateMismatchException();
         }
+        if (examToEditState.getCommissionCollection().isEmpty()) {
+            throw new CantAcceptExamWithoutCommision();
+        }
+        for(Commission c : examToEditState.getCommissionCollection()){
+            if(!c.isAccepted()){
+                throw new SomeMemberOfCommissionDidntAcceptMembershipException();
+            }
+        }
 
         examToEditState.setAccepted(edit.getAccepted());
 
@@ -107,7 +117,6 @@ public class ExamManager implements ExamManagerLocal {
         }
         if (new Date().after(examToEditState.getDate())) {
             throw new CantEditExamAfterExamDate();
-
         }
         if (examToEditState.getAccepted()) {
             throw new CantEditAcceptedExamException();
