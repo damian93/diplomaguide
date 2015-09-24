@@ -50,5 +50,7 @@ public interface ExamManagerLocal {
     void setGrade(Exam examToSetGradeState, Exam examToEdit) throws BusinessException;
 
     Exam getExamToSetGrade(Exam e);
+
+    void confirmGrade(Exam examToEditState, Exam examToEdit) throws BusinessException;
     
 }

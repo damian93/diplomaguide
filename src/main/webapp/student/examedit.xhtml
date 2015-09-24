@@ -63,10 +63,19 @@
                         <p:outputLabel value="#{examEdit.examToEdit.grade}"/>
                     </p:column>
                 </p:row>
+                <p:row>
+                    <p:column>
+                        <p:outputLabel value="#{msg.examGradeAccepted}"/>
+                    </p:column>
+                    <p:column>
+                        <p:selectBooleanCheckbox disabled="true" value="#{examEdit.examToEdit.gradeAccepted}"/>
+                    </p:column>
+                </p:row>
 
             </p:panelGrid>
             <p:commandButton value="#{msg.goBack}" ajax="false"  action="/student/myexams.xhtml?faces-redirect=true"/>
             <p:commandButton ajax="false" value="#{msg.edit}" update=":editExamByStudentForm" action="#{examEdit.editExam()}"/>
+            <p:commandButton ajax="false" value="#{msg.confirmExamGrade}" update=":editExamByStudentForm" action="#{examEdit.confirmGrade()}"/>
         </h:form>
     </ui:define>
 </ui:composition>

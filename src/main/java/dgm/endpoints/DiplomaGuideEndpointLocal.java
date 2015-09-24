@@ -293,4 +293,11 @@ public interface DiplomaGuideEndpointLocal {
      */
     Exam getExamToSetGrade(Exam e);
 
+    /**
+     *
+     * @param examToEdit
+     * @throws exceptions.BusinessException
+     */
+    void confirmGrade(Exam examToEdit) throws BusinessException;
+
 }

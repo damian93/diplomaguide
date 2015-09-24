@@ -18,11 +18,18 @@ import exceptions.CanNotEditThesisWhichHasConfirmedExam;
 import exceptions.NullThesisStateException;
 import exceptions.ThesisAlreadyAcceptedException;
 import exceptions.ThesisStateMismatchException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
@@ -58,13 +65,38 @@ public class ThesisManager implements ThesisManagerLocal {
 
     @Override
     public Map<Teachers, Integer> getTeachersMap() {
-        List<Teachers> allTeachers = teachersFacadeLocal.findAll();
-        Map<Teachers, Integer> mapToReturn = new HashMap<>();
-        allTeachers.stream().filter((t) -> (t.isIsActive())).forEach((t) -> {
-            mapToReturn.put(t, t.getThesisList().size());
-        });
-        return mapToReturn;
 
+        try {
+            List<Teachers> allTeachers = teachersFacadeLocal.findAll();
+
+            Map<Teachers, Integer> mapToReturn = new HashMap<>();
+            int size = 0;
+            int year = Calendar.getInstance().get(Calendar.YEAR);
+            DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+            Date date = df.parse("01-07-" + year);
+            if (new Date().after(date)) {
+                year = year + 1;
+                date = df.parse("01-07-" + year);
+            }
+
+            for (Teachers t : allTeachers) {
+                size = 0;
+                if (t.isIsActive()) {
+
+                    for (Thesis thesis : t.getThesisList()) {
+                        if (thesis.getDate().before(date)) {
+                            size++;
+                        }
+                    }
+                    mapToReturn.put(t, size);
+                }
+            }
+
+            return mapToReturn;
+        } catch (ParseException ex) {
+            Logger.getLogger(ThesisManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return Collections.EMPTY_MAP;
     }
 
     @Override

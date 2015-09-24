@@ -106,10 +106,10 @@ public class UserSession implements Serializable, IUserInRole {
     void getUserToEdit(Users rowData) {
         selectedUser = userServiceEndpointLocal.getUser(rowData);
     }
-    void getUserToEdit(String name) throws BusinessException  {
+
+    void getUserToEdit(String name) throws BusinessException {
         authorizedUser = userServiceEndpointLocal.getUserToEdit(name);
     }
-
 
     void editUserByAdmin(Users userToEdit, String oldPassword, String newPassword) throws BusinessException {
         userServiceEndpointLocal.editUserByAdmin(userToEdit, oldPassword, newPassword);
@@ -120,11 +120,17 @@ public class UserSession implements Serializable, IUserInRole {
     }
 
     void editUser(String userOldPassword, String userNewPassword, Users authorizedUser) throws BusinessException {
-        userServiceEndpointLocal.editUser(userOldPassword,userNewPassword,authorizedUser);
+        userServiceEndpointLocal.editUser(userOldPassword, userNewPassword, authorizedUser);
     }
 
     List<Degrees> getDegreeList() {
         return userServiceEndpointLocal.getDegreeList();
+    }
+
+    public String closeSession() {
+        JsfUtils.invalidateSession();
+        return "/index.xhtml?faces-redirect=true";
+
     }
 
 }

@@ -55,4 +55,15 @@ public class ExamEditBackingBean {
 
     }
 
+    public String confirmGrade() {
+        try {
+            dgs.confirmGrade(examToEdit);
+            JsfUtils.addSuccessMessage(ResourceBundleUtils.getResourceBundleLanguageProperty("Info"), ResourceBundleUtils.getResourceBundleLanguageProperty("confirmed"), ":msgs");
+            return "/student/myexams.xhtml?faces-redirect=true";
+        } catch (BusinessException e) {
+            JsfUtils.addErrorMessage(e, e.getMessage(), ":msgs");
+            return "";
+        }
+    }
+
 }

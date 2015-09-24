@@ -14,8 +14,12 @@ import entities.Students;
 import entities.Teachers;
 import exceptions.BusinessException;
 import exceptions.CantAcceptExamWithoutCommision;
+import exceptions.CantConfirmGradeWhenExamNotAcceptedException;
+import exceptions.CantConfirmGradeWhenGradeIsNotSet;
 import exceptions.CantEditAcceptedExamException;
 import exceptions.CantEditExamAfterExamDate;
+import exceptions.CantEditGradeWhenGradeAcceptedException;
+import exceptions.CantRemoveGradeAcceptationException;
 import exceptions.CantRemoveMemberWhoAcceptCommision;
 import exceptions.CantSetGradeBeforeExamException;
 import exceptions.CantSetGradeWhenExamNotAccepted;
@@ -65,6 +69,8 @@ public class ExamManager implements ExamManagerLocal {
         if (!exam.getThesis().getAccepted()) {
             throw new ThesisIsNotAcceptedException();
         }
+        exam.setAccepted(false);
+        exam.setGradeAccepted(false);
         examFacadeLocal.create(exam);
     }
 
@@ -95,8 +101,8 @@ public class ExamManager implements ExamManagerLocal {
         if (examToEditState.getCommissionCollection().isEmpty()) {
             throw new CantAcceptExamWithoutCommision();
         }
-        for(Commission c : examToEditState.getCommissionCollection()){
-            if(!c.isAccepted()){
+        for (Commission c : examToEditState.getCommissionCollection()) {
+            if (!c.isAccepted()) {
                 throw new SomeMemberOfCommissionDidntAcceptMembershipException();
             }
         }
@@ -221,7 +227,7 @@ public class ExamManager implements ExamManagerLocal {
         for (int i = 0; i < commissionCollection.size(); i++) {
             if (!commissionCollection.get(i).getTeacher().getAccessLevelId().
                     equals(comList.get(i).getAccessLevelId())) {
-                if(commissionCollection.get(i).isAccepted()){
+                if (commissionCollection.get(i).isAccepted()) {
                     throw new CantRemoveMemberWhoAcceptCommision();
                 }
                 commissionCollection.get(i).setAccepted(false);
@@ -285,6 +291,9 @@ public class ExamManager implements ExamManagerLocal {
             throw new CantSetGradeBeforeExamException();
 
         }
+        if(examToSetGradeState.isGradeAccepted()){
+            throw new CantEditGradeWhenGradeAcceptedException();
+        }
         examToSetGradeState.setGrade(examToEdit.getGrade());
 
         examFacadeLocal.edit(examToSetGradeState);
@@ -293,6 +302,33 @@ public class ExamManager implements ExamManagerLocal {
     @Override
     public Exam getExamToSetGrade(Exam e) {
         return examFacadeLocal.find(e.getExamId());
+    }
+
+    @Override
+    public void confirmGrade(Exam examToEditState, Exam examToEdit) throws BusinessException {
+
+        if (examToEditState == null) {
+            throw new NullExamStateException();
+        }
+
+        if (!examToEditState.equals(examToEdit)) {
+            throw new ExamStateMismatchException();
+        }
+        
+        if(!examToEditState.getAccepted()){
+            throw new CantConfirmGradeWhenExamNotAcceptedException();
+            
+        }
+        if(examToEditState.getGrade() == null){
+            throw new CantConfirmGradeWhenGradeIsNotSet();
+        }
+        
+        if(examToEditState.isGradeAccepted()){
+            throw new CantRemoveGradeAcceptationException();
+        }
+        examToEditState.setGradeAccepted(true);
+
+        examFacadeLocal.edit(examToEditState);
     }
 
 }

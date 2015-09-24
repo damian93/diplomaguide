@@ -421,4 +421,9 @@ public class DiplomaGuideEndpoint implements DiplomaGuideEndpointLocal {
         examToSetGradeState = examManagerLocal.getExamToSetGrade(e);
         return examToSetGradeState;
     }
+
+    @Override
+    public void confirmGrade(Exam examToEdit) throws BusinessException {
+        examManagerLocal.confirmGrade(examToEditState, examToEdit);
+    }
 }

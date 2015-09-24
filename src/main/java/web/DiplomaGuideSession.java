@@ -226,4 +226,8 @@ public class DiplomaGuideSession implements Serializable {
         this.examToSetGrade = diplomaGuideEndpointLocal.getExamToSetGrade(e);
     }
 
+    void confirmGrade(Exam examToEdit) throws BusinessException {
+        diplomaGuideEndpointLocal.confirmGrade(examToEdit);
+    }
+
 }

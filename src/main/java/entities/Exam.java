@@ -7,7 +7,6 @@ package entities;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
@@ -18,7 +17,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -47,6 +45,7 @@ import javax.validation.constraints.NotNull;
     @NamedQuery(name = "Exam.findByStudent", query = "SELECT e FROM Exam e WHERE e.thesis.student.accessLevelId = :s"),
     @NamedQuery(name = "Exam.findByVersion", query = "SELECT e FROM Exam e WHERE e.version = :version")})
 public class Exam implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -66,6 +65,10 @@ public class Exam implements Serializable {
     @NotNull
     @Column(name = "Accepted")
     private boolean accepted;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "GradeAccepted")
+    private boolean gradeAccepted;
     @Basic(optional = false)
     @NotNull
     @Version
@@ -171,10 +174,19 @@ public class Exam implements Serializable {
         return accepted;
     }
 
+    public boolean isGradeAccepted() {
+        return gradeAccepted;
+    }
+
+    public void setGradeAccepted(boolean gradeAccepted) {
+        this.gradeAccepted = gradeAccepted;
+    }
     
+    
+
     @Override
     public String toString() {
         return "entities.Exam[ examId=" + examId + " ]";
     }
-    
+
 }
