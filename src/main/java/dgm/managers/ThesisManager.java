@@ -95,6 +95,7 @@ public class ThesisManager implements ThesisManagerLocal {
                     mapToReturn.put(t, size);
                 }
             }
+            return mapToReturn;
         } catch (ParseException ex) {
             Logger.getLogger(ThesisManager.class.getName()).log(Level.SEVERE, null, ex);
 
