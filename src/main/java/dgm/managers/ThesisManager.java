@@ -63,26 +63,30 @@ public class ThesisManager implements ThesisManagerLocal {
 
     }
 
-    @Override
-    public Map<Teachers, Integer> getTeachersMap() {
+    private Date getProperDate() throws ParseException {
+
+        int year = Calendar.getInstance().get(Calendar.YEAR);
+        DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+        Date date = df.parse("01-07-" + year);
+        if (new Date().after(date)) {
+            year = year + 1;
+            date = df.parse("01-07-" + year);
+        }
+        return date;
+
+    }
+
+    private Map<Teachers, Integer> getThesisFromActualYear(List<Teachers> listToFilter) {
 
         try {
-            List<Teachers> allTeachers = teachersFacadeLocal.findAll();
-
             Map<Teachers, Integer> mapToReturn = new HashMap<>();
-            int size = 0;
-            int year = Calendar.getInstance().get(Calendar.YEAR);
-            DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
-            Date date = df.parse("01-07-" + year);
-            if (new Date().after(date)) {
-                year = year + 1;
-                date = df.parse("01-07-" + year);
-            }
 
-            for (Teachers t : allTeachers) {
+            int size;
+            Date date = getProperDate();
+
+            for (Teachers t : listToFilter) {
                 size = 0;
                 if (t.isIsActive()) {
-
                     for (Thesis thesis : t.getThesisList()) {
                         if (thesis.getDate().before(date)) {
                             size++;
@@ -91,22 +95,40 @@ public class ThesisManager implements ThesisManagerLocal {
                     mapToReturn.put(t, size);
                 }
             }
-
-            return mapToReturn;
         } catch (ParseException ex) {
             Logger.getLogger(ThesisManager.class.getName()).log(Level.SEVERE, null, ex);
+
         }
         return Collections.EMPTY_MAP;
+
+    }
+
+    @Override
+    public Map<Teachers, Integer> getTeachersMap() {
+
+        List<Teachers> allTeachers = teachersFacadeLocal.findAll();
+
+        return getThesisFromActualYear(allTeachers);
+
+    }
+
+    private List<Teachers> getActiveTeachers(List<Teachers> allTeachers) {
+        List<Teachers> listToReturn = new ArrayList();
+
+        for (Teachers t : allTeachers) {
+            if (t.isIsActive()) {
+                listToReturn.add(t);
+            }
+
+        }
+        return listToReturn;
     }
 
     @Override
     public List<Teachers> getTeachers() {
         List<Teachers> findAll = teachersFacadeLocal.findAll();
-        List<Teachers> listToReturn = new ArrayList();
-        findAll.stream().filter((t) -> (t.isIsActive())).forEach((t) -> {
-            listToReturn.add(t);
-        });
-        return listToReturn;
+
+        return getActiveTeachers(findAll);
     }
 
     @Override
