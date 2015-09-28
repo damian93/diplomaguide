@@ -8,7 +8,6 @@ package web;
 import entities.Teachers;
 import java.io.Serializable;
 import java.util.List;
-import javax.enterprise.context.RequestScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;

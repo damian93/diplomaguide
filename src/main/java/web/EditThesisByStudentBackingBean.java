@@ -9,8 +9,6 @@ import entities.Teachers;
 import entities.Thesis;
 import exceptions.BusinessException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;

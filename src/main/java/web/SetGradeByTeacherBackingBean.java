@@ -7,7 +7,6 @@ package web;
 
 import entities.Exam;
 import exceptions.BusinessException;
-import java.util.Date;
 import javax.annotation.PostConstruct;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;

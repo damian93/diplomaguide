@@ -9,7 +9,6 @@ import entities.Thesis;
 import java.io.Serializable;
 import java.util.List;
 import javax.inject.Named;
-import javax.enterprise.context.RequestScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;

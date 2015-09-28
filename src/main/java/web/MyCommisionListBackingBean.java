@@ -8,8 +8,6 @@ package web;
 import entities.Commission;
 import entities.Teachers;
 import exceptions.BusinessException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;

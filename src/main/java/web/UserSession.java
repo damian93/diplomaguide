@@ -99,31 +99,31 @@ public class UserSession implements Serializable, IUserInRole {
         return false;
     }
 
-    List<Users> prepareUsersList() {
+    public List<Users> prepareUsersList() {
         return userServiceEndpointLocal.getUsersList();
     }
 
-    void getUserToEdit(Users rowData) {
+    public void getUserToEdit(Users rowData) {
         selectedUser = userServiceEndpointLocal.getUser(rowData);
     }
 
-    void getUserToEdit(String name) throws BusinessException {
+    public void getUserToEdit(String name) throws BusinessException {
         authorizedUser = userServiceEndpointLocal.getUserToEdit(name);
     }
 
-    void editUserByAdmin(Users userToEdit, String oldPassword) throws BusinessException {
+    public void editUserByAdmin(Users userToEdit, String oldPassword) throws BusinessException {
         userServiceEndpointLocal.editUserByAdmin(userToEdit, oldPassword);
     }
 
-    List<Users> filter(String matchLogin) {
+    public List<Users> filter(String matchLogin) {
         return userServiceEndpointLocal.filter(matchLogin);
     }
 
-    void editUser(String userOldPassword, String userNewPassword, Users authorizedUser) throws BusinessException {
+    public void editUser(String userOldPassword, String userNewPassword, Users authorizedUser) throws BusinessException {
         userServiceEndpointLocal.editUser(userOldPassword, userNewPassword, authorizedUser);
     }
 
-    List<Degrees> getDegreeList() {
+    public List<Degrees> getDegreeList() {
         return userServiceEndpointLocal.getDegreeList();
     }
 

@@ -29,7 +29,6 @@ public class ThesisTypeConverter implements Converter, Serializable{
 
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
-//        System.out.println("Wywołanie konwerteraO");
         Long tId = Long.valueOf(value);
         List<Thesistype> thesisTypeList = createThesisBackingBean.getThesisType();
         for (Thesistype t : thesisTypeList) {
@@ -42,7 +41,6 @@ public class ThesisTypeConverter implements Converter, Serializable{
 
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {
- //       System.out.println("Wywołanie konwerteraS");
         Thesistype t = (Thesistype) value;
         return String.valueOf(t.getThesisTypeId());
 

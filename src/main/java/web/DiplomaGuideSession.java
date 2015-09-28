@@ -119,43 +119,43 @@ public class DiplomaGuideSession implements Serializable {
     }
 
     
-    Teachers getTeacher() {
+    public Teachers getTeacher() {
         return diplomaGuideEndpointLocal.getLoggedTeacher(JsfUtils.getLoggedUserLogin());
     }
 
-    Map<Teachers, Integer> getTeachersMap() {
+    public Map<Teachers, Integer> getTeachersMap() {
         return diplomaGuideEndpointLocal.getTeachersMap();
     }
 
-    List<Teachers> getTeachers() {
+    public List<Teachers> getTeachers() {
         return diplomaGuideEndpointLocal.getTeachers();
     }
 
-    Students getStudent() {
+    public Students getStudent() {
         return diplomaGuideEndpointLocal.getLoggedStudent(JsfUtils.getLoggedUserLogin());
     }
 
-    List<Thesistype> getThesisTypeList() {
+    public List<Thesistype> getThesisTypeList() {
         return diplomaGuideEndpointLocal.getThesisTypeList();
     }
 
-    List<Thesis> getAllThesisList() {
+    public List<Thesis> getAllThesisList() {
         return diplomaGuideEndpointLocal.getAllThesisList();
     }
 
-    List<Thesis> getThesisWithPhrase(String phrase) {
+    public List<Thesis> getThesisWithPhrase(String phrase) {
         return diplomaGuideEndpointLocal.getThesisWithPhrase(phrase);
     }
 
-    void acceptation(Thesis thesisToEdit) throws BusinessException {
+    public void acceptation(Thesis thesisToEdit) throws BusinessException {
         diplomaGuideEndpointLocal.acceptation(thesisToEdit);
     }
 
-    List<Thesis> getMyThesis() {
+    public List<Thesis> getMyThesis() {
         return diplomaGuideEndpointLocal.getMyThesis(getLoggedStudent());
     }
 
-    List<Thesis> getMyThesisByTeacher() {
+    public List<Thesis> getMyThesisByTeacher() {
         return diplomaGuideEndpointLocal.getMyThesisByTeacher(getLoggedTeacher());
     }
 
@@ -167,65 +167,65 @@ public class DiplomaGuideSession implements Serializable {
         diplomaGuideEndpointLocal.createExam(exam);
     }
 
-    List<Exam> getMyExamsByTeacher() {
+    public List<Exam> getMyExamsByTeacher() {
         return diplomaGuideEndpointLocal.getExamsByTeacher(getLoggedTeacher());
     }
 
-    List<Exam> getMyExamsByStudent() {
+    public List<Exam> getMyExamsByStudent() {
         return diplomaGuideEndpointLocal.getMyExamsByStudent(getLoggedStudent());
     }
 
-    void getExamToEdit(Exam e) {
+    public void getExamToEdit(Exam e) {
         this.examToEdit = diplomaGuideEndpointLocal.getExamToEdit(e);
     }
 
-    void editExamByStudent(Exam examToEdit) throws BusinessException {
+    public void editExamByStudent(Exam examToEdit) throws BusinessException {
         diplomaGuideEndpointLocal.editExamByStudent(examToEdit);
 
     }
 
-    void editExamByTeacher(Exam examToEdit) throws BusinessException {
+    public void editExamByTeacher(Exam examToEdit) throws BusinessException {
         diplomaGuideEndpointLocal.editExamByTeacher(examToEdit);
     }
 
-    void getExamToAddCommision(Exam e) {
+    public void getExamToAddCommision(Exam e) {
         this.examToAddCommision = diplomaGuideEndpointLocal.getExamToAddCommision(e);
     }
 
-    void addCommision(Exam exam, Set<Teachers> commisionTeachers) throws BusinessException {
+    public void addCommision(Exam exam, Set<Teachers> commisionTeachers) throws BusinessException {
         diplomaGuideEndpointLocal.addCommission(exam, commisionTeachers);
     }
 
-    void acceptCommision(Teachers teacher, int rowIndex) throws BusinessException {
+    public void acceptCommision(Teachers teacher, int rowIndex) throws BusinessException {
         diplomaGuideEndpointLocal.acceptCommision(teacher, rowIndex);
     }
 
-    void rejectCommision(Teachers teacher, int rowIndex) throws BusinessException {
+    public void rejectCommision(Teachers teacher, int rowIndex) throws BusinessException {
         diplomaGuideEndpointLocal.rejectCommision(teacher, rowIndex);
     }
 
-    void editCommision(Exam exam, Set<Teachers> commisionTeachers) throws BusinessException {
+    public void editCommision(Exam exam, Set<Teachers> commisionTeachers) throws BusinessException {
         diplomaGuideEndpointLocal.editCommission(exam, commisionTeachers);
     }
 
-    void getExamToEditCommision(Exam e) {
+    public void getExamToEditCommision(Exam e) {
         this.examToEditCommision = diplomaGuideEndpointLocal.getExamToEditCommision(e);
 
     }
 
-    CommisionTeachersUtils setMembersInCommision(Exam exam, Teachers lt) {
+    public CommisionTeachersUtils setMembersInCommision(Exam exam, Teachers lt) {
         return diplomaGuideEndpointLocal.setMembersInCommision(exam, lt);
     }
 
-    void setGrade(Exam examToEdit) throws BusinessException {
+    public void setGrade(Exam examToEdit) throws BusinessException {
         diplomaGuideEndpointLocal.setGrade(examToEdit);
     }
 
-    void getExamToSetGrade(Exam e) {
+    public void getExamToSetGrade(Exam e) {
         this.examToSetGrade = diplomaGuideEndpointLocal.getExamToSetGrade(e);
     }
 
-    void confirmGrade(Exam examToEdit) throws BusinessException {
+    public void confirmGrade(Exam examToEdit) throws BusinessException {
         diplomaGuideEndpointLocal.confirmGrade(examToEdit);
     }
 
