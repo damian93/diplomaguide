@@ -137,6 +137,23 @@ public class ExamManager implements ExamManagerLocal {
         return examFacadeLocal.find(e.getExamId());
     }
 
+    private List<Commission> addMembersToCommision(Exam examToAddCommision, Set<Teachers> commisionTeachers) {
+
+        List<Commission> commissionCollection = new ArrayList<>();
+
+        for (Teachers t : commisionTeachers) {
+            Commission commission = new Commission();
+            commission.setExam(examToAddCommision);
+            commission.setAccepted(false);
+            commission.setChairman(false);
+            commission.setTeacher(t);
+            commissionCollection.add(commission);
+        }
+
+        commissionCollection.get(0).setChairman(true);
+        return commissionCollection;
+    }
+
     @Override
     public void addCommision(Exam examToAddCommision, Exam exam, Set<Teachers> commisionTeachers) throws BusinessException {
         if (examToAddCommision == null) {
@@ -160,22 +177,8 @@ public class ExamManager implements ExamManagerLocal {
             throw new CommissionMembersHasToBeUniqueException();
         }
 
-        List<Commission> commissionCollection = examToAddCommision.getCommissionCollection();
-        if (commissionCollection.isEmpty()) {
-            commissionCollection = new ArrayList<>();
+        examToAddCommision.setCommissionCollection(addMembersToCommision(examToAddCommision, commisionTeachers));
 
-            for (Teachers t : commisionTeachers) {
-                Commission commission = new Commission();
-                commission.setExam(examToAddCommision);
-                commission.setAccepted(false);
-                commission.setChairman(false);
-                commission.setTeacher(t);
-                commissionCollection.add(commission);
-            }
-        }
-
-        commissionCollection.get(0).setChairman(true);
-        examToAddCommision.setCommissionCollection(commissionCollection);
         examFacadeLocal.edit(examToAddCommision);
     }
 
@@ -201,6 +204,26 @@ public class ExamManager implements ExamManagerLocal {
         c.setAccepted(false);
     }
 
+    private List<Commission> editCommisionMembers(List<Commission> commissionCollection, Set<Teachers> commisionTeachers)
+            throws CantRemoveMemberWhoAcceptCommision {
+        List<Teachers> comList = new ArrayList<>(commisionTeachers);
+
+        for (int i = 0; i < commissionCollection.size(); i++) {
+            if (!commissionCollection.get(i).getTeacher().getAccessLevelId().
+                    equals(comList.get(i).getAccessLevelId())) {
+                if (commissionCollection.get(i).isAccepted()) {
+                    throw new CantRemoveMemberWhoAcceptCommision();
+                }
+                commissionCollection.get(i).setAccepted(false);
+                commissionCollection.get(i).setTeacher(comList.get(i));
+            }
+
+        }
+        commissionCollection.get(0).setChairman(true);
+
+        return commissionCollection;
+    }
+
     @Override
     public void editCommision(Exam examToEditCommision, Exam exam, Set<Teachers> commisionTeachers) throws BusinessException {
         if (examToEditCommision == null) {
@@ -222,21 +245,8 @@ public class ExamManager implements ExamManagerLocal {
 
         List<Commission> commissionCollection = examToEditCommision.getCommissionCollection();
 
-        List<Teachers> comList = new ArrayList<>(commisionTeachers);
+        examToEditCommision.setCommissionCollection(editCommisionMembers(commissionCollection, commisionTeachers));
 
-        for (int i = 0; i < commissionCollection.size(); i++) {
-            if (!commissionCollection.get(i).getTeacher().getAccessLevelId().
-                    equals(comList.get(i).getAccessLevelId())) {
-                if (commissionCollection.get(i).isAccepted()) {
-                    throw new CantRemoveMemberWhoAcceptCommision();
-                }
-                commissionCollection.get(i).setAccepted(false);
-                commissionCollection.get(i).setTeacher(comList.get(i));
-            }
-
-        }
-        commissionCollection.get(0).setChairman(true);
-        examToEditCommision.setCommissionCollection(commissionCollection);
         examFacadeLocal.edit(examToEditCommision);
     }
 
@@ -291,7 +301,7 @@ public class ExamManager implements ExamManagerLocal {
             throw new CantSetGradeBeforeExamException();
 
         }
-        if(examToSetGradeState.isGradeAccepted()){
+        if (examToSetGradeState.isGradeAccepted()) {
             throw new CantEditGradeWhenGradeAcceptedException();
         }
         examToSetGradeState.setGrade(examToEdit.getGrade());
@@ -314,16 +324,16 @@ public class ExamManager implements ExamManagerLocal {
         if (!examToEditState.equals(examToEdit)) {
             throw new ExamStateMismatchException();
         }
-        
-        if(!examToEditState.getAccepted()){
+
+        if (!examToEditState.getAccepted()) {
             throw new CantConfirmGradeWhenExamNotAcceptedException();
-            
+
         }
-        if(examToEditState.getGrade() == null){
+        if (examToEditState.getGrade() == null) {
             throw new CantConfirmGradeWhenGradeIsNotSet();
         }
-        
-        if(examToEditState.isGradeAccepted()){
+
+        if (examToEditState.isGradeAccepted()) {
             throw new CantRemoveGradeAcceptationException();
         }
         examToEditState.setGradeAccepted(true);

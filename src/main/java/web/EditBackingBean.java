@@ -5,7 +5,6 @@
  */
 package web;
 
-import common.CustomUser;
 import entities.Degrees;
 import entities.Users;
 import exceptions.BusinessException;
@@ -30,7 +29,6 @@ public class EditBackingBean {
 
     private Users userToEdit;
     private Users authorizedUser;
-    private CustomUser customUser;
     private String oldPassword = "";
     private String newPassword = "";
     private String userOldPassword = "";
@@ -54,10 +52,6 @@ public class EditBackingBean {
     public void setDegreeList(List<Degrees> degreeList) {
         this.degreeList = degreeList;
     }
-    
-    
-
-    private CustomUser authorizedCustomUser;
 
     public EditBackingBean() {
 
@@ -87,14 +81,6 @@ public class EditBackingBean {
         this.userNewConfirmedPassword = userNewConfirmedPassword;
     }
 
-    public CustomUser getAuthorizedCustomUser() {
-        return authorizedCustomUser;
-    }
-
-    public void setAuthorizedCustomUser(CustomUser authorizedCustomUser) {
-        this.authorizedCustomUser = authorizedCustomUser;
-    }
-
     public String getNewPassword() {
         return newPassword;
     }
@@ -119,10 +105,6 @@ public class EditBackingBean {
         this.oldPassword = oldPassword;
     }
 
-    public CustomUser getCustomUser() {
-        return customUser;
-    }
-
     public Users getUserToEdit() {
         return userToEdit;
     }
@@ -136,22 +118,12 @@ public class EditBackingBean {
 
         userToEdit = userSession.getSelectedUser();
         authorizedUser = userSession.getAuthorizedUser();
-//        if (userSession.isTeacher()) {
-//            degreeList=userSession.getDegreeList();
-//            for (Accesslevel a : authorizedUser.getAccesslevelCollection()) {
-//                if (a instanceof Teachers && a.isIsActive()) {
-//                    Teachers t = (Teachers) a;
-//                    if (t.getDegree() != null) {
-//                        degree = t.getDegree().getName();
-//                    }
-//                }
-//            }
-//        }
+
     }
 
     public String edit() {
         try {
-            userSession.editUserByAdmin(userToEdit, oldPassword, newPassword);
+            userSession.editUserByAdmin(userToEdit, oldPassword);
             JsfUtils.addSuccessMessage(ResourceBundleUtils.getResourceBundleLanguageProperty("Info"), ResourceBundleUtils.getResourceBundleLanguageProperty("editSucceed"), ":msgs");
             return "list.xhtml?faces-redirect=true";
         } catch (BusinessException ex) {

@@ -56,19 +56,10 @@ public class AdminManager implements AdminManagerLocal {
 
     }
 
-    @Override
-    public void editUserByAdmin(Users userState, Users userToEdit, String oldPassword, String newPassword) throws BusinessException {
-        int minPassLength = Integer.parseInt(ResourceBundleUtils.getResourceBundleBusinessProperty("minPassLength"));
-
-        if (userState == null) {
-            throw new UsersNullStateException();
-        }
-
-        if (!userState.equals(userToEdit)) {
-            throw new UserStateMismatchException();
-        }
+    private Users checkAndEditPasswordThenReturnUser(Users userState, String oldPassword) throws BusinessException {
 
         if (!oldPassword.isEmpty()) {
+            int minPassLength = Integer.parseInt(ResourceBundleUtils.getResourceBundleBusinessProperty("minPassLength"));
 
             if (oldPassword.length() >= minPassLength) {
                 String calculateSha512Hash = ConvertUtils.calculateSha512Hash(oldPassword);
@@ -80,6 +71,20 @@ public class AdminManager implements AdminManagerLocal {
                 throw new PasswordTooShortException();
             }
         }
+        return userState;
+    }
+
+    @Override
+    public void editUserByAdmin(Users userState, Users userToEdit, String oldPassword) throws BusinessException {
+
+        if (userState == null) {
+            throw new UsersNullStateException();
+        }
+
+        if (!userState.equals(userToEdit)) {
+            throw new UserStateMismatchException();
+        }
+        userState = checkAndEditPasswordThenReturnUser(userState, oldPassword);
 
         List<Accesslevel> accesslevelCollection = userToEdit.getAccesslevelCollection();
         boolean adminExists = false;

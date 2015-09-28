@@ -111,8 +111,8 @@ public class UserSession implements Serializable, IUserInRole {
         authorizedUser = userServiceEndpointLocal.getUserToEdit(name);
     }
 
-    void editUserByAdmin(Users userToEdit, String oldPassword, String newPassword) throws BusinessException {
-        userServiceEndpointLocal.editUserByAdmin(userToEdit, oldPassword, newPassword);
+    void editUserByAdmin(Users userToEdit, String oldPassword) throws BusinessException {
+        userServiceEndpointLocal.editUserByAdmin(userToEdit, oldPassword);
     }
 
     List<Users> filter(String matchLogin) {

@@ -48,18 +48,7 @@ public class AuthenticatedUserManager implements AuthenticatedUserManagerLocal {
         return usersFacadeLocal.findByLogin(name);
     }
 
-    @Override
-    public void editUser(String userOldPassword, String userNewPassword, Users authorizedUser, Users userState) throws BusinessException {
-        int minPassLength = Integer.parseInt(ResourceBundleUtils.getResourceBundleBusinessProperty("minPassLength"));
-
-        if (userState == null) {
-            throw new UsersNullStateException();
-        }
-
-        if (!userState.equals(authorizedUser)) {
-            throw new UserStateMismatchException();
-        }
-
+    private Users checkAndEditPasswordsThenReturnUser(String userOldPassword, String userNewPassword, Users userState) throws BusinessException {
         if (!userNewPassword.isEmpty()) {
 
             String tmpPassHash = ConvertUtils.calculateSha512Hash(userOldPassword);
@@ -67,6 +56,7 @@ public class AuthenticatedUserManager implements AuthenticatedUserManagerLocal {
             if (!tmpPassHash.equals(userState.getPassword())) {
                 throw new OldPasswordMismatchException();
             }
+            int minPassLength = Integer.parseInt(ResourceBundleUtils.getResourceBundleBusinessProperty("minPassLength"));
 
             if (userNewPassword.length() >= minPassLength) {
                 String calculateSha512Hash = ConvertUtils.calculateSha512Hash(userNewPassword);
@@ -78,6 +68,20 @@ public class AuthenticatedUserManager implements AuthenticatedUserManagerLocal {
                 throw new PasswordTooShortException();
             }
         }
+        return userState;
+    }
+
+    @Override
+    public void editUser(String userOldPassword, String userNewPassword, Users authorizedUser, Users userState) throws BusinessException {
+
+        if (userState == null) {
+            throw new UsersNullStateException();
+        }
+
+        if (!userState.equals(authorizedUser)) {
+            throw new UserStateMismatchException();
+        }
+        userState = checkAndEditPasswordsThenReturnUser(userOldPassword, userNewPassword, userState);
 
         userState.setName(authorizedUser.getName());
         userState.setSurname(authorizedUser.getSurname());

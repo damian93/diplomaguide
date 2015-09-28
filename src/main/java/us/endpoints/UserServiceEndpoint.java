@@ -126,8 +126,8 @@ public class UserServiceEndpoint implements UserServiceEndpointLocal {
      * @throws BusinessException wyjątek aplikacyjny
      */
     @Override
-    public void editUserByAdmin(Users userToEdit, String oldPassword, String newPassword) throws BusinessException {
-        adminManagerLocal.editUserByAdmin(userState, userToEdit, oldPassword, newPassword);
+    public void editUserByAdmin(Users userToEdit, String oldPassword) throws BusinessException {
+        adminManagerLocal.editUserByAdmin(userState, userToEdit, oldPassword);
         userState = null;
     }
 

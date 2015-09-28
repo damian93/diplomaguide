@@ -7,7 +7,6 @@ package web;
 
 import common.CommisionTeachersUtils;
 import entities.Thesis;
-import entities.Users;
 import exceptions.BusinessException;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;

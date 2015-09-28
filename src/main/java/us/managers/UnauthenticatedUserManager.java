@@ -14,6 +14,7 @@ import entities.Teachers;
 import entities.Users;
 import exceptions.BusinessException;
 import exceptions.WrongDateException;
+import exceptions.WrongUserTypeException;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
@@ -46,6 +47,16 @@ public class UnauthenticatedUserManager implements UnauthenticatedUserManagerLoc
                 throw new WrongDateException();
             }
         }
+        user = setProperAccessLevelAndReturnUser(user, type);
+
+        user.setPassword(ConvertUtils.calculateSha512Hash(user.getPassword()));
+
+        usersFacadeLocal.create(user);
+
+    }
+
+    private Users setProperAccessLevelAndReturnUser(Users user, String type) throws WrongUserTypeException {
+
         Accesslevel accesslevel = AccessLevelsFactory.getProperAccessLevel(type);
 
         if (accesslevel instanceof Students) {
@@ -103,10 +114,7 @@ public class UnauthenticatedUserManager implements UnauthenticatedUserManagerLoc
             user.getAccesslevelCollection().add(a);
 
         }
-
-        user.setPassword(ConvertUtils.calculateSha512Hash(user.getPassword()));
-
-        usersFacadeLocal.create(user);
+        return user;
 
     }
 
