@@ -15,7 +15,7 @@
         <role-name>STUDENT</role-name>
         <group-name>S</group-name>
     </security-role-mapping>
-  
+    
     <!-- ROLE APLIKACJI EJB -->
   
     <!-- MOK -->

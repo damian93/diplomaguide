@@ -18,6 +18,7 @@ import exceptions.UserStateMismatchException;
 import exceptions.UsersNullStateException;
 import java.util.Collections;
 import java.util.List;
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
@@ -38,6 +39,7 @@ public class AdminManager implements AdminManagerLocal {
     UsersFacadeLocal usersFacadeLocal;
 
     @Override
+    @RolesAllowed("getUsersList")
     public List<Users> getUsersList() {
 
         List<Users> listToReturn = usersFacadeLocal.findAll();
@@ -51,6 +53,7 @@ public class AdminManager implements AdminManagerLocal {
     }
 
     @Override
+    @RolesAllowed("getUser1")
     public Users getUser(Users rowData) {
         return usersFacadeLocal.find(rowData.getId());
 
@@ -75,6 +78,7 @@ public class AdminManager implements AdminManagerLocal {
     }
 
     @Override
+    @RolesAllowed("editUserByAdmin")
     public void editUserByAdmin(Users userState, Users userToEdit, String oldPassword) throws BusinessException {
 
         if (userState == null) {
@@ -117,6 +121,7 @@ public class AdminManager implements AdminManagerLocal {
     }
 
     @Override
+    @RolesAllowed("filter")
     public List<Users> filter(String matchLogin) {
         return usersFacadeLocal.filter(matchLogin);
     }

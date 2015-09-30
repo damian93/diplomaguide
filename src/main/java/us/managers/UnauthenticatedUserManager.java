@@ -17,6 +17,7 @@ import exceptions.WrongDateException;
 import exceptions.WrongUserTypeException;
 import java.util.Date;
 import java.util.List;
+import javax.annotation.security.PermitAll;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
@@ -40,6 +41,7 @@ public class UnauthenticatedUserManager implements UnauthenticatedUserManagerLoc
     AccesslevelsdictionaryFacadeLocal accesslevelsdictionaryFacadeLocal;
 
     @Override
+    @PermitAll
     public void createUser(Users user, String type) throws BusinessException {
 
         if (user.getDateoOfBirth() != null) {
@@ -119,6 +121,7 @@ public class UnauthenticatedUserManager implements UnauthenticatedUserManagerLoc
     }
 
     @Override
+    @PermitAll
     public List<Accesslevelsdictionary> getAllAccessLevels() {
         return accesslevelsdictionaryFacadeLocal.findAll();
     }

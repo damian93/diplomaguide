@@ -425,5 +425,6 @@ public class DiplomaGuideEndpoint implements DiplomaGuideEndpointLocal {
     @Override
     public void confirmGrade(Exam examToEdit) throws BusinessException {
         examManagerLocal.confirmGrade(examToEditState, examToEdit);
+        examToEditState = null;
     }
 }

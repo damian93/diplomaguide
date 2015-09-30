@@ -10,6 +10,8 @@ import entities.Degrees;
 import entities.Users;
 import exceptions.BusinessException;
 import java.util.List;
+import javax.annotation.security.PermitAll;
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.ejb.TransactionAttribute;
@@ -46,6 +48,7 @@ public class UserServiceEndpoint implements UserServiceEndpointLocal {
      * @throws BusinessException wyjątek aplikacyjny
      */
     @Override
+    @PermitAll
     public void createUser(Users user, String type) throws BusinessException {
         unauthenticatedUserManagerLocal.createUser(user, type);
 
@@ -58,6 +61,7 @@ public class UserServiceEndpoint implements UserServiceEndpointLocal {
      * @return lista poziomów dostępów(ról)
      */
     @Override
+    @PermitAll
     public List<Accesslevelsdictionary> getAllAccessLevels() {
         return unauthenticatedUserManagerLocal.getAllAccessLevels();
 
@@ -72,6 +76,7 @@ public class UserServiceEndpoint implements UserServiceEndpointLocal {
      * @throws BusinessException wyjątek aplikacyjny
      */
     @Override
+    @RolesAllowed("getUserToEdit")
     public Users getUserToEdit(String name) throws BusinessException {
         userState = authenticatedUserManagerLocal.getUserToEdit(name);
         return userState;
@@ -86,6 +91,7 @@ public class UserServiceEndpoint implements UserServiceEndpointLocal {
      * @throws BusinessException wyjątek aplikacyjny
      */
     @Override
+    @RolesAllowed("getUser")
     public Users getUser(String name) throws BusinessException {
         return authenticatedUserManagerLocal.getUser(name);
 
@@ -98,6 +104,7 @@ public class UserServiceEndpoint implements UserServiceEndpointLocal {
      * @return lista wszystkim użytkowników systemu
      */
     @Override
+    @RolesAllowed("getUsersList")
     public List<Users> getUsersList() {
         return adminManagerLocal.getUsersList();
 
@@ -112,6 +119,7 @@ public class UserServiceEndpoint implements UserServiceEndpointLocal {
      * @return obiekt użytkownika do edycji
      */
     @Override
+    @RolesAllowed("getUser1")
     public Users getUser(Users rowData) {
         userState = adminManagerLocal.getUser(rowData);
         return userState;
@@ -126,6 +134,7 @@ public class UserServiceEndpoint implements UserServiceEndpointLocal {
      * @throws BusinessException wyjątek aplikacyjny
      */
     @Override
+    @RolesAllowed("editUserByAdmin")
     public void editUserByAdmin(Users userToEdit, String oldPassword) throws BusinessException {
         adminManagerLocal.editUserByAdmin(userState, userToEdit, oldPassword);
         userState = null;
@@ -139,6 +148,7 @@ public class UserServiceEndpoint implements UserServiceEndpointLocal {
      * @return lista użytkowników zawierąca w loginie szukaną frazę
      */
     @Override
+    @RolesAllowed("filter")
     public List<Users> filter(String matchLogin) {
         return adminManagerLocal.filter(matchLogin);
 
@@ -154,6 +164,7 @@ public class UserServiceEndpoint implements UserServiceEndpointLocal {
      * @throws BusinessException wyjątek aplikacyjny
      */
     @Override
+    @RolesAllowed("editUser")
     public void editUser(String userOldPassword, String userNewPassword, Users authorizedUser) throws BusinessException {
         authenticatedUserManagerLocal.editUser(userOldPassword, userNewPassword, authorizedUser, userState);
         userState = null;
@@ -167,6 +178,7 @@ public class UserServiceEndpoint implements UserServiceEndpointLocal {
      * @return lista wszystkich dostępnych tytułów(stopni naukowych)
      */
     @Override
+    @RolesAllowed("getDegreeList")
     public List<Degrees> getDegreeList() {
         return authenticatedUserManagerLocal.getDegreesList();
     }

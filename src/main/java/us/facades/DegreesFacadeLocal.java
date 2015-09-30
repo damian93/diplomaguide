@@ -6,7 +6,6 @@
 package us.facades;
 
 import entities.Degrees;
-import exceptions.BusinessException;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -17,18 +16,5 @@ import javax.ejb.Local;
 @Local
 public interface DegreesFacadeLocal {
 
-    void create(Degrees degrees) throws BusinessException;
-
-    void edit(Degrees degrees) throws BusinessException;
-
-    void remove(Degrees degrees);
-
-    Degrees find(Object id);
-
     List<Degrees> findAll();
-
-    List<Degrees> findRange(int[] range);
-
-    int count();
-    
 }

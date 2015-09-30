@@ -6,6 +6,8 @@
 package us.facades;
 
 import entities.Degrees;
+import java.util.List;
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -16,6 +18,7 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 public class DegreesFacade extends AbstractFacade<Degrees> implements DegreesFacadeLocal {
+
     @PersistenceContext(unitName = "usPU")
     private EntityManager em;
 
@@ -27,5 +30,11 @@ public class DegreesFacade extends AbstractFacade<Degrees> implements DegreesFac
     public DegreesFacade() {
         super(Degrees.class);
     }
-    
+
+    @Override
+    @RolesAllowed("getDegreeList")
+    public List<Degrees> findAll() {
+        return super.findAll();
+    }
+
 }

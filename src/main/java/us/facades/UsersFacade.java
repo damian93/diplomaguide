@@ -12,6 +12,8 @@ import exceptions.LoginAlreadyExistsException;
 import exceptions.UserEditWithOptimistichLockException;
 import exceptions.UserNotExistsException;
 import java.util.List;
+import javax.annotation.security.PermitAll;
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -40,6 +42,7 @@ public class UsersFacade extends AbstractFacade<Users> implements UsersFacadeLoc
     }
 
     @Override
+    @PermitAll
     public void create(Users entity) throws BusinessException {
         try {
             super.create(entity);
@@ -63,6 +66,7 @@ public class UsersFacade extends AbstractFacade<Users> implements UsersFacadeLoc
      * @throws BusinessException
      */
     @Override
+    @RolesAllowed({"getUserToEdit", "getUser"})
     public Users findByLogin(String name) throws BusinessException {
         Users user = null;
         try {
@@ -76,6 +80,7 @@ public class UsersFacade extends AbstractFacade<Users> implements UsersFacadeLoc
     }
 
     @Override
+    @RolesAllowed({"editUserByAdmin", "editUser"})
     public void edit(Users entity) throws BusinessException {
         try {
             super.edit(entity);
@@ -92,11 +97,24 @@ public class UsersFacade extends AbstractFacade<Users> implements UsersFacadeLoc
     }
 
     @Override
+    @RolesAllowed("filter")
     public List<Users> filter(String matcher) {
         Query q = em.createNamedQuery("Users.findByFewLetters");
-        q.setParameter("par", '%'+matcher +'%');
+        q.setParameter("par", '%' + matcher + '%');
         List<Users> resultList = q.getResultList();
         return resultList;
+    }
+
+    @Override
+    @RolesAllowed({"getUsersList"})
+    public List<Users> findAll() {
+        return super.findAll();
+    }
+
+    @Override
+    @RolesAllowed("getUser1")
+    public Users find(Object id) {
+        return super.find(id);
     }
 
 }

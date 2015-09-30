@@ -16,13 +16,5 @@ import javax.ejb.Local;
 @Local
 public interface AccesslevelsdictionaryFacadeLocal {
 
-
-    Accesslevelsdictionary find(Object id);
-
     List<Accesslevelsdictionary> findAll();
-
-    List<Accesslevelsdictionary> findRange(int[] range);
-
-    int count();
-    
 }

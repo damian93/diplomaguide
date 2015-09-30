@@ -6,6 +6,8 @@
 package us.facades;
 
 import entities.Accesslevelsdictionary;
+import java.util.List;
+import javax.annotation.security.PermitAll;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -16,6 +18,7 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 public class AccesslevelsdictionaryFacade extends AbstractFacade<Accesslevelsdictionary> implements AccesslevelsdictionaryFacadeLocal {
+
     @PersistenceContext(unitName = "usPU")
     private EntityManager em;
 
@@ -27,5 +30,11 @@ public class AccesslevelsdictionaryFacade extends AbstractFacade<Accesslevelsdic
     public AccesslevelsdictionaryFacade() {
         super(Accesslevelsdictionary.class);
     }
-    
+
+    @Override
+    @PermitAll
+    public List<Accesslevelsdictionary> findAll() {
+        return super.findAll();
+    }
+
 }

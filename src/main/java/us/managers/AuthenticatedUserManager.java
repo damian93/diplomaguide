@@ -14,6 +14,7 @@ import exceptions.PasswordUsedInThePastException;
 import exceptions.UserStateMismatchException;
 import exceptions.UsersNullStateException;
 import java.util.List;
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
@@ -38,12 +39,14 @@ public class AuthenticatedUserManager implements AuthenticatedUserManagerLocal {
     DegreesFacadeLocal degreesFacadeLocal;
 
     @Override
+    @RolesAllowed("getUserToEdit")
     public Users getUserToEdit(String name) throws BusinessException {
         return usersFacadeLocal.findByLogin(name);
 
     }
 
     @Override
+    @RolesAllowed("getUser")
     public Users getUser(String name) throws BusinessException {
         return usersFacadeLocal.findByLogin(name);
     }
@@ -72,6 +75,7 @@ public class AuthenticatedUserManager implements AuthenticatedUserManagerLocal {
     }
 
     @Override
+    @RolesAllowed("editUser")
     public void editUser(String userOldPassword, String userNewPassword, Users authorizedUser, Users userState) throws BusinessException {
 
         if (userState == null) {
@@ -92,6 +96,7 @@ public class AuthenticatedUserManager implements AuthenticatedUserManagerLocal {
     }
 
     @Override
+    @RolesAllowed("getDegreeList")
     public List<Degrees> getDegreesList() {
         return degreesFacadeLocal.findAll();
     }

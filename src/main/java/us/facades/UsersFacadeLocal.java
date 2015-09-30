@@ -21,18 +21,12 @@ public interface UsersFacadeLocal {
 
     void edit(Users users) throws BusinessException;
 
-    void remove(Users users);
-
     Users find(Object id);
 
     List<Users> findAll();
 
-    List<Users> findRange(int[] range);
-
-    int count();
-
     Users findByLogin(String name) throws BusinessException;
-    
+
     List<Users> filter(String matcher);
-    
+
 }
