@@ -21,20 +21,14 @@ public interface ThesisFacadeLocal {
 
     void edit(Thesis thesis) throws BusinessException;
 
-    void remove(Thesis thesis);
-
     Thesis find(Object id);
 
     List<Thesis> findAll();
 
-    List<Thesis> findRange(int[] range);
-
-    int count();
-    
     List<Thesis> findWithPhrase(String phrase);
 
     List<Thesis> findMyThesis(Long accessLevelId);
 
     List<Thesis> findMyThesisByTeacher(Long accessLevelId);
-    
+
 }

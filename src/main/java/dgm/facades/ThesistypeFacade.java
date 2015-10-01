@@ -6,6 +6,8 @@
 package dgm.facades;
 
 import entities.Thesistype;
+import java.util.List;
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -16,6 +18,7 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 public class ThesistypeFacade extends AbstractFacade<Thesistype> implements ThesistypeFacadeLocal {
+
     @PersistenceContext(unitName = "dgPU")
     private EntityManager em;
 
@@ -27,5 +30,11 @@ public class ThesistypeFacade extends AbstractFacade<Thesistype> implements Thes
     public ThesistypeFacade() {
         super(Thesistype.class);
     }
-    
+
+    @Override
+    @RolesAllowed("getThesisTypeList")
+    public List<Thesistype> findAll() {
+        return super.findAll();
+    }
+
 }

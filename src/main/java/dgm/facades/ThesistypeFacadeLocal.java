@@ -6,7 +6,6 @@
 package dgm.facades;
 
 import entities.Thesistype;
-import exceptions.BusinessException;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -17,18 +16,6 @@ import javax.ejb.Local;
 @Local
 public interface ThesistypeFacadeLocal {
 
-    void create(Thesistype thesistype) throws BusinessException;
-
-    void edit(Thesistype thesistype) throws BusinessException;
-
-    void remove(Thesistype thesistype);
-
-    Thesistype find(Object id);
-
     List<Thesistype> findAll();
 
-    List<Thesistype> findRange(int[] range);
-
-    int count();
-    
 }

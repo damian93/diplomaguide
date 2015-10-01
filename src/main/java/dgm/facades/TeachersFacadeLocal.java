@@ -6,7 +6,6 @@
 package dgm.facades;
 
 import entities.Teachers;
-import exceptions.BusinessException;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -17,20 +16,8 @@ import javax.ejb.Local;
 @Local
 public interface TeachersFacadeLocal {
 
-    void create(Teachers teachers) throws BusinessException;
-
-    void edit(Teachers teachers) throws BusinessException;
-
-    void remove(Teachers teachers);
-
-    Teachers find(Object id);
-
     List<Teachers> findAll();
 
-    List<Teachers> findRange(int[] range);
-
-    int count();
-
     Teachers findByLogin(String login);
-    
+
 }

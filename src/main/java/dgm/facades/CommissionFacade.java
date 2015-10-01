@@ -6,6 +6,7 @@
 package dgm.facades;
 
 import entities.Commission;
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -27,5 +28,12 @@ public class CommissionFacade extends AbstractFacade<Commission> implements Comm
     public CommissionFacade() {
         super(Commission.class);
     }
+
+    @Override
+    @RolesAllowed({"acceptCommision","rejectCommision"})
+    public Commission find(Object id) {
+        return super.find(id);
+    }
+    
     
 }

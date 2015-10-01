@@ -6,6 +6,7 @@
 package dgm.facades;
 
 import entities.Students;
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -31,6 +32,7 @@ public class StudentsFacade extends AbstractFacade<Students> implements Students
     }
 
     @Override
+    @RolesAllowed("getLoggedStudent")
     public Students findByLogin(String studentLogin) {
         Students user;
         Query q = em.createNamedQuery("Students.findByLogin");

@@ -21,16 +21,10 @@ public interface ExamFacadeLocal {
 
     void edit(Exam exam) throws BusinessException;
 
-    void remove(Exam exam);
-
     Exam find(Object id);
 
-    List<Exam> findAll();
-
-    List<Exam> findRange(int[] range);
-
-    int count();
     List<Exam> findByTeacher(Long accessLevelId);
+
     List<Exam> findByStudent(Long accessLevelId);
-    
+
 }

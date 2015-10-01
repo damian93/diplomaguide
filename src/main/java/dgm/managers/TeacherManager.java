@@ -7,6 +7,7 @@ package dgm.managers;
 
 import dgm.facades.TeachersFacadeLocal;
 import entities.Teachers;
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
@@ -24,6 +25,7 @@ public class TeacherManager implements TeacherManagerLocal {
     private TeachersFacadeLocal teachersFacadeLocal;
 
     @Override
+    @RolesAllowed("getLoggedTeacher")
     public Teachers getLoggedTeacher(String login) {
         return teachersFacadeLocal.findByLogin(login);
     }

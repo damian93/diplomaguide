@@ -6,6 +6,8 @@
 package dgm.facades;
 
 import entities.Teachers;
+import java.util.List;
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -31,6 +33,7 @@ public class TeachersFacade extends AbstractFacade<Teachers> implements Teachers
     }
 
     @Override
+    @RolesAllowed("getLoggedTeacher")
     public Teachers findByLogin(String login) {
         Teachers user;
         Query q = em.createNamedQuery("Teachers.findByLogin");
@@ -38,6 +41,12 @@ public class TeachersFacade extends AbstractFacade<Teachers> implements Teachers
         user = (Teachers) q.getSingleResult();
         return user;
 
+    }
+
+    @Override
+    @RolesAllowed({"getTeachersMap", "getTeachers"})
+    public List<Teachers> findAll() {
+        return super.findAll();
     }
 
 }

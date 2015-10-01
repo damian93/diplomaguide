@@ -10,6 +10,7 @@ import exceptions.BusinessException;
 import exceptions.EditThesisWithOptimistickLockException;
 import exceptions.StudentHasAlreadyThisTypeThesis;
 import java.util.List;
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.OptimisticLockException;
@@ -37,6 +38,7 @@ public class ThesisFacade extends AbstractFacade<Thesis> implements ThesisFacade
     }
 
     @Override
+    @RolesAllowed("getThesisWithPhrase")
     public List<Thesis> findWithPhrase(String phrase) {
         Query q = em.createNamedQuery("Thesis.findThesisByPhrase");
         q.setParameter("par", '%' + phrase + '%');
@@ -45,6 +47,7 @@ public class ThesisFacade extends AbstractFacade<Thesis> implements ThesisFacade
     }
 
     @Override
+    @RolesAllowed({"acceptation", "editThesisByStudent"})
     public void edit(Thesis entity) throws BusinessException {
         try {
             super.edit(entity);
@@ -54,6 +57,7 @@ public class ThesisFacade extends AbstractFacade<Thesis> implements ThesisFacade
     }
 
     @Override
+    @RolesAllowed("getMyThesis")
     public List<Thesis> findMyThesis(Long accessLevelId) {
         Query q = em.createNamedQuery("Thesis.findMyThesis");
         q.setParameter("s", accessLevelId);
@@ -61,7 +65,9 @@ public class ThesisFacade extends AbstractFacade<Thesis> implements ThesisFacade
         return resultList;
 
     }
+
     @Override
+    @RolesAllowed("getMyThesisByTeacher")
     public List<Thesis> findMyThesisByTeacher(Long accessLevelId) {
         Query q = em.createNamedQuery("Thesis.findMyThesisByTeacher");
         q.setParameter("s", accessLevelId);
@@ -69,10 +75,9 @@ public class ThesisFacade extends AbstractFacade<Thesis> implements ThesisFacade
         return resultList;
 
     }
-    
-    
 
     @Override
+    @RolesAllowed("createThesis")
     public void create(Thesis entity) throws BusinessException {
         try {
             super.create(entity);
@@ -84,6 +89,18 @@ public class ThesisFacade extends AbstractFacade<Thesis> implements ThesisFacade
                 throw e;
             }
         }
+    }
+
+    @Override
+    @RolesAllowed("getAllThesisList")
+    public List<Thesis> findAll() {
+        return super.findAll();
+    }
+
+    @Override
+    @RolesAllowed({"getThesisToEditByTeacher", "getThesisToEditByStudent"})
+    public Thesis find(Object id) {
+        return super.find(id);
     }
 
 }

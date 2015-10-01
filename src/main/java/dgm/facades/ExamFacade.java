@@ -10,6 +10,7 @@ import exceptions.BusinessException;
 import exceptions.EditExamWithOptimistickLockException;
 import exceptions.ExamWithThesisAlreadyExists;
 import java.util.List;
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.OptimisticLockException;
@@ -37,6 +38,7 @@ public class ExamFacade extends AbstractFacade<Exam> implements ExamFacadeLocal 
     }
 
     @Override
+    @RolesAllowed({"editExamByStudent","editExamByTeacher","addCommission","editCommission","setGrade","confirmGrade"})
     public void edit(Exam entity) throws BusinessException {
         try{
         super.edit(entity);
@@ -48,6 +50,7 @@ public class ExamFacade extends AbstractFacade<Exam> implements ExamFacadeLocal 
 
     
     @Override
+    @RolesAllowed("createExam")
     public void create(Exam entity) throws BusinessException {
         try {
             super.create(entity);
@@ -62,6 +65,7 @@ public class ExamFacade extends AbstractFacade<Exam> implements ExamFacadeLocal 
     }
 
     @Override
+    @RolesAllowed("getExamsByTeacher")
     public List<Exam> findByTeacher(Long accessLevelId) {
         Query q = em.createNamedQuery("Exam.findByTeacher");
         q.setParameter("s", accessLevelId);
@@ -71,11 +75,20 @@ public class ExamFacade extends AbstractFacade<Exam> implements ExamFacadeLocal 
     }
 
     @Override
+    @RolesAllowed("getMyExamsByStudent")
     public List<Exam> findByStudent(Long accessLevelId) {
         Query q = em.createNamedQuery("Exam.findByStudent");
         q.setParameter("s", accessLevelId);
         List<Exam> resultList = q.getResultList();
         return resultList;
     }
+
+    @Override
+    @RolesAllowed({"getExamToEdit","getExamToAddCommision","getExamToEditCommision","getExamToSetGrade"})
+    public Exam find(Object id) {
+        return super.find(id); 
+    }
+    
+    
 
 }

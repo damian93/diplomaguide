@@ -36,6 +36,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
@@ -60,6 +61,7 @@ public class ExamManager implements ExamManagerLocal {
     private ThesisManagerLocal thesisManagerLocal;
 
     @Override
+    @RolesAllowed("createExam")
     public void createExam(Exam exam) throws BusinessException {
 
         if (exam.getDate().before(new Date())) {
@@ -75,21 +77,25 @@ public class ExamManager implements ExamManagerLocal {
     }
 
     @Override
+    @RolesAllowed("getExamsByTeacher")
     public List<Exam> getExamsByTeacher(Teachers loggedTeacher) {
         return examFacadeLocal.findByTeacher(loggedTeacher.getAccessLevelId());
     }
 
     @Override
+    @RolesAllowed("getMyExamsByStudent")
     public List<Exam> getMyExamsByStudent(Students loggedStudent) {
         return examFacadeLocal.findByStudent(loggedStudent.getAccessLevelId());
     }
 
     @Override
+    @RolesAllowed("getExamToEdit")
     public Exam getExamToEdit(Exam e) {
         return examFacadeLocal.find(e.getExamId());
     }
 
     @Override
+    @RolesAllowed("editExamByStudent")
     public void editExamByStudent(Exam examToEditState, Exam edit) throws BusinessException {
         if (examToEditState == null) {
             throw new NullExamStateException();
@@ -113,6 +119,7 @@ public class ExamManager implements ExamManagerLocal {
     }
 
     @Override
+    @RolesAllowed("editExamByTeacher")
     public void ediExamByTeacher(Exam examToEditState, Exam examToEdit) throws BusinessException {
         if (examToEditState == null) {
             throw new NullExamStateException();
@@ -133,6 +140,7 @@ public class ExamManager implements ExamManagerLocal {
     }
 
     @Override
+    @RolesAllowed("getExamToAddCommision")
     public Exam getExamToAddCommision(Exam e) {
         return examFacadeLocal.find(e.getExamId());
     }
@@ -155,6 +163,7 @@ public class ExamManager implements ExamManagerLocal {
     }
 
     @Override
+    @RolesAllowed("addCommission")
     public void addCommision(Exam examToAddCommision, Exam exam, Set<Teachers> commisionTeachers) throws BusinessException {
         if (examToAddCommision == null) {
             throw new NullExamStateException();
@@ -183,6 +192,7 @@ public class ExamManager implements ExamManagerLocal {
     }
 
     @Override
+    @RolesAllowed("acceptCommision")
     public void acceptCommision(Teachers teacher, int rowIndex) throws BusinessException {
         Commission c = teacher.getCommissionCollection().get(rowIndex);
 
@@ -194,6 +204,7 @@ public class ExamManager implements ExamManagerLocal {
     }
 
     @Override
+    @RolesAllowed("rejectCommision")
     public void rejectCommision(Teachers teacher, int rowIndex) throws BusinessException {
         Commission c = teacher.getCommissionCollection().get(rowIndex);
 
@@ -225,6 +236,7 @@ public class ExamManager implements ExamManagerLocal {
     }
 
     @Override
+    @RolesAllowed("editCommission")
     public void editCommision(Exam examToEditCommision, Exam exam, Set<Teachers> commisionTeachers) throws BusinessException {
         if (examToEditCommision == null) {
             throw new NullExamStateException();
@@ -251,11 +263,13 @@ public class ExamManager implements ExamManagerLocal {
     }
 
     @Override
+    @RolesAllowed("getExamToEditCommision")
     public Exam getExamToEditCommision(Exam e) {
         return examFacadeLocal.find(e.getExamId());
     }
 
     @Override
+    @RolesAllowed("setMembersInCommision")
     public CommisionTeachersUtils setMembersInCommision(Exam exam, Teachers loggedTeacher) {
         CommisionTeachersUtils ctu = new CommisionTeachersUtils();
         if (exam.getCommissionCollection().size() == Integer.parseInt(ResourceBundleUtils.
@@ -285,6 +299,7 @@ public class ExamManager implements ExamManagerLocal {
     }
 
     @Override
+    @RolesAllowed("setGrade")
     public void setGrade(Exam examToSetGradeState, Exam examToEdit) throws BusinessException {
 
         if (examToSetGradeState == null) {
@@ -310,11 +325,13 @@ public class ExamManager implements ExamManagerLocal {
     }
 
     @Override
+    @RolesAllowed("getExamToSetGrade")
     public Exam getExamToSetGrade(Exam e) {
         return examFacadeLocal.find(e.getExamId());
     }
 
     @Override
+    @RolesAllowed("confirmGrade")
     public void confirmGrade(Exam examToEditState, Exam examToEdit) throws BusinessException {
 
         if (examToEditState == null) {

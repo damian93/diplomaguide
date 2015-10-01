@@ -30,6 +30,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
@@ -56,6 +57,7 @@ public class ThesisManager implements ThesisManagerLocal {
     private ThesistypeFacadeLocal thesistypeFacadeLocal;
 
     @Override
+    @RolesAllowed("createThesis")
     public void createThesis(Thesis thesis) throws BusinessException {
         thesis.setDate(new Date());
         thesis.setAccepted(false);
@@ -105,6 +107,7 @@ public class ThesisManager implements ThesisManagerLocal {
     }
 
     @Override
+    @RolesAllowed("getTeachersMap")
     public Map<Teachers, Integer> getTeachersMap() {
 
         List<Teachers> allTeachers = teachersFacadeLocal.findAll();
@@ -126,6 +129,7 @@ public class ThesisManager implements ThesisManagerLocal {
     }
 
     @Override
+    @RolesAllowed("getTeachers")
     public List<Teachers> getTeachers() {
         List<Teachers> findAll = teachersFacadeLocal.findAll();
 
@@ -133,31 +137,37 @@ public class ThesisManager implements ThesisManagerLocal {
     }
 
     @Override
+    @RolesAllowed("getLoggedStudent")
     public Students getLoggedStudent(String loggedUserLogin) {
         return studentsFacadeLocal.findByLogin(loggedUserLogin);
     }
 
     @Override
+    @RolesAllowed("getThesisTypeList")
     public List<Thesistype> getThesisTypeList() {
         return thesistypeFacadeLocal.findAll();
     }
 
     @Override
+    @RolesAllowed("getAllThesisList")
     public List<Thesis> getAllThesisList() {
         return thesisFacadeLocal.findAll();
     }
 
     @Override
+    @RolesAllowed("getThesisWithPhrase")
     public List<Thesis> getThesisWithPhrase(String phrase) {
         return thesisFacadeLocal.findWithPhrase(phrase);
     }
 
     @Override
+    @RolesAllowed("getThesisToEditByTeacher")
     public Thesis getThesisToEditByTeacher(Thesis row) {
         return thesisFacadeLocal.find(row.getThesisId());
     }
 
     @Override
+    @RolesAllowed("acceptation")
     public void acceptThesis(Thesis thesisToEditByTeacherState, Thesis thesisToEdit) throws BusinessException {
         if (thesisToEditByTeacherState == null) {
             throw new NullThesisStateException();
@@ -180,16 +190,19 @@ public class ThesisManager implements ThesisManagerLocal {
     }
 
     @Override
+    @RolesAllowed("getMyThesis")
     public List<Thesis> getMyThesis(Students loggedStudent) {
         return thesisFacadeLocal.findMyThesis(loggedStudent.getAccessLevelId());
     }
 
     @Override
+    @RolesAllowed("getThesisToEditByStudent")
     public Thesis getThesisToEditByStudent(Thesis thesis) {
         return thesisFacadeLocal.find(thesis.getThesisId());
     }
 
     @Override
+    @RolesAllowed("editThesisByStudent")
     public void editThesisByStudent(Thesis thesisToEditByStudentState, Thesis thesis) throws BusinessException {
         if (thesisToEditByStudentState == null) {
             throw new NullThesisStateException();
@@ -210,6 +223,7 @@ public class ThesisManager implements ThesisManagerLocal {
     }
 
     @Override
+    @RolesAllowed("getMyThesisByTeacher")
     public List<Thesis> getMyThesisByTeacher(Teachers loggedTeacher) {
         return thesisFacadeLocal.findMyThesisByTeacher(loggedTeacher.getAccessLevelId());
     }

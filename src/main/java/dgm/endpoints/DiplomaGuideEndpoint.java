@@ -18,6 +18,7 @@ import exceptions.BusinessException;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.ejb.TransactionAttribute;
@@ -54,6 +55,7 @@ public class DiplomaGuideEndpoint implements DiplomaGuideEndpointLocal {
      * @throws BusinessException wyjątek aplikacyjny
      */
     @Override
+    @RolesAllowed("createThesis")
     public void createThesis(Thesis thesis) throws BusinessException {
         thesisManagerLocal.createThesis(thesis);
     }
@@ -66,6 +68,7 @@ public class DiplomaGuideEndpoint implements DiplomaGuideEndpointLocal {
      * @return obiekt uwierzytelnionego nauczyciela
      */
     @Override
+    @RolesAllowed("getLoggedTeacher")
     public Teachers getLoggedTeacher(String login) {
         return teacherManagerLocal.getLoggedTeacher(login);
     }
@@ -78,6 +81,7 @@ public class DiplomaGuideEndpoint implements DiplomaGuideEndpointLocal {
      * danym roku
      */
     @Override
+    @RolesAllowed("getTeachersMap")
     public Map<Teachers, Integer> getTeachersMap() {
         return thesisManagerLocal.getTeachersMap();
     }
@@ -89,6 +93,7 @@ public class DiplomaGuideEndpoint implements DiplomaGuideEndpointLocal {
      * @return lista wszystkich nauczycieli
      */
     @Override
+    @RolesAllowed("getTeachers")
     public List<Teachers> getTeachers() {
         return thesisManagerLocal.getTeachers();
     }
@@ -101,6 +106,7 @@ public class DiplomaGuideEndpoint implements DiplomaGuideEndpointLocal {
      * @return obiekt uwierzytelnionego studenta
      */
     @Override
+    @RolesAllowed("getLoggedStudent")
     public Students getLoggedStudent(String loggedUserLogin) {
         return thesisManagerLocal.getLoggedStudent(loggedUserLogin);
 
@@ -113,6 +119,7 @@ public class DiplomaGuideEndpoint implements DiplomaGuideEndpointLocal {
      * @return lista typów(rodzajów) prac dyplomowych
      */
     @Override
+    @RolesAllowed("getThesisTypeList")
     public List<Thesistype> getThesisTypeList() {
         return thesisManagerLocal.getThesisTypeList();
 
@@ -125,6 +132,7 @@ public class DiplomaGuideEndpoint implements DiplomaGuideEndpointLocal {
      * @return lista wszystkch prac dyplomowych
      */
     @Override
+    @RolesAllowed("getAllThesisList")
     public List<Thesis> getAllThesisList() {
         return thesisManagerLocal.getAllThesisList();
     }
@@ -137,6 +145,7 @@ public class DiplomaGuideEndpoint implements DiplomaGuideEndpointLocal {
      * @return lista prac dyplomowych zawierająca w tytule szukaną frazę
      */
     @Override
+    @RolesAllowed("getThesisWithPhrase")
     public List<Thesis> getThesisWithPhrase(String phrase) {
         return thesisManagerLocal.getThesisWithPhrase(phrase);
     }
@@ -149,6 +158,7 @@ public class DiplomaGuideEndpoint implements DiplomaGuideEndpointLocal {
      * @return pobrany obiekt pracy dyplomowej
      */
     @Override
+    @RolesAllowed("getThesisToEditByTeacher")
     public Thesis getThesisToEditByTeacher(Thesis row) {
         thesisToEditByTeacherState = thesisManagerLocal.getThesisToEditByTeacher(row);
         return thesisToEditByTeacherState;
@@ -161,6 +171,7 @@ public class DiplomaGuideEndpoint implements DiplomaGuideEndpointLocal {
      * @throws BusinessException wyjątek aplikacyjny
      */
     @Override
+    @RolesAllowed("acceptation")
     public void acceptation(Thesis thesisToEdit) throws BusinessException {
         thesisManagerLocal.acceptThesis(thesisToEditByTeacherState, thesisToEdit);
         thesisToEditByTeacherState = null;
@@ -175,6 +186,7 @@ public class DiplomaGuideEndpoint implements DiplomaGuideEndpointLocal {
      * @return lista prac dyplomowych danego studenta
      */
     @Override
+    @RolesAllowed("getMyThesis")
     public List<Thesis> getMyThesis(Students loggedStudent) {
         return thesisManagerLocal.getMyThesis(loggedStudent);
     }
@@ -187,6 +199,7 @@ public class DiplomaGuideEndpoint implements DiplomaGuideEndpointLocal {
      * @return obiekt pracy dyplomowej do edycji przez studenta
      */
     @Override
+    @RolesAllowed("getThesisToEditByStudent")
     public Thesis getThesisToEditByStudent(Thesis thesis) {
         thesisToEditByStudentState = thesisManagerLocal.getThesisToEditByStudent(thesis);
         return thesisToEditByStudentState;
@@ -199,6 +212,7 @@ public class DiplomaGuideEndpoint implements DiplomaGuideEndpointLocal {
      * @throws BusinessException wyjątek aplikacyjny
      */
     @Override
+    @RolesAllowed("editThesisByStudent")
     public void editThesisByStudent(Thesis thesis) throws BusinessException {
         thesisManagerLocal.editThesisByStudent(thesisToEditByStudentState, thesis);
         thesisToEditByStudentState = null;
@@ -211,6 +225,7 @@ public class DiplomaGuideEndpoint implements DiplomaGuideEndpointLocal {
      * @throws BusinessException wyjątek aplikacyjny
      */
     @Override
+    @RolesAllowed("createExam")
     public void createExam(Exam exam) throws BusinessException {
         examManagerLocal.createExam(exam);
     }
@@ -224,6 +239,7 @@ public class DiplomaGuideEndpoint implements DiplomaGuideEndpointLocal {
      * @return lista egzaminów prac dyplomowych, które prowadzi dany nauczyciel
      */
     @Override
+    @RolesAllowed("getExamsByTeacher")
     public List<Exam> getExamsByTeacher(Teachers loggedTeacher) {
         return examManagerLocal.getExamsByTeacher(loggedTeacher);
     }
@@ -237,6 +253,7 @@ public class DiplomaGuideEndpoint implements DiplomaGuideEndpointLocal {
      * @return lista prac dyplomowych, w których promotorem jest dany nauczyciel
      */
     @Override
+    @RolesAllowed("getMyThesisByTeacher")
     public List<Thesis> getMyThesisByTeacher(Teachers loggedTeacher) {
         return thesisManagerLocal.getMyThesisByTeacher(loggedTeacher);
 
@@ -251,6 +268,7 @@ public class DiplomaGuideEndpoint implements DiplomaGuideEndpointLocal {
      * @return lista egzaminów dyplomowych danego studenta
      */
     @Override
+    @RolesAllowed("getMyExamsByStudent")
     public List<Exam> getMyExamsByStudent(Students loggedStudent) {
         return examManagerLocal.getMyExamsByStudent(loggedStudent);
     }
@@ -263,6 +281,7 @@ public class DiplomaGuideEndpoint implements DiplomaGuideEndpointLocal {
      * @return pobrany z bazy obiekt egzaminu do edycji
      */
     @Override
+    @RolesAllowed("getExamToEdit")
     public Exam getExamToEdit(Exam e) {
         examToEditState = examManagerLocal.getExamToEdit(e);
         return examToEditState;
@@ -275,6 +294,7 @@ public class DiplomaGuideEndpoint implements DiplomaGuideEndpointLocal {
      * @throws BusinessException wyjątek aplikacyjny
      */
     @Override
+    @RolesAllowed("editExamByStudent")
     public void editExamByStudent(Exam edit) throws BusinessException {
         examManagerLocal.editExamByStudent(examToEditState, edit);
         examToEditState = null;
@@ -287,6 +307,7 @@ public class DiplomaGuideEndpoint implements DiplomaGuideEndpointLocal {
      * @throws BusinessException wyjątek aplikacyjny
      */
     @Override
+    @RolesAllowed("editExamByTeacher")
     public void editExamByTeacher(Exam examToEdit) throws BusinessException {
         examManagerLocal.ediExamByTeacher(examToEditState, examToEdit);
         examToEditState = null;
@@ -300,6 +321,7 @@ public class DiplomaGuideEndpoint implements DiplomaGuideEndpointLocal {
      * @return pobrany z bazy obiekt egzaminu do dodania w nim komisji
      */
     @Override
+    @RolesAllowed("getExamToAddCommision")
     public Exam getExamToAddCommision(Exam e) {
         examToAddCommision = examManagerLocal.getExamToAddCommision(e);
         return examToAddCommision;
@@ -316,6 +338,7 @@ public class DiplomaGuideEndpoint implements DiplomaGuideEndpointLocal {
      * @throws BusinessException wyjątek aplikacyjny
      */
     @Override
+    @RolesAllowed("addCommission")
     public void addCommission(Exam exam, Set<Teachers> commisionTeachers) throws BusinessException {
         examManagerLocal.addCommision(examToAddCommision, exam, commisionTeachers);
         examToAddCommision = null;
@@ -332,6 +355,7 @@ public class DiplomaGuideEndpoint implements DiplomaGuideEndpointLocal {
      * @throws BusinessException wyjątek aplikacyjny
      */
     @Override
+    @RolesAllowed("acceptCommision")
     public void acceptCommision(Teachers teacher, int rowIndex) throws BusinessException {
         examManagerLocal.acceptCommision(teacher, rowIndex);
     }
@@ -346,6 +370,7 @@ public class DiplomaGuideEndpoint implements DiplomaGuideEndpointLocal {
      * @throws BusinessException wyjątek aplikacyjny
      */
     @Override
+    @RolesAllowed("rejectCommision")
     public void rejectCommision(Teachers teacher, int rowIndex) throws BusinessException {
         examManagerLocal.rejectCommision(teacher, rowIndex);
     }
@@ -359,6 +384,7 @@ public class DiplomaGuideEndpoint implements DiplomaGuideEndpointLocal {
      * @throws BusinessException wyjątek aplikacyjny
      */
     @Override
+    @RolesAllowed("editCommission")
     public void editCommission(Exam exam, Set<Teachers> commisionTeachers) throws BusinessException {
         examManagerLocal.editCommision(examToEditCommision, exam, commisionTeachers);
         examToEditCommision = null;
@@ -375,6 +401,7 @@ public class DiplomaGuideEndpoint implements DiplomaGuideEndpointLocal {
      * egzaminacyjnej
      */
     @Override
+    @RolesAllowed("getExamToEditCommision")
     public Exam getExamToEditCommision(Exam e) {
         examToEditCommision = examManagerLocal.getExamToEditCommision(e);
         return examToEditCommision;
@@ -392,6 +419,7 @@ public class DiplomaGuideEndpoint implements DiplomaGuideEndpointLocal {
      * do wartstwy prezentacji
      */
     @Override
+    @RolesAllowed("setMembersInCommision")
     public CommisionTeachersUtils setMembersInCommision(Exam exam, Teachers loggedTeacher) {
         return examManagerLocal.setMembersInCommision(exam, loggedTeacher);
     }
@@ -403,6 +431,7 @@ public class DiplomaGuideEndpoint implements DiplomaGuideEndpointLocal {
      * @throws BusinessException wyjątek aplikacyjny
      */
     @Override
+    @RolesAllowed("setGrade")
     public void setGrade(Exam examToEdit) throws BusinessException {
         examManagerLocal.setGrade(examToSetGradeState, examToEdit);
         examToSetGradeState = null;
@@ -417,12 +446,19 @@ public class DiplomaGuideEndpoint implements DiplomaGuideEndpointLocal {
      * @return pobrany z bazy obiekt encji egzaminu
      */
     @Override
+    @RolesAllowed("getExamToSetGrade")
     public Exam getExamToSetGrade(Exam e) {
         examToSetGradeState = examManagerLocal.getExamToSetGrade(e);
         return examToSetGradeState;
     }
 
+    /**
+     *
+     * Wywołuje metodę potwierdzającą ocenę dla danego egzaminu dyplomowego
+     *
+     */
     @Override
+    @RolesAllowed("confirmGrade")
     public void confirmGrade(Exam examToEdit) throws BusinessException {
         examManagerLocal.confirmGrade(examToEditState, examToEdit);
         examToEditState = null;
