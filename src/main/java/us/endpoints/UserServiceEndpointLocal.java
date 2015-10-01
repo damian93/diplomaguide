@@ -73,7 +73,7 @@ public interface UserServiceEndpointLocal {
      * @param newPassword nowe hasło
      * @throws BusinessException wyjątek aplikacyjny
      */
-    void editUserByAdmin(Users userToEdit, String oldPassword) throws BusinessException;
+    void editUserByAdmin(Users userToEdit, String oldPassword, String newPassword) throws BusinessException;
 
     /**
      * Deleguje pobranie listy użytkowników zawierających szukaną frazę w

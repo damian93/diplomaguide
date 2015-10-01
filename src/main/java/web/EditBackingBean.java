@@ -123,7 +123,7 @@ public class EditBackingBean {
 
     public String edit() {
         try {
-            userSession.editUserByAdmin(userToEdit, oldPassword);
+            userSession.editUserByAdmin(userToEdit, oldPassword, newPassword);
             JsfUtils.addSuccessMessage(ResourceBundleUtils.getResourceBundleLanguageProperty("Info"), ResourceBundleUtils.getResourceBundleLanguageProperty("editSucceed"), ":msgs");
             return "list.xhtml?faces-redirect=true";
         } catch (BusinessException ex) {

@@ -21,7 +21,7 @@ public interface AdminManagerLocal {
 
     Users getUser(Users rowData);
 
-    void editUserByAdmin(Users userState,Users userToEdit, String oldPassword) throws BusinessException;
+    void editUserByAdmin(Users userState,Users userToEdit, String oldPassword, String newPassword) throws BusinessException;
 
     List<Users> filter(String matchLogin);
     

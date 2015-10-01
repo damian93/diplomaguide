@@ -135,8 +135,8 @@ public class UserServiceEndpoint implements UserServiceEndpointLocal {
      */
     @Override
     @RolesAllowed("editUserByAdmin")
-    public void editUserByAdmin(Users userToEdit, String oldPassword) throws BusinessException {
-        adminManagerLocal.editUserByAdmin(userState, userToEdit, oldPassword);
+    public void editUserByAdmin(Users userToEdit, String oldPassword, String newPassword) throws BusinessException {
+        adminManagerLocal.editUserByAdmin(userState, userToEdit, oldPassword, newPassword);
         userState = null;
     }
 
