@@ -5,14 +5,20 @@
  */
 package dgm.facades;
 
+import common.TrackerInterceptor;
 import exceptions.BusinessException;
 import java.util.List;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
+import javax.interceptor.Interceptors;
 import javax.persistence.EntityManager;
 
 /**
  *
  * @author Damian
  */
+@Interceptors({TrackerInterceptor.class})
+@TransactionAttribute(TransactionAttributeType.MANDATORY)
 public abstract class AbstractFacade<T> {
     private Class<T> entityClass;
 

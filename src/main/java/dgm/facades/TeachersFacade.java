@@ -9,6 +9,8 @@ import entities.Teachers;
 import java.util.List;
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -18,6 +20,7 @@ import javax.persistence.Query;
  * @author Damian
  */
 @Stateless(name = "dgTeacherFacade")
+@TransactionAttribute(TransactionAttributeType.MANDATORY)
 public class TeachersFacade extends AbstractFacade<Teachers> implements TeachersFacadeLocal {
 
     @PersistenceContext(unitName = "dgPU")
@@ -44,7 +47,7 @@ public class TeachersFacade extends AbstractFacade<Teachers> implements Teachers
     }
 
     @Override
-    @RolesAllowed({"getTeachersMap", "getTeachers"})
+    @RolesAllowed({"getTeachersMap", "getTeachers", "setMembersInCommision"})
     public List<Teachers> findAll() {
         return super.findAll();
     }

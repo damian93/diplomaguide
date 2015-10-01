@@ -73,6 +73,7 @@
     <security-role-mapping>
         <role-name>getTeachers</role-name>
         <group-name>S</group-name>
+        <group-name>T</group-name>
     </security-role-mapping>
     <security-role-mapping>
         <role-name>getLoggedStudent</role-name>
@@ -142,6 +143,7 @@
     <security-role-mapping>
         <role-name>getExamToAddCommision</role-name>
         <group-name>T</group-name>
+        <group-name>S</group-name>
     </security-role-mapping>
     <security-role-mapping>
         <role-name>addCommission</role-name>
@@ -166,6 +168,7 @@
     <security-role-mapping>
         <role-name>setMembersInCommision</role-name>
         <group-name>T</group-name>
+        <group-name>S</group-name>
     </security-role-mapping>
     <security-role-mapping>
         <role-name>setGrade</role-name>

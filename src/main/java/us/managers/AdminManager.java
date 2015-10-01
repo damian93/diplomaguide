@@ -5,6 +5,7 @@
  */
 package us.managers;
 
+import common.TrackerInterceptor;
 import entities.Accesslevel;
 import entities.Administrators;
 import entities.Students;
@@ -24,6 +25,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
+import javax.interceptor.Interceptors;
 import us.facades.UsersFacadeLocal;
 import utils.ConvertUtils;
 import utils.ResourceBundleUtils;
@@ -33,6 +35,7 @@ import utils.ResourceBundleUtils;
  * @author Damian
  */
 @Stateless
+@Interceptors({TrackerInterceptor.class})
 @TransactionAttribute(TransactionAttributeType.MANDATORY)
 public class AdminManager implements AdminManagerLocal {
 
@@ -99,7 +102,7 @@ public class AdminManager implements AdminManagerLocal {
                 teacherExists = true;
             }
         }
-        if ((teacherExists && adminExists) || (studentExists && adminExists)) {
+        if ((teacherExists && adminExists) || (studentExists && adminExists) || (studentExists && teacherExists)) {
             throw new BadAccessLevelsCombinationException();
         }
         return userToEdit;

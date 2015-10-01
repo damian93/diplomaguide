@@ -12,6 +12,8 @@ import exceptions.ExamWithThesisAlreadyExists;
 import java.util.List;
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 import javax.persistence.OptimisticLockException;
 import javax.persistence.PersistenceContext;
@@ -23,9 +25,10 @@ import javax.persistence.Query;
  * @author Damian
  */
 @Stateless
+@TransactionAttribute(TransactionAttributeType.MANDATORY)
 public class ExamFacade extends AbstractFacade<Exam> implements ExamFacadeLocal {
 
-    @PersistenceContext(unitName = "usPU")
+    @PersistenceContext(unitName = "dgPU")
     private EntityManager em;
 
     @Override

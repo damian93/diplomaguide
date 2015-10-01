@@ -6,8 +6,10 @@
 package dgm.managers;
 
 import common.CommisionTeachersUtils;
+import common.TrackerInterceptor;
 import dgm.facades.CommissionFacadeLocal;
 import dgm.facades.ExamFacadeLocal;
+import dgm.facades.TeachersFacadeLocal;
 import entities.Commission;
 import entities.Exam;
 import entities.Students;
@@ -41,6 +43,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
+import javax.interceptor.Interceptors;
 import utils.ResourceBundleUtils;
 
 /**
@@ -48,6 +51,7 @@ import utils.ResourceBundleUtils;
  * @author Damian
  */
 @Stateless
+@Interceptors({TrackerInterceptor.class})
 @TransactionAttribute(TransactionAttributeType.MANDATORY)
 public class ExamManager implements ExamManagerLocal {
 
@@ -59,6 +63,9 @@ public class ExamManager implements ExamManagerLocal {
 
     @EJB
     private ThesisManagerLocal thesisManagerLocal;
+
+    @EJB
+    private TeachersFacadeLocal teacherFacadeLocal;
 
     @Override
     @RolesAllowed("createExam")
@@ -270,7 +277,7 @@ public class ExamManager implements ExamManagerLocal {
 
     @Override
     @RolesAllowed("setMembersInCommision")
-    public CommisionTeachersUtils setMembersInCommision(Exam exam, Teachers loggedTeacher) {
+    public CommisionTeachersUtils setMembersInCommision(Exam exam, Teachers loggedTeacher, List<Teachers> list) {
         CommisionTeachersUtils ctu = new CommisionTeachersUtils();
         if (exam.getCommissionCollection().size() == Integer.parseInt(ResourceBundleUtils.
                 getResourceBundleBusinessProperty("CommisionMember"))) {
@@ -286,7 +293,7 @@ public class ExamManager implements ExamManagerLocal {
                 }
             }
         }
-        ctu.setTeachersSet(new HashSet(thesisManagerLocal.getTeachers()));
+        ctu.setTeachersSet(new HashSet(list));
 
         for (Iterator<Teachers> i = ctu.getTeachersSet().iterator(); i.hasNext();) {
             Teachers tmp = i.next();

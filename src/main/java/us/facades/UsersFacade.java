@@ -15,6 +15,8 @@ import java.util.List;
 import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.OptimisticLockException;
@@ -27,6 +29,7 @@ import javax.persistence.Query;
  * @author Damian
  */
 @Stateless
+@TransactionAttribute(TransactionAttributeType.MANDATORY)
 public class UsersFacade extends AbstractFacade<Users> implements UsersFacadeLocal {
 
     @PersistenceContext(unitName = "usPU")

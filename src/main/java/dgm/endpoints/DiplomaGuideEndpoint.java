@@ -5,7 +5,9 @@
  */
 package dgm.endpoints;
 
+import common.AbstractEndpoint;
 import common.CommisionTeachersUtils;
+import common.TrackerInterceptor;
 import dgm.managers.ExamManagerLocal;
 import dgm.managers.TeacherManagerLocal;
 import dgm.managers.ThesisManagerLocal;
@@ -20,17 +22,20 @@ import java.util.Map;
 import java.util.Set;
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
+import javax.ejb.SessionSynchronization;
 import javax.ejb.Stateful;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
+import javax.interceptor.Interceptors;
 
 /**
  *
  * @author Damian
  */
 @Stateful
+@Interceptors({TrackerInterceptor.class})
 @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
-public class DiplomaGuideEndpoint implements DiplomaGuideEndpointLocal {
+public class DiplomaGuideEndpoint extends AbstractEndpoint implements DiplomaGuideEndpointLocal, SessionSynchronization {
 
     @EJB
     private ExamManagerLocal examManagerLocal;
@@ -93,7 +98,7 @@ public class DiplomaGuideEndpoint implements DiplomaGuideEndpointLocal {
      * @return lista wszystkich nauczycieli
      */
     @Override
-    @RolesAllowed("getTeachers")
+    @RolesAllowed({"getTeachers","setMembersInCommision"})
     public List<Teachers> getTeachers() {
         return thesisManagerLocal.getTeachers();
     }
@@ -421,7 +426,7 @@ public class DiplomaGuideEndpoint implements DiplomaGuideEndpointLocal {
     @Override
     @RolesAllowed("setMembersInCommision")
     public CommisionTeachersUtils setMembersInCommision(Exam exam, Teachers loggedTeacher) {
-        return examManagerLocal.setMembersInCommision(exam, loggedTeacher);
+        return examManagerLocal.setMembersInCommision(exam, loggedTeacher, getTeachers());
     }
 
     /**

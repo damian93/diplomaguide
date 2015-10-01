@@ -45,7 +45,7 @@ public interface ExamManagerLocal {
 
     Exam getExamToEditCommision(Exam e);
 
-    CommisionTeachersUtils setMembersInCommision(Exam exam, Teachers loggedTeacher);
+    CommisionTeachersUtils setMembersInCommision(Exam exam, Teachers loggedTeacher, List<Teachers> list);
 
     void setGrade(Exam examToSetGradeState, Exam examToEdit) throws BusinessException;
 

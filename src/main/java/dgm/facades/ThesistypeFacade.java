@@ -9,6 +9,8 @@ import entities.Thesistype;
 import java.util.List;
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -17,6 +19,7 @@ import javax.persistence.PersistenceContext;
  * @author Damian
  */
 @Stateless
+@TransactionAttribute(TransactionAttributeType.MANDATORY)
 public class ThesistypeFacade extends AbstractFacade<Thesistype> implements ThesistypeFacadeLocal {
 
     @PersistenceContext(unitName = "dgPU")

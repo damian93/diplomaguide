@@ -5,6 +5,8 @@
  */
 package us.endpoints;
 
+import common.AbstractEndpoint;
+import common.TrackerInterceptor;
 import entities.Accesslevelsdictionary;
 import entities.Degrees;
 import entities.Users;
@@ -13,9 +15,11 @@ import java.util.List;
 import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
+import javax.ejb.SessionSynchronization;
 import javax.ejb.Stateful;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
+import javax.interceptor.Interceptors;
 import us.managers.AdminManagerLocal;
 import us.managers.AuthenticatedUserManagerLocal;
 import us.managers.UnauthenticatedUserManagerLocal;
@@ -25,8 +29,9 @@ import us.managers.UnauthenticatedUserManagerLocal;
  * @author Damian
  */
 @Stateful
+@Interceptors({TrackerInterceptor.class})
 @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
-public class UserServiceEndpoint implements UserServiceEndpointLocal {
+public class UserServiceEndpoint extends AbstractEndpoint implements UserServiceEndpointLocal, SessionSynchronization {
 
     private Users userState;
 

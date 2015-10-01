@@ -8,6 +8,8 @@ package dgm.facades;
 import entities.Students;
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -17,6 +19,7 @@ import javax.persistence.Query;
  * @author Damian
  */
 @Stateless(name = "dgStudentFacade")
+@TransactionAttribute(TransactionAttributeType.MANDATORY)
 public class StudentsFacade extends AbstractFacade<Students> implements StudentsFacadeLocal {
 
     @PersistenceContext(unitName = "dgPU")

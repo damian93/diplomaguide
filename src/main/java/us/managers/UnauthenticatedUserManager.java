@@ -6,6 +6,7 @@
 package us.managers;
 
 import common.AccessLevelsFactory;
+import common.TrackerInterceptor;
 import entities.Accesslevel;
 import entities.Accesslevelsdictionary;
 import entities.Administrators;
@@ -22,6 +23,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
+import javax.interceptor.Interceptors;
 import us.facades.AccesslevelsdictionaryFacadeLocal;
 import us.facades.UsersFacadeLocal;
 import utils.ConvertUtils;
@@ -31,6 +33,7 @@ import utils.ConvertUtils;
  * @author Damian
  */
 @Stateless
+@Interceptors({TrackerInterceptor.class})
 @TransactionAttribute(TransactionAttributeType.MANDATORY)
 public class UnauthenticatedUserManager implements UnauthenticatedUserManagerLocal {
 

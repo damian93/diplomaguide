@@ -5,6 +5,7 @@
  */
 package us.managers;
 
+import common.TrackerInterceptor;
 import entities.Degrees;
 import entities.Users;
 import exceptions.BusinessException;
@@ -19,6 +20,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
+import javax.interceptor.Interceptors;
 import us.facades.DegreesFacadeLocal;
 import us.facades.UsersFacadeLocal;
 import utils.ConvertUtils;
@@ -29,6 +31,7 @@ import utils.ResourceBundleUtils;
  * @author Damian
  */
 @Stateless
+@Interceptors({TrackerInterceptor.class})
 @TransactionAttribute(TransactionAttributeType.MANDATORY)
 public class AuthenticatedUserManager implements AuthenticatedUserManagerLocal {
 

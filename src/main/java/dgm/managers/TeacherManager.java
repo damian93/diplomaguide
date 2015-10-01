@@ -5,6 +5,7 @@
  */
 package dgm.managers;
 
+import common.TrackerInterceptor;
 import dgm.facades.TeachersFacadeLocal;
 import entities.Teachers;
 import javax.annotation.security.RolesAllowed;
@@ -12,12 +13,14 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
+import javax.interceptor.Interceptors;
 
 /**
  *
  * @author Damian
  */
 @Stateless
+@Interceptors({TrackerInterceptor.class})
 @TransactionAttribute(TransactionAttributeType.MANDATORY)
 public class TeacherManager implements TeacherManagerLocal {
 

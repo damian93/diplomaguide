@@ -8,6 +8,8 @@ package dgm.facades;
 import entities.Commission;
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -16,8 +18,9 @@ import javax.persistence.PersistenceContext;
  * @author Damian
  */
 @Stateless
+@TransactionAttribute(TransactionAttributeType.MANDATORY)
 public class CommissionFacade extends AbstractFacade<Commission> implements CommissionFacadeLocal {
-    @PersistenceContext(unitName = "usPU")
+    @PersistenceContext(unitName = "dgPU")
     private EntityManager em;
 
     @Override
