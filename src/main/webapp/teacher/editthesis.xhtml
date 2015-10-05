@@ -11,6 +11,7 @@
     <ui:define name="path"><a href="/index.xhtml?faces-redirect=true">#{msg.mainPage}</a> >> <a href="register.xhtml?faces-redirect=true">#{msg.registration}</a></ui:define>
     <ui:define name="content">
         <h:form id="editThesisByTeacherForm">    
+            <p:growl id="msgs"  showDetail="true" />
             <p:panelGrid>
                 <p:row>
                     <p:column>
@@ -38,7 +39,7 @@
                 </p:row>
             </p:panelGrid>
             <p:commandButton value="#{msg.goBack}" ajax="false"  action="/teacher/list.xhtml?faces-redirect=true"/>
-            <p:commandButton value="#{msg.edit}" action="#{editThesisByTeacherBackingBean.accept()}"/>
+            <p:commandButton value="#{msg.edit}" ajax="false" update=":editThesisByTeacherForm" action="#{editThesisByTeacherBackingBean.accept()}"/>
 
         </h:form>
     </ui:define>

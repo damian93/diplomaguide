@@ -151,11 +151,11 @@
     </security-role-mapping>
     <security-role-mapping>
         <role-name>acceptCommision</role-name>
-        <group-name>S</group-name>
+        <group-name>T</group-name>
     </security-role-mapping>
     <security-role-mapping>
         <role-name>rejectCommision</role-name>
-        <group-name>S</group-name>
+        <group-name>T</group-name>
     </security-role-mapping>
     <security-role-mapping>
         <role-name>editCommission</role-name>

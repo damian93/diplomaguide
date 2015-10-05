@@ -52,7 +52,7 @@ public class EditThesisByTeacherBackingBean {
 
         } catch (BusinessException ex) {
             JsfUtils.addErrorMessage(ex, ex.getMessage(), ":msgs");
-            return "/index.xhtml?faces-redirect=true";
+            return "";
 
         }
     }
