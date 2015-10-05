@@ -14,6 +14,7 @@ import entities.Students;
 import entities.Teachers;
 import entities.Users;
 import exceptions.BusinessException;
+import exceptions.PasswordTooShortException;
 import exceptions.WrongDateException;
 import exceptions.WrongUserTypeException;
 import java.util.Date;
@@ -27,6 +28,7 @@ import javax.interceptor.Interceptors;
 import us.facades.AccesslevelsdictionaryFacadeLocal;
 import us.facades.UsersFacadeLocal;
 import utils.ConvertUtils;
+import utils.ResourceBundleUtils;
 
 /**
  *
@@ -53,6 +55,11 @@ public class UnauthenticatedUserManager implements UnauthenticatedUserManagerLoc
             }
         }
         user = setProperAccessLevelAndReturnUser(user, type);
+
+        int minPassLength = Integer.parseInt(ResourceBundleUtils.getResourceBundleBusinessProperty("minPassLength"));
+        if (user.getPassword().length() < minPassLength) {
+            throw new PasswordTooShortException();
+        }
 
         user.setPassword(ConvertUtils.calculateSha512Hash(user.getPassword()));
 
