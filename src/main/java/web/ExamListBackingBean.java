@@ -56,18 +56,18 @@ public class ExamListBackingBean {
     public String beforeShowCommision(){
         int rowIndex = examDataModel.getRowIndex();
         diplomaGuideSession.getExamToAddCommision(examList.get(rowIndex));
-        return "/teacher/addCommision.xhtml?faces-redirecr=true";
+        return "/teacher/addCommision.xhtml?faces-redirect=true";
     }
     public String beforeEditCommision(){
         int rowIndex = examDataModel.getRowIndex();
         diplomaGuideSession.getExamToEditCommision(examList.get(rowIndex));
-        return "/teacher/editCommision.xhtml?faces-redirecr=true";
+        return "/teacher/editCommision.xhtml?faces-redirect=true";
     }
     
     public String beforeSetGrade(){
         int rowIndex = examDataModel.getRowIndex();
         diplomaGuideSession.getExamToSetGrade(examList.get(rowIndex));
-        return "/teacher/setGrade.xhtml?faces-redirecr=true";
+        return "/teacher/setGrade.xhtml?faces-redirect=true";
     }
     
     

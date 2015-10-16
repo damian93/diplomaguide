@@ -25,9 +25,9 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Version;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 /**
  *
@@ -57,10 +57,10 @@ public class Exam implements Serializable {
     @Column(name = "Date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date date;
-    @Min(value = 2)
-    @Max(value = 5)
+    @Size(max = 3)
+    @Pattern(regexp = "((2|3|4|5){1})|(2.5|3.5|4.5)", message = "{email_pattern_error}")
     @Column(name = "Grade")
-    private Integer grade;
+    private String grade;
     @Basic(optional = false)
     @NotNull
     @Column(name = "Accepted")
@@ -110,11 +110,11 @@ public class Exam implements Serializable {
         this.date = date;
     }
 
-    public Integer getGrade() {
+    public String getGrade() {
         return grade;
     }
 
-    public void setGrade(Integer grade) {
+    public void setGrade(String grade) {
         this.grade = grade;
     }
 
@@ -181,8 +181,6 @@ public class Exam implements Serializable {
     public void setGradeAccepted(boolean gradeAccepted) {
         this.gradeAccepted = gradeAccepted;
     }
-    
-    
 
     @Override
     public String toString() {

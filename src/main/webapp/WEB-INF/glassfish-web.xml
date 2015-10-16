@@ -51,6 +51,7 @@
         <role-name>editUser</role-name>
         <group-name>T</group-name>
         <group-name>S</group-name>
+        <group-name>A</group-name>
     </security-role-mapping>
     <security-role-mapping>
         <role-name>getDegreeList</role-name>
@@ -78,10 +79,12 @@
     <security-role-mapping>
         <role-name>getLoggedStudent</role-name>
         <group-name>S</group-name>
+        <group-name>T</group-name>
     </security-role-mapping>
     <security-role-mapping>
         <role-name>getThesisTypeList</role-name>
         <group-name>S</group-name>
+        <group-name>T</group-name>
     </security-role-mapping>
     <security-role-mapping>
         <role-name>getAllThesisList</role-name>

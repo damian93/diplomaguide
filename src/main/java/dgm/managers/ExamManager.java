@@ -19,6 +19,7 @@ import exceptions.CantAcceptExamWithoutCommision;
 import exceptions.CantConfirmGradeWhenExamNotAcceptedException;
 import exceptions.CantConfirmGradeWhenGradeIsNotSet;
 import exceptions.CantEditAcceptedExamException;
+import exceptions.CantEditExamAcceptationWhenGradeIsSetExceotion;
 import exceptions.CantEditExamAfterExamDate;
 import exceptions.CantEditGradeWhenGradeAcceptedException;
 import exceptions.CantRemoveGradeAcceptationException;
@@ -61,12 +62,7 @@ public class ExamManager implements ExamManagerLocal {
     @EJB
     private CommissionFacadeLocal commissionFacadeLocal;
 
-    @EJB
-    private ThesisManagerLocal thesisManagerLocal;
-
-    @EJB
-    private TeachersFacadeLocal teacherFacadeLocal;
-
+    
     @Override
     @RolesAllowed("createExam")
     public void createExam(Exam exam) throws BusinessException {
@@ -118,6 +114,10 @@ public class ExamManager implements ExamManagerLocal {
             if (!c.isAccepted()) {
                 throw new SomeMemberOfCommissionDidntAcceptMembershipException();
             }
+        }
+        
+        if(examToEditState.getGrade()!= null){
+            throw new CantEditExamAcceptationWhenGradeIsSetExceotion();
         }
 
         examToEditState.setAccepted(edit.getAccepted());
