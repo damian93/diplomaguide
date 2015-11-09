@@ -58,10 +58,10 @@
 
             <p:panel header="#{msg.accessLevel}"/>
             <p:dataTable id="accessLevelTable"  var="item" value="#{editBackingBean.userToEdit.accesslevelCollection}">
-                <p:column headerText="#{msg.addQuizQuestionToQuestionnaireAction}">
+                <p:column headerText="#{msg.role}">
                     <p:outputLabel  value="#{item.name}"/>
                 </p:column>
-                <p:column headerText="#{msg.addQuizQuestionToQuestionnaireAction}">
+                <p:column headerText="#{msg.action}">
                     <p:selectBooleanCheckbox value="#{item.isActive}"/>
                 </p:column>
 
