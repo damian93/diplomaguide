@@ -57,7 +57,7 @@
                 </p:row>
 
             </p:panelGrid>
-            <p:commandButton value="#{msg.goBack}" ajax="false"  action="/teacher/examlist.xhtml?faces-redirect=true"/>
+            <p:button value="#{msg.goBack}"   outcome="/teacher/examlist.xhtml?faces-redirect=true"/>
             <p:commandButton value="#{msg.createButton}" ajax="false" update=":createCommisionForm" action="#{createCommision.addCommision()}"/>
         </h:form>
     </ui:define>

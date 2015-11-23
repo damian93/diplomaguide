@@ -73,7 +73,7 @@
                 </p:row>
 
             </p:panelGrid>
-            <p:commandButton value="#{msg.goBack}" ajax="false"  action="/student/myexams.xhtml?faces-redirect=true"/>
+            <p:button value="#{msg.goBack}"  outcome="/student/myexams.xhtml?faces-redirect=true"/>
             <p:commandButton ajax="false" value="#{msg.edit}" update=":editExamByStudentForm" action="#{examEdit.editExam()}"/>
             <p:commandButton ajax="false" value="#{msg.confirmExamGrade}" update=":editExamByStudentForm" action="#{examEdit.confirmGrade()}"/>
         </h:form>

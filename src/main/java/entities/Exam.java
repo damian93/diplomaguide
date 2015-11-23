@@ -58,7 +58,7 @@ public class Exam implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date date;
     @Size(max = 3)
-    @Pattern(regexp = "((2|3|4|5){1})|(2.5|3.5|4.5)", message = "{email_pattern_error}")
+    @Pattern(regexp = "((2|3|4|5){1})|(2.5|3.5|4.5)", message = "{degree_pattern_error}")
     @Column(name = "Grade")
     private String grade;
     @Basic(optional = false)

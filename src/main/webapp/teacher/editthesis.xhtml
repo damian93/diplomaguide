@@ -38,7 +38,7 @@
                     </p:column>
                 </p:row>
             </p:panelGrid>
-            <p:commandButton value="#{msg.goBack}" ajax="false"  action="/teacher/list.xhtml?faces-redirect=true"/>
+            <p:button value="#{msg.goBack}"  outcome="/teacher/list.xhtml?faces-redirect=true"/>
             <p:commandButton value="#{msg.edit}" ajax="false" update=":editThesisByTeacherForm" action="#{editThesisByTeacherBackingBean.accept()}"/>
 
         </h:form>

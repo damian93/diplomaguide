@@ -37,7 +37,7 @@
                     <p:commandButton rendered="#{item.accepted}" ajax="false" value="#{msg.reject}" action="#{myCommision.reject()}"/>
                 </p:column>
             </p:dataTable>
-            <p:commandButton value="#{msg.goBack}" action="/index.xhtml?faces-redirect=true"/>
+            <p:button value="#{msg.goBack}" outcome="/index.xhtml?faces-redirect=true"/>
 
         </h:form>
     </ui:define>
