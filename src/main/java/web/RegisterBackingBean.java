@@ -5,13 +5,15 @@
  */
 package web;
 
-import entities.Accesslevelsdictionary;
+import common.AccessLevelsFactory;
 import entities.Users;
 import exceptions.BusinessException;
-import java.util.ArrayList;
+import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.component.UIOutput;
+import javax.faces.event.AjaxBehaviorEvent;
 import javax.inject.Inject;
 import utils.JsfUtils;
 import utils.ResourceBundleUtils;
@@ -28,7 +30,7 @@ public class RegisterBackingBean {
     UserSession userSession;
 
     private final Users user = new Users();
-    private ArrayList<String> accessLevelList;
+    private List<String> accessLevelList;
     private String type;
 
     public RegisterBackingBean() {
@@ -47,16 +49,13 @@ public class RegisterBackingBean {
         return user;
     }
 
-    public ArrayList<String> getAccessLevelList() {
+    public List<String> getAccessLevelList() {
         return accessLevelList;
     }
 
     @PostConstruct
     private void init() {
-        accessLevelList = new ArrayList<>();
-        for( Accesslevelsdictionary a : userSession.getAllAccessLevels()){
-            accessLevelList.add(a.getName());
-        }
+        accessLevelList = AccessLevelsFactory.getAllAccessLevels();
         
     }
 
@@ -72,5 +71,5 @@ public class RegisterBackingBean {
         }
 
     }
-
+    
 }

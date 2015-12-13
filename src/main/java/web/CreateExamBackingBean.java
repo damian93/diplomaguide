@@ -29,18 +29,9 @@ public class CreateExamBackingBean implements Serializable{
     private DiplomaGuideSession diplomaGuideSession;
 
     private Exam exam = new Exam();
-    private Thesis thesis;
     private List<Thesis> thesisList;
 
     public CreateExamBackingBean() {
-    }
-
-    public Thesis getThesis() {
-        return thesis;
-    }
-
-    public void setThesis(Thesis thesis) {
-        this.thesis = thesis;
     }
 
     public List<Thesis> getThesisList() {

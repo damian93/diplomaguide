@@ -29,7 +29,7 @@
                     <p:column>
                         <p:selectOneMenu value="#{editCommision.ctu.chairman}">
                             <f:converter binding="#{teacherConverter}" />
-                            <f:selectItems itemLabel="#{item}" itemValue="#{item}" var="item" value="#{editCommision.ctu.teachersSet}" />
+                            <f:selectItems itemLabel="#{item}" itemValue="#{item.sha256Hash}" var="item" value="#{editCommision.ctu.teachersSet}" />
                         </p:selectOneMenu>
                     </p:column>
                 </p:row>
@@ -40,7 +40,7 @@
                     <p:column>
                         <p:selectOneMenu value="#{editCommision.ctu.teacher1}">
                             <f:converter binding="#{teacherConverter}" />
-                            <f:selectItems itemLabel="#{item}" itemValue="#{item}" var="item" value="#{editCommision.ctu.teachersSet}" />
+                            <f:selectItems itemLabel="#{item}" itemValue="#{item.sha256Hash}" var="item" value="#{editCommision.ctu.teachersSet}" />
                         </p:selectOneMenu>
                     </p:column>
                 </p:row>
@@ -51,7 +51,7 @@
                     <p:column>
                         <p:selectOneMenu value="#{editCommision.ctu.teacher2}">
                             <f:converter binding="#{teacherConverter}" />
-                            <f:selectItems itemLabel="#{item}" itemValue="#{item}" var="item" value="#{editCommision.ctu.teachersSet}" />
+                            <f:selectItems itemLabel="#{item}" itemValue="#{item.sha256Hash}" var="item" value="#{editCommision.ctu.teachersSet}" />
                         </p:selectOneMenu>
                     </p:column>
                 </p:row>

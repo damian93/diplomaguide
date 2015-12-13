@@ -29,10 +29,10 @@ public class ThesisTypeConverter implements Converter, Serializable{
 
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
-        Long tId = Long.valueOf(value);
+
         List<Thesistype> thesisTypeList = createThesisBackingBean.getThesisType();
         for (Thesistype t : thesisTypeList) {
-            if (t.getThesisTypeId().equals(tId)) {
+            if (t.getSha256Hash().equals(value)) {
                 return t;
             }
         }
@@ -41,9 +41,13 @@ public class ThesisTypeConverter implements Converter, Serializable{
 
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {
-        Thesistype t = (Thesistype) value;
-        return String.valueOf(t.getThesisTypeId());
-
+        if(value instanceof String){
+            String t = (String) value;
+            return t;
+        }
+        else{
+            return "";
+        }
     }
 
     

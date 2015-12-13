@@ -10,6 +10,8 @@ import entities.Administrators;
 import entities.Students;
 import entities.Teachers;
 import exceptions.WrongUserTypeException;
+import java.util.ArrayList;
+import java.util.List;
 import utils.ResourceBundleUtils;
 
 /**
@@ -29,7 +31,13 @@ public class AccessLevelsFactory {
         } else {
             throw new WrongUserTypeException();
         }
-
     }
-
+    
+    public static List<String> getAllAccessLevels(){   
+        List<String> listToReturn = new ArrayList<>();
+        listToReturn.add(ResourceBundleUtils.getResourceBundleLanguageProperty("admin"));
+        listToReturn.add(ResourceBundleUtils.getResourceBundleLanguageProperty("teacher"));
+        listToReturn.add(ResourceBundleUtils.getResourceBundleLanguageProperty("student"));       
+        return listToReturn;
+    }
 }

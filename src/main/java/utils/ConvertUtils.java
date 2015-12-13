@@ -13,9 +13,12 @@ import org.apache.commons.codec.digest.DigestUtils;
  */
 public class ConvertUtils {
     
-    public static String calculateSha512Hash(String pass){
-        
+    public static String calculateSha512Hash(String pass){     
         return DigestUtils.sha512Hex(pass);
+    }
+    
+    public static String calculateSha256Hash(String string){
+        return DigestUtils.sha256Hex(string);
     }
     
 }

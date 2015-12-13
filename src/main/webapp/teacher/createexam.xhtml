@@ -21,7 +21,7 @@
                     <p:column>
                         <p:selectOneMenu style="width: 195px;" required="true" id="examThesis" value="#{createExam.exam.thesis}">
                             <f:converter binding="#{thesisConverter}" />
-                            <f:selectItems itemLabel="#{item.name}" itemValue="#{item}" var="item" value="#{createExam.thesisList}"/>
+                            <f:selectItems itemLabel="#{item.name}" itemValue="#{item.sha256Hash}" var="item" value="#{createExam.thesisList}"/>
                         </p:selectOneMenu>
                     </p:column>
                     <p:column>
@@ -41,7 +41,7 @@
                 </p:row>
 
             </p:panelGrid>
-            <p:commandButton value="#{msg.createButton}" update=":createExamForm" action="#{createExam.create()}"/>
+            <p:commandButton value="#{msg.createButton}" ajax="false" update=":createExamForm" action="#{createExam.create()}"/>
         </h:form>
     </ui:define>
 </ui:composition>

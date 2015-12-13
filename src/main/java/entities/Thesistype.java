@@ -18,8 +18,10 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import utils.ConvertUtils;
 
 /**
  *
@@ -105,6 +107,20 @@ public class Thesistype implements Serializable {
     @Override
     public String toString() {
         return "entities.Thesistype[ thesisTypeId=" + thesisTypeId + " ]";
+    }
+    
+    
+    @Transient 
+    private String sha256Hash;
+    
+    public String getSha256Hash(){
+        if(sha256Hash == null){
+            sha256Hash = ConvertUtils.calculateSha256Hash(thesisTypeId.toString()+this.name);
+            return sha256Hash;
+        }
+        else {
+            return sha256Hash;
+        }
     }
     
 }

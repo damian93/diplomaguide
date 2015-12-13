@@ -25,16 +25,14 @@ public class ThesisConverter implements Converter, Serializable {
 
     @Inject
     CreateExamBackingBean createExamBackingBean;
-
-    
+  
     
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
         
-        Long tId = Long.valueOf(value);
         List<Thesis> thesisList = createExamBackingBean.getThesisList();
         for (Thesis t : thesisList) {
-            if (t.getThesisId().equals(tId)) {
+            if (t.getSha256Hash().equals(value)) {
                 return t;
             }
         }
@@ -42,9 +40,14 @@ public class ThesisConverter implements Converter, Serializable {
     }
 
     @Override
-    public String getAsString(FacesContext context, UIComponent component, Object value) {
-        Thesis t = (Thesis) value;
-        return String.valueOf(t.getThesisId());
+    public String getAsString(FacesContext context, UIComponent component, Object value)  {
+        
+        if(value instanceof String){
+            String t = (String) value;
+            return String.valueOf(t);
+        }
+        else {
+            return "";
+        }
     }
-    
 }

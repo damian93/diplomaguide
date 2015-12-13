@@ -12,18 +12,18 @@
     <ui:define name="content">
         <h:form id="registerForm">    
             <p:message id="registerExs" showSummary="true" showDetail="true" for="registerForm"/>
-            <p:panelGrid >
+            <p:panelGrid>
                 <p:row>
                     <p:column>
                         <p:outputLabel for="registerLogin" value="#{msg['loginReg']}"/>
                     </p:column>
                     <p:column>
-                        <p:inputText id="registerLogin" required="true" value="#{registerBackingBean.user.login}" onblur="value = value.toLowerCase()">
-<!--                            <pe:tooltip for="registerLogin" showEvent="focus" hideEvent="blur" myPosition="bottom left" atPosition="right center" value="#{msg['loginRegValues']}"/>  -->
+                        <p:inputText  id="registerLogin" required="true" value="#{registerBackingBean.user.login}" >
+                            <p:ajax event="blur" update="registerLogin, registerLoginMessage"/>
                         </p:inputText>
                     </p:column>
                     <p:column>
-                        <p:message for="registerLogin"/>
+                        <p:message id="registerLoginMessage" for="registerLogin"/>
                     </p:column>
                 </p:row>
                 <p:row>
@@ -32,11 +32,11 @@
                     </p:column>
                     <p:column>
                         <p:inputText id="registerEmail" required="true" value="#{registerBackingBean.user.email}">
-<!--                            <pe:tooltip for="registerEmail" showEvent="focus" hideEvent="blur" myPosition="bottom left" atPosition="right center" value="#{msg['emailRegValues']}"/>  -->
+                               <p:ajax event="blur" update="registerEmail, registerEmailMessage"/>
                         </p:inputText>
                     </p:column>
                     <p:column>
-                        <p:message for="registerEmail"/>
+                        <p:message id="registerEmailMessage" for="registerEmail"/>
                     </p:column>
                 </p:row>
                 <p:row>
@@ -45,11 +45,11 @@
                     </p:column>
                     <p:column>
                         <p:inputText id="registerName" required="true" value="#{registerBackingBean.user.name}">
-<!--                            <pe:tooltip for="registerName" showEvent="focus" hideEvent="blur" myPosition="bottom left" atPosition="right center" value="#{msg['nameRegValues']}"/>  -->
+                            <p:ajax event="blur" update="registerName, registerNameMessage"/>
                         </p:inputText>
                     </p:column>
                     <p:column>
-                        <p:message for="registerName"/>
+                        <p:message id="registerNameMessage" for="registerName"/>
                     </p:column>
                 </p:row>
 
@@ -59,11 +59,11 @@
                     </p:column>
                     <p:column>
                         <p:inputText id="registerSurname" required="true" value="#{registerBackingBean.user.surname}">
-<!--                            <pe:tooltip for="registerSurname" showEvent="focus" hideEvent="blur" myPosition="bottom left" atPosition="right center" value="#{msg['surnameRegValues']}"/>  -->
+                            <p:ajax event="blur" update="registerSurname, registerSurnameMessage"/>
                         </p:inputText>
                     </p:column>
                     <p:column>
-                        <p:message for="registerSurname"/>
+                        <p:message id="registerSurnameMessage" for="registerSurname"/>
                     </p:column>
                 </p:row>
                 <p:row>
@@ -72,11 +72,10 @@
                     </p:column>
                     <p:column>
                         <p:password id="registerPassword" match="registerPassword2" required="true"  value="#{registerBackingBean.user.password}" feedback="true" promptLabel="#{msg['promptPasswortReg']}" weakLabel="#{msg['weakPasswordReg']}" goodLabel="#{msg['goodPasswordReg']}" strongLabel="#{msg['strongPasswordReg']}">
-<!--                            <pe:tooltip for="registerPassword" showEvent="focus" hideEvent="blur"  myPosition="bottom right" atPosition="right center" value="#{msg['passwordRegValues']}"/>  -->
                         </p:password>
                     </p:column>
                     <p:column>
-                        <p:message for="registerPassword"/>
+                        <p:message id="registerPasswordMessage" for="registerPassword"/>
                     </p:column>
                 </p:row>
                 <p:row>
@@ -84,10 +83,11 @@
                         <p:outputLabel for="registerPassword2" value="#{msg['password2Reg']}"/>
                     </p:column>
                     <p:column>
-                        <p:password id="registerPassword2" required="true"/>
+                        <p:password id="registerPassword2"  required="true">
+                        </p:password>
                     </p:column>
                     <p:column>
-                        <p:message for="registerPassword2"/>
+                        <p:message id="registerPassword2Message" for="registerPassword2"/>
                     </p:column>
                 </p:row>
                 <p:row>

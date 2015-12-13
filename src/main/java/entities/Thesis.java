@@ -22,8 +22,10 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.persistence.Version;
 import javax.validation.constraints.Size;
+import utils.ConvertUtils;
 
 /**
  *
@@ -181,7 +183,16 @@ public class Thesis implements Serializable {
     public void setExam(Exam exam) {
         this.exam = exam;
     }
+    @Transient 
+    private String sha256Hash;
     
-    
-
+    public String getSha256Hash(){
+        if(sha256Hash == null){
+            sha256Hash = ConvertUtils.calculateSha256Hash(thesisId.toString()+this.name);
+            return sha256Hash;
+        }
+        else {
+            return sha256Hash;
+        }
+    }
 }

@@ -29,10 +29,9 @@ public class TeacherConverter implements Converter, Serializable {
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
 
-        Long tId = Long.valueOf(value);
         List<Teachers> teachersList = createThesisBackingBean.getTeachers();
         for (Teachers t : teachersList) {
-            if (t.getAccessLevelId().equals(tId)) {
+            if (t.getSha256Hash().equals(value)) {
                 return t;
             }
         }
@@ -41,9 +40,14 @@ public class TeacherConverter implements Converter, Serializable {
 
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {
-        Teachers t = (Teachers) value;
-        return String.valueOf(t.getAccessLevelId());
-
+        
+        if(value instanceof String){
+            String t = (String) value;
+            return t;
+        }
+        else{
+            return "";
+        }
     }
 
 }

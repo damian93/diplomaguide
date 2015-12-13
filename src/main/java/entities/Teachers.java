@@ -17,6 +17,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+import utils.ConvertUtils;
 
 /**
  *
@@ -72,6 +74,19 @@ public class Teachers extends Accesslevel implements Serializable {
 
     public void setCommissionCollection(List<Commission> commissionCollection) {
         this.commissionCollection = commissionCollection;
+    }
+    
+    @Transient 
+    private String sha256Hash;
+    
+    public String getSha256Hash(){
+        if(sha256Hash == null){
+            sha256Hash = ConvertUtils.calculateSha256Hash(super.getAccessLevelId().toString()+super.getName());
+            return sha256Hash;
+        }
+        else {
+            return sha256Hash;
+        }
     }
 
 }
