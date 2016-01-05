@@ -24,7 +24,7 @@ import javax.inject.Inject;
 public class ThesisTypeConverter implements Converter, Serializable{
     
     @Inject
-    CreateThesisBackingBean createThesisBackingBean;
+    private CreateThesisBackingBean createThesisBackingBean;
 
 
     @Override

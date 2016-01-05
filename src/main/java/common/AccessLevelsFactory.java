@@ -22,6 +22,9 @@ public class AccessLevelsFactory {
 
     public static Accesslevel getProperAccessLevel(String type) throws WrongUserTypeException {
 
+        if (type == null) {
+            throw new WrongUserTypeException();
+        }
         if (type.equals(ResourceBundleUtils.getResourceBundleBusinessProperty("Student"))) {
             return new Students();
         } else if (type.equals(ResourceBundleUtils.getResourceBundleBusinessProperty("Teacher"))) {
@@ -32,12 +35,12 @@ public class AccessLevelsFactory {
             throw new WrongUserTypeException();
         }
     }
-    
-    public static List<String> getAllAccessLevels(){   
+
+    public static List<String> getAllAccessLevels() {
         List<String> listToReturn = new ArrayList<>();
         listToReturn.add(ResourceBundleUtils.getResourceBundleLanguageProperty("admin"));
         listToReturn.add(ResourceBundleUtils.getResourceBundleLanguageProperty("teacher"));
-        listToReturn.add(ResourceBundleUtils.getResourceBundleLanguageProperty("student"));       
+        listToReturn.add(ResourceBundleUtils.getResourceBundleLanguageProperty("student"));
         return listToReturn;
     }
 }

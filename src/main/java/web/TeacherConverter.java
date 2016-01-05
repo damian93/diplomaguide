@@ -24,11 +24,10 @@ import javax.inject.Named;
 public class TeacherConverter implements Converter, Serializable {
 
     @Inject
-    CreateThesisBackingBean createThesisBackingBean;
+    private CreateThesisBackingBean createThesisBackingBean;
 
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
-
         List<Teachers> teachersList = createThesisBackingBean.getTeachers();
         for (Teachers t : teachersList) {
             if (t.getSha256Hash().equals(value)) {
@@ -39,8 +38,7 @@ public class TeacherConverter implements Converter, Serializable {
     }
 
     @Override
-    public String getAsString(FacesContext context, UIComponent component, Object value) {
-        
+    public String getAsString(FacesContext context, UIComponent component, Object value) {       
         if(value instanceof String){
             String t = (String) value;
             return t;

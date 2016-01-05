@@ -13,6 +13,7 @@ import entities.Teachers;
 import entities.Users;
 import exceptions.BadAccessLevelsCombinationException;
 import exceptions.BusinessException;
+import exceptions.BusinessLogicException;
 import exceptions.PasswordMismatchException;
 import exceptions.PasswordTooShortException;
 import exceptions.PasswordUsedInThePastException;
@@ -63,18 +64,22 @@ public class AdminManager implements AdminManagerLocal {
 
     }
 
-    private Users checkAndEditPasswordThenReturnUser(Users userState, String oldPassword, String newPassword) throws BusinessException {
+    //public bo do testów
+    public Users checkAndEditPasswordThenReturnUser(Users userState, String newPassword, String repeatedPass) throws BusinessException {
 
-        if (!oldPassword.isEmpty()) {
+        if (newPassword == null || repeatedPass == null) {
+            throw new BusinessLogicException();
+        }
+
+        if (!newPassword.isEmpty()) {
             int minPassLength = Integer.parseInt(ResourceBundleUtils.getResourceBundleBusinessProperty("minPassLength"));
 
-            if (oldPassword.length() >= minPassLength) {
+            if (newPassword.length() >= minPassLength) {
 
-                if (!oldPassword.equals(newPassword)) {
+                if (!newPassword.equals(repeatedPass)) {
                     throw new PasswordMismatchException();
                 }
-
-                String calculateSha512Hash = ConvertUtils.calculateSha512Hash(oldPassword);
+                String calculateSha512Hash = ConvertUtils.calculateSha512Hash(newPassword);
                 if (calculateSha512Hash.equals(userState.getPassword())) {
                     throw new PasswordUsedInThePastException();
                 }
@@ -86,7 +91,8 @@ public class AdminManager implements AdminManagerLocal {
         return userState;
     }
 
-    private Users setAndReturnAccessLevelCollection(Users userToEdit) throws BadAccessLevelsCombinationException {
+    //public bo do testów
+    public void checkAccessLevelCollection(Users userToEdit) throws BadAccessLevelsCombinationException {
         List<Accesslevel> accesslevelCollection = userToEdit.getAccesslevelCollection();
         boolean adminExists = false;
         boolean studentExists = false;
@@ -105,7 +111,6 @@ public class AdminManager implements AdminManagerLocal {
         if ((teacherExists && adminExists) || (studentExists && adminExists) || (studentExists && teacherExists)) {
             throw new BadAccessLevelsCombinationException();
         }
-        return userToEdit;
     }
 
     @Override
@@ -121,7 +126,7 @@ public class AdminManager implements AdminManagerLocal {
         }
         userState = checkAndEditPasswordThenReturnUser(userState, oldPassword, newPassword);
 
-        userToEdit = setAndReturnAccessLevelCollection(userToEdit);
+        checkAccessLevelCollection(userToEdit);
         userState.setAccesslevelCollection((userToEdit.getAccesslevelCollection()));
 
         userState.setIsActive(userToEdit.getIsActive());

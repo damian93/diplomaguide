@@ -84,18 +84,15 @@ public class AuthenticatedUserManager implements AuthenticatedUserManagerLocal {
         if (userState == null) {
             throw new UsersNullStateException();
         }
-
         if (!userState.equals(authorizedUser)) {
             throw new UserStateMismatchException();
         }
         userState = checkAndEditPasswordsThenReturnUser(userOldPassword, userNewPassword, userState);
-
         userState.setName(authorizedUser.getName());
         userState.setSurname(authorizedUser.getSurname());
         userState.setEmail(authorizedUser.getEmail());
 
         usersFacadeLocal.edit(userState);
-
     }
 
     @Override
