@@ -6,6 +6,7 @@
 package web;
 
 import entities.Teachers;
+import interfaces.ITeacherConverter;
 import java.io.Serializable;
 import java.util.List;
 import javax.faces.component.UIComponent;
@@ -24,11 +25,11 @@ import javax.inject.Named;
 public class TeacherConverter implements Converter, Serializable {
 
     @Inject
-    private CreateThesisBackingBean createThesisBackingBean;
+    private ITeacherConverter teacherConverterBackingBean;
 
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
-        List<Teachers> teachersList = createThesisBackingBean.getTeachers();
+        List<Teachers> teachersList = teacherConverterBackingBean.getTeachers();
         for (Teachers t : teachersList) {
             if (t.getSha256Hash().equals(value)) {
                 return t;

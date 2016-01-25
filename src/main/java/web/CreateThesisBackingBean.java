@@ -32,11 +32,9 @@ public class CreateThesisBackingBean implements Serializable{
 
     private Thesis thesis = new Thesis();
 
-    private List<Teachers> teachers;
     private String studentLogin;
     private Teachers teacher;
     private Students student;
-    private List<Thesistype> thesisType;
 
     public CreateThesisBackingBean() {
     }
@@ -47,14 +45,6 @@ public class CreateThesisBackingBean implements Serializable{
 
     public void setTeacher(Teachers teacher) {
         this.teacher = teacher;
-    }
-
-    public List<Thesistype> getThesisType() {
-        return thesisType;
-    }
-
-    public void setThesisType(List<Thesistype> thesisType) {
-        this.thesisType = thesisType;
     }
 
     public Students getStudent() {
@@ -77,14 +67,6 @@ public class CreateThesisBackingBean implements Serializable{
         return thesis;
     }
 
-    public List<Teachers> getTeachers() {
-        return teachers;
-    }
-
-    public void setTeachers(List<Teachers> teachers) {
-        this.teachers = teachers;
-    }
-
     public void setThesis(Thesis thesis) {
         this.thesis = thesis;
     }
@@ -92,9 +74,7 @@ public class CreateThesisBackingBean implements Serializable{
     @PostConstruct
     private void init() {
         student = diplomaGuideSession.getStudent();
-        teachers = diplomaGuideSession.getTeachers();
         thesis.setStudent(student);
-        thesisType = diplomaGuideSession.getThesisTypeList();
     }
 
     public String createThesis() {

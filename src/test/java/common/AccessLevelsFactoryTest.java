@@ -53,7 +53,7 @@ public class AccessLevelsFactoryTest {
     }
     
     @Test(expected = WrongUserTypeException.class)
-    public void shouldGetWrongUsetTypeException() throws WrongUserTypeException {
+    public void shouldGetWrongUserTypeException() throws WrongUserTypeException {
         String type = WRONG_TYPE; 
         Accesslevel result = AccessLevelsFactory.getProperAccessLevel(type);
        

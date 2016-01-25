@@ -6,6 +6,7 @@
 package web;
 
 import entities.Thesis;
+import interfaces.IThesisConverter;
 import java.io.Serializable;
 import java.util.List;
 import javax.inject.Named;
@@ -24,13 +25,13 @@ import javax.inject.Inject;
 public class ThesisConverter implements Converter, Serializable {
 
     @Inject
-    private CreateExamBackingBean createExamBackingBean;
+    private IThesisConverter thesisConverterBackingBean;
   
     
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
         
-        List<Thesis> thesisList = createExamBackingBean.getThesisList();
+        List<Thesis> thesisList = thesisConverterBackingBean.getThesisList();
         for (Thesis t : thesisList) {
             if (t.getSha256Hash().equals(value)) {
                 return t;

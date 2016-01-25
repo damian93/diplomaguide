@@ -40,7 +40,7 @@
                     <p:column>
                         <p:selectOneMenu id="thesisTeacher" value="#{createThesisBackingBean.thesis.teacher}">
                             <f:converter binding="#{teacherConverter}" />
-                            <f:selectItems itemLabel="#{item}" itemValue="#{item.sha256Hash}" var="item" value="#{createThesisBackingBean.teachers}">
+                            <f:selectItems itemLabel="#{item}" itemValue="#{item.sha256Hash}" var="item" value="#{teacherConverterBackingBean.teachers}">
                             </f:selectItems>
                         </p:selectOneMenu>
                     </p:column>
@@ -48,9 +48,6 @@
                         <p:message for="thesisTeacher"/>
                     </p:column>
                 </p:row>
-
-
-
                 <p:row>
                     <p:column>
                         <p:outputLabel for="thesisType" value="#{msg.thesisType}"/>
@@ -58,7 +55,7 @@
                     <p:column>
                         <p:selectOneMenu id="thesisType" value="#{createThesisBackingBean.thesis.type}">
                             <f:converter binding="#{thesisTypeConverter}" />
-                            <f:selectItems itemLabel="#{item.name}" itemValue="#{item.sha256Hash}" var="item" value="#{createThesisBackingBean.thesisType}">
+                            <f:selectItems itemLabel="#{item.name}" itemValue="#{item.sha256Hash}" var="item" value="#{thesisTypeConverterBackingBean.thesisType}">
                             </f:selectItems>
                         </p:selectOneMenu>
                     </p:column>

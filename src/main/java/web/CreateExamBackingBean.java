@@ -29,18 +29,10 @@ public class CreateExamBackingBean implements Serializable{
     private DiplomaGuideSession diplomaGuideSession;
 
     private Exam exam = new Exam();
-    private List<Thesis> thesisList;
 
     public CreateExamBackingBean() {
     }
 
-    public List<Thesis> getThesisList() {
-        return thesisList;
-    }
-
-    public void setThesisList(List<Thesis> thesisList) {
-        this.thesisList = thesisList;
-    }
 
     public Exam getExam() {
         return exam;
@@ -48,12 +40,6 @@ public class CreateExamBackingBean implements Serializable{
 
     public void setExam(Exam exam) {
         this.exam = exam;
-    }
-
-    @PostConstruct
-    public void init() {
-        thesisList = diplomaGuideSession.getMyThesisByTeacher();
-
     }
 
     public String create() {
