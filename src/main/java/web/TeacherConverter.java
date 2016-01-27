@@ -48,5 +48,4 @@ public class TeacherConverter implements Converter, Serializable {
             return "";
         }
     }
-
 }

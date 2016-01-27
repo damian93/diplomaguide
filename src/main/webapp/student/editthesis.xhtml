@@ -31,7 +31,8 @@
                     <p:column>
                         <p:selectOneMenu id="thesisTeacher" value="#{editThesisByStudentBackingBean.thesisToEdit.teacher}">
                             <f:converter binding="#{teacherConverter}" />
-                            <f:selectItems itemLabel="#{item}" itemValue="#{item.sha256Hash}" var="item" value="#{editThesisByStudentBackingBean.teachersList}"/>
+                            <f:selectItems itemLabel="#{item}" itemValue="#{item.sha256Hash}" var="item" 
+                                           value="#{teacherConverterBackingBean.teachers}"/>
                         </p:selectOneMenu>
                     </p:column>
                     <p:column>

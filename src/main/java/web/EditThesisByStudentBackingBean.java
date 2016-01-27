@@ -8,10 +8,10 @@ package web;
 import entities.Teachers;
 import entities.Thesis;
 import exceptions.BusinessException;
-import java.util.List;
+import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.inject.Named;
-import javax.enterprise.context.RequestScoped;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import utils.JsfUtils;
 import utils.ResourceBundleUtils;
@@ -21,14 +21,13 @@ import utils.ResourceBundleUtils;
  * @author Damian
  */
 @Named(value = "editThesisByStudentBackingBean")
-@RequestScoped
-public class EditThesisByStudentBackingBean {
+@ViewScoped
+public class EditThesisByStudentBackingBean implements Serializable{
 
     @Inject
     DiplomaGuideSession diplomaGuideSession;
 
     private Thesis thesisToEdit;
-    private List<Teachers> teachersList;
     private Teachers teacher;
 
     public EditThesisByStudentBackingBean() {
@@ -42,14 +41,6 @@ public class EditThesisByStudentBackingBean {
         this.teacher = teacher;
     }
 
-    public List<Teachers> getTeachersList() {
-        return teachersList;
-    }
-
-    public void setTeachersList(List<Teachers> teachersList) {
-        this.teachersList = teachersList;
-    }
-
     public Thesis getThesisToEdit() {
         return thesisToEdit;
     }
@@ -60,7 +51,6 @@ public class EditThesisByStudentBackingBean {
 
     @PostConstruct
     private void init() {
-        teachersList = diplomaGuideSession.getTeachers();
         thesisToEdit = diplomaGuideSession.getThesisToEditByStudent();
         teacher = thesisToEdit.getTeacher();
     }
