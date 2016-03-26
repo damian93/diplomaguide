@@ -23,7 +23,7 @@ import javax.inject.Inject;
 public class MyExamsBackingBean {
 
     @Inject
-    DiplomaGuideSession dgs;
+    private DiplomaGuideSession dgs;
 
     private List<Exam> examList;
 

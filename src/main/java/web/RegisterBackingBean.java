@@ -12,8 +12,6 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
-import javax.faces.component.UIOutput;
-import javax.faces.event.AjaxBehaviorEvent;
 import javax.inject.Inject;
 import utils.JsfUtils;
 import utils.ResourceBundleUtils;
@@ -27,7 +25,7 @@ import utils.ResourceBundleUtils;
 public class RegisterBackingBean {
 
     @Inject
-    UserSession userSession;
+    private UserSession userSession;
 
     private final Users user = new Users();
     private List<String> accessLevelList;

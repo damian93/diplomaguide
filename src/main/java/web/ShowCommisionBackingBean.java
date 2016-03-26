@@ -22,7 +22,7 @@ import javax.inject.Inject;
 public class ShowCommisionBackingBean {
 
     @Inject
-    DiplomaGuideSession dgs;
+    private DiplomaGuideSession dgs;
 
     private Exam exam;
     private Teachers chairman;

@@ -23,7 +23,7 @@ import utils.ResourceBundleUtils;
 public class ExamEditByTeacherBackingBean {
 
     @Inject
-    DiplomaGuideSession dgs;
+    private DiplomaGuideSession dgs;
 
     private Exam examToEdit;
 

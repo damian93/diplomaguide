@@ -26,7 +26,7 @@ import utils.ResourceBundleUtils;
 public class MyCommisionListBackingBean {
 
     @Inject
-    DiplomaGuideSession dgs;
+    private DiplomaGuideSession dgs;
 
     private Teachers teacher;
 

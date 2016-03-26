@@ -40,10 +40,10 @@ import utils.ResourceBundleUtils;
 public class UnauthenticatedUserManager implements UnauthenticatedUserManagerLocal {
 
     @EJB
-    UsersFacadeLocal usersFacadeLocal;
+    private UsersFacadeLocal usersFacadeLocal;
 
     @EJB
-    AccesslevelsdictionaryFacadeLocal accesslevelsdictionaryFacadeLocal;
+    private AccesslevelsdictionaryFacadeLocal accesslevelsdictionaryFacadeLocal;
 
     @Override
     @PermitAll

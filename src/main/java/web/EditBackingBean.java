@@ -25,7 +25,7 @@ import utils.ResourceBundleUtils;
 public class EditBackingBean {
 
     @Inject
-    UserSession userSession;
+    private UserSession userSession;
 
     private Users userToEdit;
     private Users authorizedUser;

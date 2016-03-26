@@ -28,7 +28,7 @@ import utils.ResourceBundleUtils;
 public class UserSession implements Serializable, IUserInRole {
 
     @EJB
-    UserServiceEndpointLocal userServiceEndpointLocal;
+    private UserServiceEndpointLocal userServiceEndpointLocal;
 
     private Users selectedUser;
     private Users authorizedUser;

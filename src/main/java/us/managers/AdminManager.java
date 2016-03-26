@@ -41,7 +41,7 @@ import utils.ResourceBundleUtils;
 public class AdminManager implements AdminManagerLocal {
 
     @EJB
-    UsersFacadeLocal usersFacadeLocal;
+    private UsersFacadeLocal usersFacadeLocal;
 
     @Override
     @RolesAllowed("getUsersList")

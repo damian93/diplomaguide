@@ -23,7 +23,7 @@ import utils.ResourceBundleUtils;
 public class EditThesisByTeacherBackingBean {
 
     @Inject
-    DiplomaGuideSession diplomaGuideSession;
+    private DiplomaGuideSession diplomaGuideSession;
 
     private Thesis thesisToEdit;
 

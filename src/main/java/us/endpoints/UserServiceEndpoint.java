@@ -36,13 +36,13 @@ public class UserServiceEndpoint extends AbstractEndpoint implements UserService
     private Users userState;
 
     @EJB
-    UnauthenticatedUserManagerLocal unauthenticatedUserManagerLocal;
+    private UnauthenticatedUserManagerLocal unauthenticatedUserManagerLocal;
 
     @EJB
-    AuthenticatedUserManagerLocal authenticatedUserManagerLocal;
+    private AuthenticatedUserManagerLocal authenticatedUserManagerLocal;
 
     @EJB
-    AdminManagerLocal adminManagerLocal;
+    private AdminManagerLocal adminManagerLocal;
 
     /**
      * Deleguje utworzenie(rejestracje) użytkownika do

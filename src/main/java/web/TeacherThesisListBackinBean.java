@@ -24,7 +24,7 @@ import javax.inject.Inject;
 public class TeacherThesisListBackinBean {
 
     @Inject
-    DiplomaGuideSession diplomaGuideSession;
+    private DiplomaGuideSession diplomaGuideSession;
 
     private DataModel<Thesis> myThesisList;
 

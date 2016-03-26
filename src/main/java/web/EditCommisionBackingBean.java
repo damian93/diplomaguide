@@ -28,7 +28,7 @@ import utils.ResourceBundleUtils;
 public class EditCommisionBackingBean implements Serializable {
 
     @Inject
-    DiplomaGuideSession dgs;
+    private DiplomaGuideSession dgs;
 
     private Exam exam;
     private CommisionTeachersUtils ctu;

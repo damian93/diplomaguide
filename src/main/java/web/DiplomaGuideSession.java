@@ -31,7 +31,7 @@ import utils.JsfUtils;
 public class DiplomaGuideSession implements Serializable {
 
     @EJB
-    DiplomaGuideEndpointLocal diplomaGuideEndpointLocal;
+    private DiplomaGuideEndpointLocal diplomaGuideEndpointLocal;
 
     private Teachers loggedTeacher;
     private Students loggedStudent;

@@ -23,7 +23,7 @@ import javax.inject.Inject;
 public class ThesisListBackingBean implements Serializable{
 
     @Inject
-    DiplomaGuideSession diplomaGuideSession;
+    private DiplomaGuideSession diplomaGuideSession;
 
     private List<Thesis> allThesisList;
     

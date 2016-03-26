@@ -36,10 +36,10 @@ import utils.ResourceBundleUtils;
 public class AuthenticatedUserManager implements AuthenticatedUserManagerLocal {
 
     @EJB
-    UsersFacadeLocal usersFacadeLocal;
+    private UsersFacadeLocal usersFacadeLocal;
 
     @EJB
-    DegreesFacadeLocal degreesFacadeLocal;
+    private DegreesFacadeLocal degreesFacadeLocal;
 
     @Override
     @RolesAllowed("getUserToEdit")

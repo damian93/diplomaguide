@@ -25,7 +25,7 @@ import utils.ResourceBundleUtils;
 public class EditThesisByStudentBackingBean implements Serializable{
 
     @Inject
-    DiplomaGuideSession diplomaGuideSession;
+    private DiplomaGuideSession diplomaGuideSession;
 
     private Thesis thesisToEdit;
     private Teachers teacher;

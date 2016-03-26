@@ -24,9 +24,9 @@ import utils.JsfUtils;
 public class ShowUserDataBackingBean {
 
     @Inject
-    UserSession userSession;
+    private UserSession userSession;
 
-    Users loggedUser;
+    private Users loggedUser;
 
     public Users getLoggedUser() {
         return loggedUser;
